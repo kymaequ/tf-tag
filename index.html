@@ -145,6 +145,8 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
 &lt;&lt;set $gossipover to 0&gt;&gt;
 &lt;&lt;set $interveneover to 0&gt;&gt;
 &lt;&lt;set $interveneyes to 0&gt;&gt;
+&lt;&lt;set $protectover to 0&gt;&gt;
+&lt;&lt;set $protectending to 0&gt;&gt;
 
 /* Set up Random Generators */
 &lt;&lt;set $loclist = [&quot;Dormitory Hallway&quot;, &quot;Dormitory Bathroom&quot;, &quot;Dormitory Common Room&quot;, &quot;Dormitory Elevator&quot;, &quot;West Plaza&quot;, &quot;North Plaza&quot;, &quot;South Plaza&quot;, &quot;East Plaza&quot;, &quot;Plaza Statue&quot;, &quot;Gardens&quot;, &quot;Athletic Centre&quot;, &quot;Athletics Track&quot;, &quot;Athletics Court&quot;, &quot;Athletics Showers&quot;, &quot;Athletics Pool&quot;, &quot;Library&quot;, &quot;Theatre&quot;, &quot;Science Labs&quot;, &quot;Main Hall&quot;, &quot;Lecture Hall&quot;, &quot;Art Room&quot;]&gt;&gt;
@@ -306,6 +308,11 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
     		&lt;&lt;goto &quot;InterveneEvent&quot;&gt;&gt;
     	&lt;&lt;/if&gt;&gt;
     &lt;&lt;/if&gt;&gt;
+    
+/* Protect Special Event */
+	&lt;&lt;if ($location == $protectlocation) &amp;&amp; ($protectover == 0)&gt;&gt;
+		&lt;&lt;goto &quot;ProtectEvent&quot;&gt;&gt;
+	&lt;&lt;/if&gt;&gt;
 
 /* Display the Time &amp; Inventory */
 	&lt;&lt;set $targetmovecounter to $targetmovecounter+1&gt;&gt;
@@ -350,7 +357,7 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
     &lt;br&gt;&lt;b&gt;Target Location:&lt;/b&gt; $targetlocation
     &lt;br&gt;&lt;b&gt;Hunter Location:&lt;/b&gt; $hunterlocation
     &lt;br&gt;&lt;b&gt;Hunter:&lt;/b&gt; A $hunteradj $hunterspecies
-    &lt;br&gt;&lt;b&gt;Events:&lt;/b&gt; $gossiplocation and $intervenelocation
+    &lt;br&gt;&lt;b&gt;Events:&lt;/b&gt; $gossiplocation, $intervenelocation, $protectlocation
     &lt;br&gt;&lt;br&gt; &lt;b&gt;Inventory:&lt;/b&gt; $inventory
 &lt;&lt;/if&gt;&gt;
 &lt;&lt;/if&gt;&gt;
@@ -392,9 +399,9 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $hours &lt; 2&gt;&gt;
-	&lt;&lt;if $targetcount == 4 and $kylehelp == 3&gt;&gt;
+	&lt;&lt;if $targetcount == 4 and $kylehelp &gt;= 3&gt;&gt;
 		&lt;&lt;goto &quot;EndingShowdown&quot;&gt;&gt;
-    &lt;&lt;elseif $targetcount &lt; 4 and $kylehelp == 3&gt;&gt;
+    &lt;&lt;elseif $targetcount &lt; 4 and $kylehelp &gt;= 3&gt;&gt;
     	&lt;&lt;goto &quot;EndingRMWin&quot;&gt;&gt;
     &lt;&lt;elseif $targetcount == 4 and $kylehelp &lt; 3&gt;&gt;
     	&lt;&lt;goto &quot;EndingMCWin&quot;&gt;&gt;
@@ -999,18 +1006,25 @@ The hunt is nearly over! It&#39;s time to head back to your dorm room to watch t
 &lt;&lt;set $kyletargetspecies to $specieslist.random()&gt;&gt;
 &lt;&lt;set $kyletargetadj to $adjlist.random()&gt;&gt;
 &lt;&lt;set $kyletargetloc to $kyletargetloclist.random()&gt;&gt;
-
 &lt;&lt;set $gossiplocation to $kyletargetloclist.random()&gt;&gt;
 
 /* Define Intervene Event Variables */
 &lt;&lt;set $intervenelocation to $kyletargetloclist.random()&gt;&gt;
-&lt;&lt;if $intervenelocation == $gossiplocation&gt;&gt;
-	&lt;&lt;set $intervenelocation to $kyletargetloclist.random()&gt;&gt;
+&lt;&lt;if ($intervenelocation is $gossiplocation)&gt;&gt;
+    &lt;&lt;set _filtered to $kyletargetloclist.filter(loc =&gt; loc isnot $gossiplocation)&gt;&gt;
+    &lt;&lt;set $intervenelocation to _filtered.random()&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 &lt;&lt;set $inthunterspecies to $specieslist.random()&gt;&gt;
 &lt;&lt;set $inthunteradj to $adjlist.random()&gt;&gt;
 &lt;&lt;set $inttargetspecies to $specieslist.random()&gt;&gt;
 &lt;&lt;set $inttargetadj to $adjlist.random()&gt;&gt;
+
+/*Define Protect Event Variables */
+&lt;&lt;set $protectlocation to $kyletargetloclist.random()&gt;&gt;
+&lt;&lt;if ($protectlocation is $gossiplocation) or ($protectlocation is $intervenelocation)&gt;&gt;
+    &lt;&lt;set _filtered to $kyletargetloclist.filter(loc =&gt; loc isnot $gossiplocation and loc isnot $intervenelocation)&gt;&gt;
+    &lt;&lt;set $protectlocation to _filtered.random()&gt;&gt;
+&lt;&lt;/if&gt;&gt;
 
 &lt;&lt;/nobr&gt;&gt;
 You and your roommate Kyle, a beefy bear, are sitting on the bed watching the TV in your dorm room. It&#39;s the day of the university&#39;s annual TF Tag competition, and both of you are among the group of students selected by random draw to participate in the game. You had signed up as a joke, but didn&#39;t expect to actually be &lt;i&gt;selected&lt;/i&gt; for it. And with both of you in the game... well, there can only be &lt;i&gt;one&lt;/i&gt; winner.
@@ -2081,49 +2095,51 @@ You look around for someone to ask about $targetname.&lt;br&gt;&lt;br&gt;
     [[Continue|GoToLocation]]
 &lt;&lt;else&gt;&gt;
 	&lt;&lt;goto $badendlocs[$location]&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="57" name="EndingMCWin" tags="Ending(Done)" position="1225,25" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $showfooter to false&gt;&gt;&lt;&lt;/nobr&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="57" name="EndingMCWin" tags="Ending(Done)" position="1225,25" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $showfooter to false&gt;&gt;
 &lt;h2&gt;Ending 1&lt;/h2&gt;
-You get back to your dorm room. The room is empty, and it&#39;s clear that Kyle hasn&#39;t returned yet. You take a seat on your bed, facing the door, and wait for him to return.
+&lt;&lt;if $protectending !== 1&gt;&gt;
+You get back to your dorm room. The room is empty, and it&#39;s clear that Kyle hasn&#39;t returned yet. You take a seat on your bed, facing the door, and wait for him to return.&lt;br&gt;&lt;br&gt;
 
-Eventually you hear the jingle of keys, and Kyle enters the room. His eyes travel down to the tagger in your hand, and an embarrassed smile spreads across his face.
+Eventually you hear the jingle of keys, and Kyle enters the room. &lt;&lt;/if&gt;&gt;His eyes travel down to the tagger in your hand, and an embarrassed smile spreads across his face.&lt;br&gt;&lt;br&gt;
 
-&quot;You&#39;ve got me, huh?&quot; he asks. You nod.
+&quot;You&#39;ve got me, huh?&quot; he asks. You nod.&lt;br&gt;&lt;br&gt;
 
-&quot;I don&#39;t suppose it&#39;s any use me trying to grab my tagger before you can shoot, eh?&quot; He smiles and sets down his bag. You can see he&#39;s already growing hard.
+&quot;I don&#39;t suppose it&#39;s any use me trying to grab my tagger before you can shoot, eh?&quot; He smiles and sets down his bag. You can see he&#39;s already growing hard.&lt;br&gt;&lt;br&gt;
 
-&quot;I hoped it would be you in the end,&quot; the bear tells you. &quot;You&#39;ve been a great roommate, and whoever you get next will be lucky to have you. Whenever you&#39;re ready!&quot;
+&quot;I hoped it would be you in the end,&quot; the bear tells you. &quot;You&#39;ve been a great roommate, and whoever you get next will be lucky to have you. Whenever you&#39;re ready!&quot;&lt;br&gt;&lt;br&gt;
 
-&lt;&lt;linkappend &quot;Win the game!&quot; t8n&gt;&gt;
-To his credit, Kyle barely flinches when the dart hits him.
+&lt;&lt;linkappend &quot;Win the game!&quot; t8n&gt;&gt;&lt;br&gt;&lt;br&gt;
+To his credit, Kyle barely flinches when the dart hits him.&lt;br&gt;&lt;br&gt;
 
-His belly is the first to change, ballooning out and popping the buttons on his shirt. He gasps in surprise, and tries to take off his remaining clothes, but finds it difficult as his fingers fuse together into rounded nubs at the ends of his arms. He didn&#39;t need to bother anyway, as his expanding form quickly does away with the rest of his clothes, and his cock flops out, drooling precum.
+His belly is the first to change, ballooning out and popping the buttons on his shirt. He gasps in surprise, and tries to take off his remaining clothes, but finds it difficult as his fingers fuse together into rounded nubs at the ends of his arms. He didn&#39;t need to bother anyway, as his expanding form quickly does away with the rest of his clothes, and his cock flops out, drooling precum.&lt;br&gt;&lt;br&gt;
 
-He reaches down to paw at it, but his usless arms can&#39;t get any purchase. His fur melts away, leaving only a shiny latex in its place. His cock shrinks and is replaced by a smooth nulge. Kyle moans as he presses at it with his nubs, and a big smile spreads across his face.
+He reaches down to paw at it, but his usless arms can&#39;t get any purchase. His fur melts away, leaving only a shiny latex in its place. His cock shrinks and is replaced by a smooth nulge. Kyle moans as he presses at it with his nubs, and a big smile spreads across his face.&lt;br&gt;&lt;br&gt;
 
-The smile becomes fixed in place, a permanently happy, dopey expression, as Kyle&#39;s facial features toonify and become nothing more than colored latex. Handles sprout at his hips, and a rubber air valve appears where his bellybutton was.
+The smile becomes fixed in place, a permanently happy, dopey expression, as Kyle&#39;s facial features toonify and become nothing more than colored latex. Handles sprout at his hips, and a rubber air valve appears where his bellybutton was.&lt;br&gt;&lt;br&gt;
 
-The bear wobbles in place as his legs change, and he falls forward onto you with a squeak. Thankfully you&#39;re not crushed by him, as he has become hollow and filled with air.
+The bear wobbles in place as his legs change, and he falls forward onto you with a squeak. Thankfully you&#39;re not crushed by him, as he has become hollow and filled with air.&lt;br&gt;&lt;br&gt;
 
-You shimmy out from underneath him and inspect the results as the changes finish. Kyle has become a big, bouncy, squeaky pooltoy plastered with a pemagrin. You know that he&#39;d be making the same expression even if it wasn&#39;t painted on his face.
+You shimmy out from underneath him and inspect the results as the changes finish. Kyle has become a big, bouncy, squeaky pooltoy plastered with a pemagrin. You know that he&#39;d be making the same expression even if it wasn&#39;t painted on his face.&lt;br&gt;&lt;br&gt;
 
-With some difficulty due to its size, you move the pooltoy over onto Kyle&#39;s bed, and settle down on your bed as the TV switches on.
+&lt;&lt;if $protectending !== 1&gt;&gt;With some difficulty due to its size, you move the pooltoy over onto Kyle&#39;s bed, and settle down on your bed as the TV switches on.&lt;&lt;else&gt;&gt;With some difficulty due to its size, you carry the pooltoy back to your room and dump it on Kyle&#39;s bed, settling down on your bed as the TV switches on.&lt;&lt;/if&gt;&gt;&lt;br&gt;&lt;br&gt;
 
-&lt;&lt;linkappend &quot;Watch the announcement&quot; t8n&gt;&gt;
-The university&#39;s president appears on screen, looking pleased.
+&lt;&lt;linkappend &quot;Watch the announcement&quot; t8n&gt;&gt;&lt;br&gt;&lt;br&gt;
+The university&#39;s president appears on screen, looking pleased.&lt;br&gt;&lt;br&gt;
 
-&quot;We have just been informed that the last target has been tagged, and this year&#39;s game of TF Tag has come to an end!&quot; You briefly wonder how he could possibly have known that, but he continues before you can dwell on it too much.
+&quot;We have just been informed that the last target has been tagged, and this year&#39;s game of TF Tag has come to an end!&quot; &lt;&lt;if $protectending !== 1&gt;&gt;You briefly wonder how he could possibly have known that, but he continues before you can dwell on it too much.&lt;&lt;/if&gt;&gt;&lt;br&gt;&lt;br&gt;
 
-&quot;We would like to extend our congratulations to this year&#39;s winner!&quot; Your school portrait appears up in the corner of the screen. &quot;As promised, his tuition fees for this year have been waived, and he is welcome to keep all the objects he&#39;s collected over the course of the day.
+&quot;We would like to extend our congratulations to this year&#39;s winner!&quot; Your school portrait appears up in the corner of the screen. &quot;As promised, his tuition fees for this year have been waived, and he is welcome to keep all the objects he&#39;s collected over the course of the day.&lt;br&gt;&lt;br&gt;
 
-&quot;We will be very excited to see him back in next year&#39;s competition as a defending champion!&quot;
+&quot;We will be very excited to see him back in next year&#39;s competition as a defending champion!&quot;&lt;br&gt;&lt;br&gt;
 
-With that, the president signs off and the TV resumes its regular programming.
+With that, the president signs off and the TV resumes its regular programming.&lt;br&gt;&lt;br&gt;
 
-Next year&#39;s competition?! &lt;i&gt;Gulp.&lt;/i&gt;
+Next year&#39;s competition?! &lt;i&gt;Gulp.&lt;/i&gt;&lt;br&gt;&lt;br&gt;
 
 &lt;b&gt;THE END.&lt;/b&gt;
 &lt;&lt;/linkappend&gt;&gt;
-&lt;&lt;/linkappend&gt;&gt;</tw-passagedata><tw-passagedata pid="58" name="EndingRMWin" tags="Ending(Done)" position="1225,125" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $showfooter to false&gt;&gt;&lt;&lt;/nobr&gt;&gt;
+&lt;&lt;/linkappend&gt;&gt;
+&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="58" name="EndingRMWin" tags="Ending(Done)" position="1225,125" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $showfooter to false&gt;&gt;&lt;&lt;/nobr&gt;&gt;
 &lt;h2&gt;Ending 2&lt;/h2&gt;
 On your way back to your room, you spot $targetname with his back turned to you, completely unawares. You&#39;re rushing to get back before the game ends, and barely even pay attention to what the $targetspecies turns into when you hit him with the dart. You scoop up his tagger as he falls, not even breaking stride as you head back to your room.
 
@@ -2203,7 +2219,7 @@ As you pass by, you overhear two students talking about a $kylehunteradj $kylehu
 
 &lt;&lt;if $interveneyes == 5&gt;&gt;
 	&lt;&lt;set $interveneover to 2&gt;&gt;
-	You spot Kyle sneaking up on the $inthunterspecies you redirected earlier, who is now prowling around trying to find his target.&lt;br&gt;&lt;br&gt;
+	You spot Kyle sneaking up on the $inthunterspecies you redirected earlier, who is now looking around aimlessly trying to pick up his target&#39;s trail again.&lt;br&gt;&lt;br&gt;
     Kyle tags the $inthunterspecies with a dart, turning him into a shiny golden coin. He pockets the coin and picks up the hunter&#39;s discarded tagger. Catching your eye, Kyle gives a salute and takes off after his next target.&lt;br&gt;&lt;br&gt;
     [[Way to go, Kyle!|GoToLocation]] 
 &lt;&lt;/if&gt;&gt;
@@ -2470,7 +2486,11 @@ In addition, the number of targets you have caught will affect the available end
 
 -Flesh out target TFs more
 
--Add more Ask Info responses</tw-passagedata><tw-passagedata pid="66" name="MainMenu" tags="" position="1300,800" size="100,100">
+-Add more Ask Info responses
+
+-Teleport hunter to player location if player almost caught
+
+-Refine trigger condition for Ending 1 in Dorm Room</tw-passagedata><tw-passagedata pid="66" name="MainMenu" tags="" position="1300,800" size="100,100">&lt;h2&gt;TF Tag - Main Menu&lt;/h2&gt;
 &lt;i&gt;&lt;b&gt;TF Tag&lt;/b&gt; is a work of gay pornographic furry fiction, and is intended only for an 18+ audience. It contains inanimate transformation, permanent endings, dubious consent, and some endings contain identity death or mental shift. Play at your peril!&lt;/i&gt;
 
 Welcome to &lt;b&gt;TF Tag&lt;/b&gt;! It&#39;s the campus&#39;s annual game, and you have been selected as one of the participants! Armed with your tagger, search around the campus to find your target. Hit &#39;em with a dart and they&#39;ll transform and be out of the game. Then you&#39;ll gain their tagger and get to hunt down their target.
@@ -2489,7 +2509,7 @@ But be warned! You&#39;re not the only one on the prowl... someone out there has
 &lt;/div&gt;
 [[Walkthrough (Contains Spoilers, Duh!)|Walkthrough]]&lt;br&gt;
 [[Credits]]&lt;br&gt;&lt;br&gt;
-&lt;b&gt;[[Start Game|Start]]&lt;/b&gt;
+&lt;b&gt;[[Start Game|Start]]&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;i&gt;v0.6 - 2024.10.23. Note that some endings/features are incomplete, and you may encounter bugs.&lt;/i&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="67" name="Credits" tags="" position="1425,950" size="100,100">&lt;b&gt;TF Tag&lt;/b&gt; was made by Ky the Capybara 
 https://linktr.ee/kymaequ
 
@@ -2506,7 +2526,12 @@ Special thanks to Medkit for feedback and testing.
     &lt;&lt;goto &quot;EscapeHunter&quot;&gt;&gt;
 &lt;&lt;else&gt;&gt;
 	&lt;i&gt;You get a bad feeling about this place... It feels like someone&#39;s watching you.&lt;/i&gt;&lt;br&gt;
-&lt;&lt;/if&gt;&gt;&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="69" name="UpdateLog" tags="" position="1000,300" size="100,100">v0.5.1 - 20241022.21
+&lt;&lt;/if&gt;&gt;&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="69" name="UpdateLog" tags="" position="1000,300" size="100,100">v0.6 - 20241023
+
+-Added fourth event, Protect, that will make Ending 1 and 4 easier to achieve
+-Ending 1 has different dialogue depending on when it&#39;s triggered
+
+v0.5.1 - 20241022.21
 
 -Updated warning text
 -Updated Kyle target message to provide guidance
@@ -2559,7 +2584,9 @@ FIXED b03. Inventory doesn&#39;t appear in EZMode
 
 FIXED b04. Wait action list is borked
 
-FIXED b05. Kyle&#39;s pictures in the pc lookup will be incorrect</tw-passagedata><tw-passagedata pid="72" name="TarHuntMovement" tags="" position="1300,1100" size="100,100">&lt;&lt;nobr&gt;&gt;
+FIXED b05. Kyle&#39;s pictures in the pc lookup will be incorrect
+
+b06. Difficulty triggering Kyle wins ending?</tw-passagedata><tw-passagedata pid="72" name="TarHuntMovement" tags="" position="1300,1100" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $targetLoc = $targetlocation&gt;&gt;
 &lt;&lt;set $hunterLoc = $hunterlocation&gt;&gt;
 
@@ -2683,7 +2710,7 @@ window.moveTarget = function() {
 };
 &lt;&lt;/script&gt;&gt;
 
-&lt;&lt;if $huntermovecounter &gt; 3&gt;&gt;
+&lt;&lt;if $huntermovecounter &gt;= 3&gt;&gt;
 	&lt;&lt;if $hardmode&gt;&gt;
     	&lt;&lt;run window.moveHunter()&gt;&gt;
     &lt;&lt;else&gt;&gt;
@@ -2705,6 +2732,36 @@ window.moveTarget = function() {
     &lt;&lt;set $targetlocknown to false&gt;&gt;
     &lt;&lt;set $cluegiven to false&gt;&gt;
 &lt;&lt;/if&gt;&gt;
+&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="73" name="ProtectEvent" tags="" position="725,650" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;set $npcspecies to $specieslist.random()&gt;&gt;
+&lt;&lt;set $npcadj to $adjlist.random()&gt;&gt;
+&lt;&lt;set $showfooter to false&gt;&gt;
+You spot Kyle sneaking up on a $npcadj $npcspecies, his tagger drawn. At the last moment, the $npcspecies notices him, and takes off running. As he runs past, you...&lt;br&gt;&lt;br&gt;
+
+&lt;div id=&quot;choices&quot;&gt;
+&lt;&lt;link &quot;Trip him!&quot;&gt;&gt;
+	&lt;&lt;replace &quot;#choices&quot;&gt;&gt;&lt;&lt;set $kylehelp to $kylehelp+1&gt;&gt;
+	&lt;&lt;set $protectover to 1&gt;&gt;
+	The $npcspecies trips over your outstretched foot, going sprawling to the ground. Kyle catches up with him plants a foot on his back, keeping him down. &quot;Nice try,&quot; he says, and tags his target.&lt;br&gt;&lt;br&gt;The $npcadj $npcspecies stood no chance, and you watch as he rapidly transforms until he&#39;s nothing more than a flat, surprised-looking doormat beneath Kyle&#39;s foot. Kyle gives you a high five and thanks you for the assist, picking up the $npcspecies&#39;s discarded tagger and carrying on his way.&lt;br&gt;&lt;br&gt;
+    [[Return|GoToLocation]]&lt;&lt;/replace&gt;&gt;
+&lt;&lt;/link&gt;&gt;
+&lt;br&gt;
+&lt;&lt;link &quot;Do nothing&quot;&gt;&gt;
+	&lt;&lt;replace &quot;#choices&quot;&gt;&gt;&lt;&lt;set $protectover to 1&gt;&gt;
+    You let the $npcspecies run past and Kyle chases after him, cursing under his breath.&lt;br&gt;&lt;br&gt;
+    [[Return|GoToLocation]]&lt;&lt;/replace&gt;&gt;
+&lt;&lt;/link&gt;&gt;
+&lt;&lt;if $targetname == &quot;Kyle&quot;&gt;&gt;&lt;br&gt;
+	&lt;&lt;link &quot;Tag Kyle!&quot;&gt;&gt;
+    	&lt;&lt;replace &quot;#choices&quot;&gt;&gt;
+        &lt;&lt;set $protectover to 1&gt;&gt;
+    	&lt;&lt;set $protectending to 1&gt;&gt;
+        Kyle takes aim at the fleeing $npcspecies and fires, managing a miraculous shot. The $npcspecies stumbles and falls, the changes quickly taking hold.&lt;br&gt;&lt;br&gt;
+        But as Kyle approaches the transforming $npcspecies, you raise your own tagger and aim it at him...&lt;br&gt;&lt;br&gt;
+    	[[Continue|EndingMCWin]]&lt;&lt;/replace&gt;&gt;
+    &lt;&lt;/link&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+&lt;/div&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata></tw-storydata>
 	<script id="script-sugarcube" type="text/javascript">
 	/*! SugarCube JS */
