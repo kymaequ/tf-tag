@@ -147,6 +147,7 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
 &lt;&lt;set $interveneyes to 0&gt;&gt;
 &lt;&lt;set $protectover to 0&gt;&gt;
 &lt;&lt;set $protectending to 0&gt;&gt;
+&lt;&lt;set $firstvisit to 0&gt;&gt;
 
 /* Set up Random Generators */
 &lt;&lt;set $loclist = [&quot;Dormitory Hallway&quot;, &quot;Dormitory Bathroom&quot;, &quot;Dormitory Common Room&quot;, &quot;Dormitory Elevator&quot;, &quot;West Plaza&quot;, &quot;North Plaza&quot;, &quot;South Plaza&quot;, &quot;East Plaza&quot;, &quot;Plaza Statue&quot;, &quot;Gardens&quot;, &quot;Athletic Centre&quot;, &quot;Athletics Track&quot;, &quot;Athletics Court&quot;, &quot;Athletics Showers&quot;, &quot;Athletics Pool&quot;, &quot;Library&quot;, &quot;Theatre&quot;, &quot;Science Labs&quot;, &quot;Main Hall&quot;, &quot;Lecture Hall&quot;, &quot;Art Room&quot;]&gt;&gt;
@@ -492,10 +493,14 @@ You&#39;re in the dorm room you share with Kyle. It&#39;s reasonably clean, but 
 &lt;&lt;else&gt;&gt;
 	&lt;&lt;set $targethere to false&gt;&gt;
 &lt;&lt;/if&gt;&gt;
-&lt;&lt;if random(1,$randomcatchchance) == $randomcatchchance&gt;&gt;
-	&lt;&lt;if !$inventory.includes(&#39;Hunter Tracker&#39;)&gt;&gt;
-    	&lt;&lt;goto &quot;EscapeHunter&quot;&gt;&gt;
+&lt;&lt;if $firstvisit == 1&gt;&gt;
+	&lt;&lt;if random(1,$randomcatchchance) == $randomcatchchance&gt;&gt;
+		&lt;&lt;if !$inventory.includes(&#39;Hunter Tracker&#39;)&gt;&gt;
+    		&lt;&lt;goto &quot;EscapeHunter&quot;&gt;&gt;
+		&lt;&lt;/if&gt;&gt;
 	&lt;&lt;/if&gt;&gt;
+&lt;&lt;else&gt;&gt;
+	&lt;&lt;set $firstvisit to 1&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
 You are in the hallway of your dorm. A well-trodden carpet runs the length of the hall, and yellow-painted doors to various dorm rooms line the walls. Midway down the hall there is a bathroom, and opposite it is the common room. At one end of the hall is the elevator. Your dorm room is 369.
@@ -2096,7 +2101,7 @@ You look around for someone to ask about $targetname.&lt;br&gt;&lt;br&gt;
 &lt;&lt;else&gt;&gt;
 	&lt;&lt;goto $badendlocs[$location]&gt;&gt;
 &lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="57" name="EndingMCWin" tags="Ending(Done)" position="1225,25" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $showfooter to false&gt;&gt;
-&lt;h2&gt;Ending 1&lt;/h2&gt;
+&lt;h2&gt;Ending 1: Victory&lt;/h2&gt;
 &lt;&lt;if $protectending !== 1&gt;&gt;
 You get back to your dorm room. The room is empty, and it&#39;s clear that Kyle hasn&#39;t returned yet. You take a seat on your bed, facing the door, and wait for him to return.&lt;br&gt;&lt;br&gt;
 
@@ -2140,7 +2145,7 @@ Next year&#39;s competition?! &lt;i&gt;Gulp.&lt;/i&gt;&lt;br&gt;&lt;br&gt;
 &lt;&lt;/linkappend&gt;&gt;
 &lt;&lt;/linkappend&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="58" name="EndingRMWin" tags="Ending(Done)" position="1225,125" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $showfooter to false&gt;&gt;&lt;&lt;/nobr&gt;&gt;
-&lt;h2&gt;Ending 2&lt;/h2&gt;
+&lt;h2&gt;Ending 2: Caught&lt;/h2&gt;
 On your way back to your room, you spot $targetname with his back turned to you, completely unawares. You&#39;re rushing to get back before the game ends, and barely even pay attention to what the $targetspecies turns into when you hit him with the dart. You scoop up his tagger as he falls, not even breaking stride as you head back to your room.
 
 It&#39;s dark when you arrive back at your dorm. You switch the lights on, and find Kyle sitting on his bed holding his tagger, aiming it squarely at you.
@@ -2175,19 +2180,72 @@ It&#39;s dark when you arrive back at your dorm. You switch the lights on, and f
     &quot;Fuck you make an awesome cock,&quot; he says, looking down at his new member. &quot;And you&#39;ve made me a few inches longer now, too!&quot; Kyle grabs a tissue and wipes you clean, then pulls on a pair of underwear. Cocooned in the soft cotton and held securely against his thigh, you let yourself soften, settling down until Kyle needs you again. Which, you hope, will be soon and often. You twitch a little thinking about it.   
     &lt;br&gt;
     &lt;b&gt;THE END.&lt;/b&gt;
-&lt;&lt;/linkappend&gt;&gt;</tw-passagedata><tw-passagedata pid="59" name="EndingShowdown" tags="Ending" position="1325,125" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $showfooter to false&gt;&gt;&lt;&lt;/nobr&gt;&gt;
-&lt;h2&gt;Ending 4&lt;/h2&gt;
-&lt;i&gt;Note: This ending isn&#39;t finished.&lt;/i&gt;&lt;br&gt;
+&lt;&lt;/linkappend&gt;&gt;</tw-passagedata><tw-passagedata pid="59" name="EndingShowdown" tags="Ending(Done)" position="1325,125" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $showfooter to false&gt;&gt;&lt;&lt;/nobr&gt;&gt;&lt;h2&gt;Ending 4: Showdown&lt;/h2&gt;
 You ease open the dorm room door, your tagger drawn. You want to be ready if Kyle is already in there. It turns out, he is - and his tagger is aimed at you, too.
 
-&quot;I guess we&#39;ve both got each other, huh?&quot; Kyle says as you enter and close the door behind you. You nod. &quot;We&#39;re the only two left, so one of us is going to win and...&quot; he trails off for a moment. &quot;Well, one of us isn&#39;t.&quot;
+&quot;I guess we&#39;ve both got each other, huh?&quot; Kyle says as you enter and close the door behind you. You nod. &quot;We&#39;re the only two left, so one of us is going to win, and...&quot; he trails off for a moment. &quot;Well, one of us isn&#39;t.&quot;
 
-&quot;You&#39;ve been a great roommate, and we&#39;ve had lots of fun.&quot;
+He takes a nervous breath. &quot;So, how do you wanna do this?&quot; the bear asks. &quot;Good old fashioned duel?&quot;
 
-You two have a duel, both get tagged, and turn into something together idk I&#39;ll finish writing this later
+Even though either of you could easily tag the other in the back and betray them, you have enough respect for each other not to. You companionably head down to the plaza and take position beneath the big statue with the shiny, well-rubbed horse cock, standing back to back. Students loitering in the plaza take notice of what&#39;s happening and begin to gather around to watch.
 
-&lt;b&gt;THE END.&lt;/b&gt;</tw-passagedata><tw-passagedata pid="60" name="EndingMCSurvives" tags="Ending(Done)" position="1325,25" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $showfooter to false&gt;&gt;&lt;&lt;/nobr&gt;&gt;
-&lt;h2&gt;Ending 3&lt;/h2&gt;
+&quot;Steps to the count of five?&quot; Kyle asks. You both raise your taggers, ready to decide which of you will be making it home tonight.
+
+&lt;&lt;linkappend &quot;\&quot;One...\&quot;&quot; t8n&gt;&gt;
+
+You take a big step away from Kyle, and sense him doing the same. You can&#39;t help but start to get a little hard at the thought of what&#39;s about to happen.
+
+&lt;&lt;linkappend &quot;\&quot;Two...\&quot;&quot; t8n&gt;&gt;
+
+You step again. The growing crowd is watching with bated breath. Will you get him, or will he get you? You shiver a little in anticipation, imagining how it might feel if you lose.
+
+&lt;&lt;linkappend &quot;\&quot;Three...\&quot;&quot; t8n&gt;&gt;
+
+Another step. Some one cheers your name, and there&#39;s an answering cheer in support of Kyle. You&#39;re straining in your pants now, realizing everyone is gonna be watching what happens next.
+
+&lt;&lt;linkappend &quot;\&quot;Four...\&quot;&quot; t8n&gt;&gt;
+
+One more step. Your heart pounds in your chest. This is it!
+
+&lt;&lt;linkappend &quot;\&quot;Five!\&quot;&quot; t8n&gt;&gt;
+
+You spin around quickly, bringing your tagger level with Kyle, and pull the trigger. Half an instant later, you feel a sudden sharp pinch in your arm as his dart finds you, and you drop your tagger to the pavement below.
+
+Kyle lowers his arm and looks down, and you can see your dart sticking out of his stomach.
+
+&quot;Huh,&quot; he mutters, looking from your dart to his.
+
+The crowd has gone silent, waiting to see what happens next.
+
+Your world narrows down to just you and Kyle and you take a step towards him. In the end, you both got each other. You&#39;re both going to transform. Neither of you will win.
+
+Or... perhaps, you think, maybe both of you win after all. You and Kyle approach each other again in front of the statue, a strange tingling feeling running across your whole body.
+
+Your cock is straining in your pants, and you can&#39;t bear to keep it smothered anymore. You don&#39;t care if the crowd sees, you don&#39;t even notice them. And it won&#39;t matter soon anyway, because you&#39;ll just be... whatever it is you&#39;re going to become.
+
+Kyle has shed his clothes too, and you hold each other, your erections pressing against one other. His fur, once a rich brown, has started to take on a bit of a coppery color. Yours has too, you notice.
+
+The only thought running through your head is how badly you want him, like you used to do in your dorm room on nights when the two of you were so horny and pent up and wanted a break from studying.
+
+Someone in the crowd whoops, and a bottle of lube is tossed your way. You catch it with a hand that&#39;s starting to feel sluggish and slow, and squirt it on Kyle&#39;s cock. He turns you around and presses his cock against your tailhole, and you shudder with pleasure as he slowly slides in.
+
+There, in front of a crowd of onlookers, he begins to fuck you, your bodies turning more and more a copper color, your details and features smoothing out and becoming engravings on your body, your throbbing cock getting harder and harder, literally, until it&#39;s a solid metal shaft sticking out from you. Your balls want so desperately to cum, but there&#39;s nowhere for them to unload to, and they too turn to shiny metal orbs.
+
+With difficulty, and an arm that feels heavy as lead, you reach back and put your hand on Kyle&#39;s face, twisting your upper body so that you can kiss him as he thrusts deeply into you.
+
+And it&#39;s in that pose that your bodies finally lock up. Your muzzle pressed to his and your eyes closed to enjoy the pleasure of the kiss, his final thrusts going slower and slower until he stops for good with his cock buried into you, an incredible sensation that persists even after you&#39;ve both stopped moving. As you fuse together, your thoughts become his thoughts, your desires and pleasure become his, and the two of you, as one, move no more.
+
+Hesitantly at first, then more and more boldly, students begin to approach you, reaching out and grasping the large, permanently-hard copper cock sticking out from the statue that now decorates the plaza. They take it in turns to rub it for luck, a new monument to inspire future participants of the campus&#39;s annual competition.
+
+And as time goes by, you get rubbed a lot, feeling every paw that strokes up and down your metal shaft, til it is shiny and bright. You&#39;re where you belong. Together.
+
+&lt;b&gt;THE END.&lt;/b&gt;
+&lt;&lt;/linkappend&gt;&gt;
+&lt;&lt;/linkappend&gt;&gt;
+&lt;&lt;/linkappend&gt;&gt;
+&lt;&lt;/linkappend&gt;&gt;
+&lt;&lt;/linkappend&gt;&gt;</tw-passagedata><tw-passagedata pid="60" name="EndingMCSurvives" tags="Ending(Done)" position="1325,25" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $showfooter to false&gt;&gt;&lt;&lt;/nobr&gt;&gt;
+&lt;h2&gt;Ending 3: Survival&lt;/h2&gt;
 You get back to your dorm room. The room is empty, and it&#39;s clear that Kyle hasn&#39;t returned yet. You suspect that he never will.
 
 As the clock strikes 9pm, the television turns on and the university&#39;s director appears.
@@ -2427,7 +2485,7 @@ The bad ends are as follows:
 &lt;&lt;linkappend &quot;&lt;b&gt;Main Endings&lt;/b&gt;&quot; t8n&gt;&gt;
 Depending on whether certain conditions are fulfilled, you can receive one of several main endings once you visit the Dorm Room with less than two hours left on the clock, or once time expires.
 
-There are several opportunities to help Kyle during the day, and if all of them are resolved properly, he will be present for several of the endings.
+There are several opportunities to help Kyle during the day, and if at least three of them are resolved properly, he will be present for several of the endings.
 
 &lt;i&gt;Opportunity One:&lt;/i&gt;
 Ask Kyle who his target is before he leaves the dorm at the beginning of the game, then search for information about that target on your computer and speak with him again to tell him the information.
@@ -2438,6 +2496,9 @@ In a randomly-determined location on the map, two students can be overheard disc
 &lt;i&gt;Opportunity Three:&lt;/i&gt;
 In a randomly-determined location on the map, a participant is seen running from a hunter. He asks you to help him, and if you choose to deceive the hunter, it will help Kyle later down the road.
 
+&lt;i&gt;Opportunity Four:&lt;/i&gt;
+In a randomly-determined location on the map, Kyle can be seen chasing a target. You have the option to assist him by tripping the target.
+
 In addition, the number of targets you have caught will affect the available ending.
 &lt;table&gt;
 	&lt;tr&gt;
@@ -2447,22 +2508,22 @@ In addition, the number of targets you have caught will affect the available end
 	&lt;tr&gt;
 		&lt;td&gt;Kyle Helped 3 Times,
         4 Targets Caught&lt;/td&gt;
-		&lt;td&gt;&quot;You vs Kyle Showdown&quot; Ending&lt;/td&gt;
+		&lt;td&gt;&quot;Showdown&quot; Ending&lt;/td&gt;
 	&lt;/tr&gt;
     &lt;tr&gt;
 		&lt;td&gt;Kyle Not Helped,
         4 Targets Caught&lt;/td&gt;
-		&lt;td&gt;&quot;You Win&quot; Ending&lt;/td&gt;
+		&lt;td&gt;&quot;Victory&quot; Ending&lt;/td&gt;
 	&lt;/tr&gt;
     &lt;tr&gt;
 		&lt;td&gt;Kyle Helped 3 Times,
         Less than 4 Targets Caught&lt;/td&gt;
-		&lt;td&gt;&quot;Kyle Wins&quot; Ending&lt;/td&gt;
+		&lt;td&gt;&quot;Caught&quot; Ending&lt;/td&gt;
 	&lt;/tr&gt;
     &lt;tr&gt;
 		&lt;td&gt;Kyle Not Helped,
         Less than 4 Targets Caught&lt;/td&gt;
-		&lt;td&gt;&quot;You Survive&quot; Ending&lt;/td&gt;
+		&lt;td&gt;&quot;Survival&quot; Ending&lt;/td&gt;
 	&lt;/tr&gt;
 &lt;/table&gt;
 &lt;&lt;/linkappend&gt;&gt;
@@ -2480,15 +2541,13 @@ In addition, the number of targets you have caught will affect the available end
 
 -Update normal mode for slightly more limited items?
 
--Add Info dialogues if target is in area/just left area
+-Add Info dialogues if target is in area
 
 -Add multiple options for catch description
 
 -Flesh out target TFs more
 
 -Add more Ask Info responses
-
--Teleport hunter to player location if player almost caught
 
 -Refine trigger condition for Ending 1 in Dorm Room</tw-passagedata><tw-passagedata pid="66" name="MainMenu" tags="" position="1300,800" size="100,100">&lt;h2&gt;TF Tag - Main Menu&lt;/h2&gt;
 &lt;i&gt;&lt;b&gt;TF Tag&lt;/b&gt; is a work of gay pornographic furry fiction, and is intended only for an 18+ audience. It contains inanimate transformation, permanent endings, dubious consent, and some endings contain identity death or mental shift. Play at your peril!&lt;/i&gt;
@@ -2526,7 +2585,13 @@ Special thanks to Medkit for feedback and testing.
     &lt;&lt;goto &quot;EscapeHunter&quot;&gt;&gt;
 &lt;&lt;else&gt;&gt;
 	&lt;i&gt;You get a bad feeling about this place... It feels like someone&#39;s watching you.&lt;/i&gt;&lt;br&gt;
-&lt;&lt;/if&gt;&gt;&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="69" name="UpdateLog" tags="" position="1000,300" size="100,100">v0.6 - 20241023
+&lt;&lt;/if&gt;&gt;&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="69" name="Updates" tags="" position="1000,300" size="100,100">v0.6.1 20241023.19
+
+-Added flag to prevent player from getting Dorm Hall bad end on first visit
+-New ending: Showdown
+-Updated Walkthrough to include new opportunity
+
+v0.6 - 20241023.12
 
 -Added fourth event, Protect, that will make Ending 1 and 4 easier to achieve
 -Ending 1 has different dialogue depending on when it&#39;s triggered
