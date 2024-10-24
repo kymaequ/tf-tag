@@ -104,7 +104,7 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
 		<div id="init-lacking"><p>Browser lacks capabilities required to play.</p><p>Upgrade or switch to another browser.</p></div>
 		<div id="init-loading"><div>Loading&hellip;</div></div>
 	</div>
-	<tw-storydata name="TF Tag" startnode="66" creator="Twine" creator-version="2.9.2" format="SugarCube" format-version="2.37.3" ifid="6C4F236F-4E37-4EB9-9567-5C4C5CAA52A0" options="" tags="" zoom="0.6" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css"></style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-tag name="Widget" color="orange"></tw-tag><tw-tag name="Ending" color="red"></tw-tag><tw-tag name="Room" color="blue"></tw-tag><tw-tag name="Ending(Done)" color="green"></tw-tag><tw-passagedata pid="1" name="Start" tags="" position="1425,800" size="100,100">&lt;&lt;nobr&gt;&gt;
+	<tw-storydata name="TF Tag" startnode="65" creator="Twine" creator-version="2.9.2" format="SugarCube" format-version="2.37.3" ifid="6C4F236F-4E37-4EB9-9567-5C4C5CAA52A0" options="" tags="" zoom="0.6" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css"></style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-tag name="Widget" color="orange"></tw-tag><tw-tag name="Ending" color="red"></tw-tag><tw-tag name="Room" color="blue"></tw-tag><tw-tag name="Ending(Done)" color="green"></tw-tag><tw-passagedata pid="1" name="Start" tags="" position="1425,800" size="100,100">&lt;&lt;nobr&gt;&gt;
 
 &lt;&lt;if $ezmode&gt;&gt;
 	/* EZMode is enabled */
@@ -645,8 +645,7 @@ You can take the elevator to your floor or to the ground floor, which opens to t
     &quot;Art Room&quot;: &quot;You raid the art supplies, but don&#39;t see anything interesting.&quot; }&gt;&gt;
 
 &lt;&lt;if $targethere == true&gt;&gt;
-	You spot your target, $targetname, moments before he spots you. Raising your tagger, you take aim and fire, scoring a direct hit with your dart!&lt;br&gt;
-    [[Continue|TargetCaught]]
+	&lt;&lt;goto &quot;TargetCaught&quot;&gt;&gt;
 &lt;&lt;else&gt;&gt;
 	&lt;&lt;if $targetLastLoc == $location&gt;&gt;
 	You look around for the $targetspecies, but you don&#39;t see him. A $npcadj $npcspecies sees you prowling around and says, &quot;Are you looking for a $targetname? He just left! He should still be somewhere nearby...&quot;
@@ -876,7 +875,7 @@ He exits the elevator, on the hunt for his next target, and you&#39;re along for
 
 &lt;b&gt;GAME OVER!&lt;/b&gt;</tw-passagedata><tw-passagedata pid="13" name="GoToLocation" tags="" position="1125,950" size="100,100">&lt;&lt;set $showfooter to false&gt;&gt;
 &lt;&lt;if $location == $hunterlocation&gt;&gt;
-	&lt;&lt;if [&quot;Wait&quot;, &quot;Search&quot;, &quot;NextTarget&quot;, &quot;AskInfo&quot;, &quot;UseComputer&quot;, &quot;InterveneEvent&quot;, &quot;GossipEvent&quot;].includes(previous())&gt;&gt;
+	&lt;&lt;if [&quot;Wait&quot;, &quot;Search&quot;, &quot;NextTarget&quot;, &quot;AskInfo&quot;, &quot;UseComputer&quot;, &quot;InterveneEvent&quot;, &quot;GossipEvent&quot;, &quot;ProtectEvent&quot;].includes(previous())&gt;&gt;
 		&lt;&lt;goto $location&gt;&gt;
     &lt;&lt;else&gt;&gt;
 		&lt;&lt;set $newLocation = $loclist.filter(loc =&gt; loc !== $location).random()&gt;&gt;
@@ -885,34 +884,78 @@ He exits the elevator, on the hunt for his next target, and you&#39;re along for
 &lt;&lt;else&gt;&gt;
 	&lt;&lt;goto $location&gt;&gt;
 &lt;&lt;/if&gt;&gt;
-</tw-passagedata><tw-passagedata pid="14" name="TargetCaught" tags="" position="1125,650" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;if $targetname !== &quot;Ky&quot;&gt;&gt;
-&lt;&lt;GenerateDroppedItem&gt;&gt;
-&lt;&lt;set $targetLastLoc to &quot;Unknown&quot;&gt;&gt;
-&lt;&lt;set $targetcount to $targetcount+1&gt;&gt;
-&lt;h2&gt;Target Caught!&lt;/h2&gt;&lt;br&gt;
-You catch $targetname, the $targetadj $targetspecies, and transform him into $currentItem!&lt;br&gt;&lt;br&gt;
-[[Continue|NextTarget]] 
-&lt;&lt;else&gt;&gt;
-&lt;h2&gt;Target Caught...?&lt;/h2&gt;&lt;br&gt;
-I pluck the dart out of my arm and look at you with a raised eyebrow.&lt;br&gt;&lt;br&gt;
-&quot;What do you think is gonna happen to the game if you transform the programmer of it?&quot; I ask you. &quot;I mean, really! Who even let me be a target, anyway? Ugh. Go. Try again.&quot;&lt;br&gt;&lt;br&gt;
-I toss a new tagger on the ground and walk off, shaking my head.&lt;br&gt;&lt;br&gt;
-[[Continue|NextTarget]]
-&lt;&lt;/if&gt;&gt;
-&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="15" name="NextTarget" tags="" position="1125,550" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;GenTarget&gt;&gt;
-&lt;&lt;if $targetcount &lt; 4&gt;&gt;
-You pick up your target&#39;s discarded tagger. The label on the side informs you that your next target is &lt;b&gt;$targetname&lt;/b&gt;.
-&lt;&lt;else&gt;&gt;
-You pick up your target&#39;s discarded tagger. The label on the side informs you that your next target is &lt;b&gt;Kyle&lt;/b&gt;, your roommate!&lt;br&gt;&lt;br&gt;
+</tw-passagedata><tw-passagedata pid="14" name="TargetCaught" tags="" position="1125,650" size="100,100">&lt;&lt;nobr&gt;&gt;
 
-You&#39;re not sure where he is right now, but you&#39;re sure he&#39;ll return to the dorm room closer to the end of the game. You just need to survive until then...
-&lt;&lt;set $targetname to &quot;Kyle&quot;&gt;&gt;
-&lt;&lt;set $targetspecies to &quot;bear&quot;&gt;&gt;
-&lt;&lt;set $targetlocation to &quot;He&#39;ll be at the dorm room later, you&#39;re sure.&quot;&gt;&gt;
+/* Set Library book sections */
+&lt;&lt;set $booksectionlist = [&quot;Humanities&quot;, &quot;Erotica&quot;, &quot;Social Sciences&quot;, &quot;Science Fiction&quot;, &quot;Fiction&quot;, &quot;Furry Porn&quot;, &quot;Non-Fiction&quot;, &quot;Biographies&quot;, &quot;Physics&quot;, &quot;Chemistry&quot;, &quot;Picture Books&quot;, &quot;How-To Guides&quot;, &quot;Autobiographies&quot;, &quot;Romance&quot;, &quot;Fantasy&quot;, &quot;Natural History&quot;, &quot;History&quot;, &quot;Geography&quot;, &quot;Geology&quot;, &quot;Archaeology&quot;, &quot;Science&quot;, &quot;Coding&quot;, &quot;Arts&quot;, &quot;Photography&quot;, &quot;Self-Help&quot;, &quot;Transformation Art&quot;, &quot;World History&quot;, &quot;Biology&quot;, &quot;Zoology&quot;, &quot;Cryptozoology&quot;, &quot;Futurology&quot;, &quot;Astronomy&quot;, &quot;Astrology&quot;, &quot;Woodworking&quot;, &quot;Ironworking&quot;, &quot;Crafts&quot;, &quot;Hypnosis&quot; ]&gt;&gt;
+
+&lt;&lt;set $booksection to $booksectionlist.random()&gt;&gt;
+
+/* Set location-specific catch descriptions */
+&lt;&lt;set $catchdesc = {
+    &quot;Dormitory Hallway&quot;: &quot;You spot your target, a $targetadj $targetspecies, as he emerges from one of the dorm rooms. He sees you and tries to flee back into the room, but it locks shut behind him, trapping him in your crosshairs. You raise your tagger and fire...&quot;, 
+    &quot;Dormitory Bathroom&quot;: &quot;Even though he&#39;s trying to stay quiet, you can still hear the panicked breathing of the $targetadj $targetspecies coming from one of the locked stalls. He&#39;s drawn his feet up so you can&#39;t see him, but that doesn&#39;t stop you from just kicking the door open, raising your tagger, and firing...&quot;,
+    &quot;Dormitory Common Room&quot;: &quot;The common room isn&#39;t very large, so there&#39;s really nowhere for $targetname to hide. He throws his hands up in surrender as you raise your tagger and fire...&quot;,
+    &quot;Dormitory Elevator&quot;: &quot;The elevator doors open, revealing a very surprised $targetspecies. He&#39;s got nowhere to run, and sighs in defeat as you raise your tagger and fire...&quot;,
+    &quot;West Plaza&quot;: &quot;You look around the plaza for $targetname, tagger at the ready. \&quot;Over there!\&quot; someone shouts, pointing to a $targetadj $targetspecies running as fast as he can. The $targetspecies stumbles on a loose paving stone, crashing into one of the fundraising volunteers and falling to the ground in an explosion of papers. Before he can get back up, you raise your tagger and fire...&quot;,
+    &quot;East Plaza&quot;: &quot;You spot the $targetadj $targetspecies as he peeks out from behind the merch stand, looking for you. You raise your tagger, and he emerges with his hands up. \&quot;You got me,\&quot; he says, accepting his fate. You take aim and fire...&quot;,
+    &quot;North Plaza&quot;: &quot;The students milling about the plaza can&#39;t hide the $targetadj $targetspecies, and you spot him as he makes his way across the open space. Before he can notice you and take off, you quickly raise your tagger, take aim, and fire...&quot;,
+    &quot;South Plaza&quot;: &quot;You survey the plaza for your target, and spot him just before he spots you. $targetname makes a break for it, but the $targetadj $targetspecies doesn&#39;t get far as you raise your tagger, take aim, and fire...&quot;,
+    &quot;Plaza Statue&quot;: &quot;You spot your target beneath the big statue, looking up at its shiny horse cock. \&quot;I rubbed it for luck,\&quot; the $targetadj $targetspecies says, \&quot;But I guess my luck ran out.\&quot; You raise your tagger and fire...&quot;,
+    &quot;Athletic Centre&quot;: &quot;You spot the your target, the $targetadj $targetspecies, just as he furtively tries to slip from the locker room to the athletics court. He sees you and tries to make a run for it, but you quickly raise your tagger, aim, and fire...&quot;,
+    &quot;Athletics Track&quot;: &quot;Surveying the runners on the track, you spot your target, a $targetadj $targetspecies. He looks to be practicing his running, a skill he sincerely hopes he won&#39;t need today. Unfortunately for him, he does, and doubly unfortunately, he won&#39;t even get to use it. You raise your tagger, take aim, and fire...&quot;,
+    &quot;Athletics Court&quot;: &quot;You look around the court for your target, peering past the basketball players and inspecting the bleachers. Your target spots you moments before you spot him, and the $targetadj $targetspecies takes off running. You give chase as he runs for the exit, but he stumbles and falls as one of the basketball players launches the ball at his back like a rocket. The player gives you a high five as you run by, and you approach the $targetspecies on the ground. You aim your tagger and fire...&quot;,
+    &quot;Athletics Showers&quot;: &quot;You search the locker room, but there&#39;s no sign of $targetname. Moving to the shower area, you see that one of the showers is currently occupied and the water is running, and another... well, you can see a shadow behind the curtain, but the water&#39;s off. You reach out and snatch the curtain back, revealing the $targetadj $targetspecies, raise your tagger, and fire...&quot;,
+    &quot;Athletics Pool&quot;: &quot;You see your target, $targetname, hiding beneath the bleachers beside the pool. He scrambles away when he sees that he&#39;s been spotted, but the $targetadj $targetspecies can&#39;t clamber over the support bars quick enough. You raise your tagger, take aim, and fire...&quot;,
+    &quot;Theatre&quot;: &quot;You almost miss $targetname as he hides in the shadows of the wings, but the fluttering of the thick black curtain gives him away. The $targetadj $targetspecies tries to flee, but trips on the bracket of a set piece and falls, sprawling, to the ground. You raise your tagger, aim, and fire...&quot;,
+    &quot;Library&quot;: &quot;The seemingly endless stacks of books provide plenty of cover, but clearly not enough. You find the $targetadj $targetspecies hiding in the $booksection section, and he gives a yelp of surprise. Someone shushes him, and you chuckle as you raise your tagger, aim, and fire...&quot;,
+    &quot;Gardens&quot;: &quot;You look around the gardens for your target, and have almost given up when you see the barest bit of $targetspecies fur poking up from behind a bush. You ready your tagger, and $targetname tries to make a run for it. As he flees in vain you take steady aim and fire...&quot;,
+    &quot;Main Hall&quot;: &quot;Even through the crowds moving around the hall, you spot the telltale shape of the $targetadj $targetspecies and weave towards him. You get to him a moment before he spots you, and he&#39;s penned in by the crowd as you raise your tagger and fire...&quot;,
+    &quot;Lecture Hall&quot;: &quot;You look around the lecture hall and initially think that $targetname isn&#39;t here, but then you spot the $targetadj $targetspecies crouched behind the lectern, trying his best not to be seen. You slowly creep towards him, raise your tagger, and fire...&quot;,
+    &quot;Science Labs&quot;: &quot;You spot your target, $targetname, moments before he spots you. As you raise your tagger, the $targetadj $targetspecies sees you and his eyes widen. Thinking fast, he grabs a flask of mysterious fluid from a workbench and hurls it at you, to the indignant cries of a science student. You dodge the beaker, but the distraction gives the $targetspecies time to make a run for it. Unfortunately, the student whose experiment he just tossed sticks out his foot, and the $targetspecies goes crashing to the floor. You aim your tagger and fire...&quot;,
+    &quot;Art Room&quot;: &quot;The art room is messy, but not so messy that you can&#39;t see the $targetadj $targetspecies hiding among the piles of cloth. He sighs and stands up, resigned to his fate. You raise your tagger and fire...&quot; }&gt;&gt;
+
+/* Set a variety of transformation descriptions */
+&lt;&lt;set $transformdesc = [
+	&quot;Your dart hits $targetname, and the $targetadj $targetspecies gasps as the changes take hold. His body shifts and transforms, and soon he&#39;s nothing more than $currentItem.&quot;,
+	&quot;\&quot;Ahh, fuck,\&quot;, $targetname says as the dart hits him. The changes are immediate, and he shifts before your eyes into $currentItem&quot;,
+    &quot;You score a direct hit on $targetname, and the serum goes to work. The $targetadj $targetspecies opens his mouth to say something, but his words are lost as he quickly transforms into $currentItem.&quot;,
+    &quot;$targetname winces as the dart hits him, and he looks at you with pleading eyes as the transformation occurs. \&quot;Make good use of me,\&quot; he begs, as he quickly transforms into $currentItem.&quot;,
+    &quot;$targetname barely flinches as the dart hits him. He watches in fascination as his body changes, quickly changing from a $targetadj $targetspecies into little more than $currentItem.&quot;,
+    &quot;The $targetadj $targetspecies clutches at the spot where the dart hit, and looks at his hand in surprise as it begins to change. His body transforms quickly, and soon only $currentItem sits before you on the ground.&quot;,
+    &quot;You can see the tent in $targetname&#39;s pants as the changes begin. He&#39;s actually getting off on this! He moans a little as he transforms, and paws at his crotch until his transformation into $currentItem prevents him from moving any more.&quot;,
+    &quot;$targetname moans as the dart pierces his arm. \&quot;To tell the truth,\&quot; the $targetadj $targetspecies says, \&quot;I fantasized about getting caught.\&quot; Well, he got his wish, and you can see the pleasure on his face as he turns into $currentItem.&quot;,
+    &quot;$targetname quickly works out what he&#39;s turning into as the dart&#39;s effects take hold. \&quot;Ohh... $currentItem?\&quot; he asks, watching his body transform. \&quot;Fuuuuuck.\&quot; You watch him, clearly enjoying himself, until his transformation completes and only $currentItem sits before you.&quot;,
+    &quot;$targetname flinches as the dart hits him, scrabbling at the impact site in vain. The serum has done its job, however, and the changes quickly spread across his body, transforming him from a $targetadj $targetspecies into $currentItem.&quot; ] &gt;&gt;
+    
+&lt;&lt;set $targettfdesc to $transformdesc.random()&gt;&gt;
+
+&lt;&lt;if $targetname !== &quot;Ky&quot;&gt;&gt;
+	&lt;&lt;GenerateDroppedItem&gt;&gt;
+	&lt;&lt;set $targetLastLoc to &quot;Unknown&quot;&gt;&gt;
+	&lt;&lt;set $targetcount to $targetcount+1&gt;&gt;
+	&lt;h2&gt;Target Caught!&lt;/h2&gt;&lt;br&gt;
+	$catchdesc[$location]&lt;br&gt;&lt;br&gt;
+	$targettfdesc You pick &lt;&lt;print $currentItem.replace(/^an? /, &#39;the &#39;)&gt;&gt; up and stick it in your bag.&lt;br&gt;&lt;br&gt;
+&lt;&lt;else&gt;&gt;
+	&lt;h2&gt;Target Caught...?&lt;/h2&gt;&lt;br&gt;
+	I pluck the dart out of my arm and look at you with a raised eyebrow.&lt;br&gt;&lt;br&gt;
+&quot;What do you think is gonna happen to the game if you transform the programmer of it?&quot; I ask you. &quot;I mean, really! Who even let me be a target, anyway? Ugh. Go. Try again.&quot;	&lt;br&gt;&lt;br&gt;
+	I toss a new tagger on the ground and walk off, shaking my head.&lt;br&gt;&lt;br&gt;
 &lt;&lt;/if&gt;&gt;
-&lt;br&gt;&lt;br&gt;
+&lt;&lt;GenTarget&gt;&gt;
+	&lt;&lt;if $targetcount &lt; 4&gt;&gt;
+		You pick up your target&#39;s discarded tagger. The label on the side informs you that your next target is &lt;b&gt;$targetname&lt;/b&gt;.&lt;br&gt;&lt;br&gt;
+	&lt;&lt;else&gt;&gt;
+		You pick up your target&#39;s discarded tagger. The label on the side informs you that your next target is &lt;b&gt;Kyle&lt;/b&gt;, your roommate!&lt;br&gt;&lt;br&gt;
+
+		You&#39;re not sure where he is right now, but you&#39;re sure he&#39;ll return to the dorm room closer to the end of the game. You just need to survive until then...&lt;br&gt;&lt;br&gt;
+		&lt;&lt;set $targetname to &quot;Kyle&quot;&gt;&gt;
+		&lt;&lt;set $targetspecies to &quot;bear&quot;&gt;&gt;
+		&lt;&lt;set $targetlocation to &quot;He&#39;ll be at the dorm room later, you&#39;re sure.&quot;&gt;&gt;
+	&lt;&lt;/if&gt;&gt;
 [[Continue|GoToLocation]] 
-&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="16" name="TimeUp" tags="" position="1275,250" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $showfooter to false&gt;&gt;
+&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="15" name="TimeUp" tags="" position="1275,250" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $showfooter to false&gt;&gt;
 The hunt is nearly over! It&#39;s time to head back to your dorm room to watch the announcement.&lt;br&gt;
 &lt;&lt;if $targetcount == 4 and $kylehelp == 3&gt;&gt;
 	[[Continue|EndingShowdown]]
@@ -923,7 +966,7 @@ The hunt is nearly over! It&#39;s time to head back to your dorm room to watch t
 &lt;&lt;else&gt;&gt;
     [[Continue|EndingMCSurvives]]
 &lt;&lt;/if&gt;&gt;
-&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="17" name="Start2" tags="" position="1550,800" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="16" name="Start2" tags="" position="1550,800" size="100,100">&lt;&lt;nobr&gt;&gt;
 /* Define Initial Target &amp; Hunter */
 
 &lt;&lt;set $specialCharacters = {
@@ -1046,7 +1089,7 @@ According to the label on your tagger, your quarry is &lt;b&gt;$targetname, a $t
 
 You nod.
 
-[[Let&#39;s do it!|Dorm Room]]</tw-passagedata><tw-passagedata pid="18" name="West Plaza" tags="Room" position="2150,800" size="100,100">&lt;&lt;nobr&gt;&gt;
+[[Let&#39;s do it!|Dorm Room]]</tw-passagedata><tw-passagedata pid="17" name="West Plaza" tags="Room" position="2150,800" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;West Plaza&lt;/h2&gt;
 &lt;&lt;if $location isnot &quot;West Plaza&quot;&gt;&gt;
 	&lt;&lt;set $hidecount to 0&gt;&gt;
@@ -1082,7 +1125,7 @@ You are in the western part of the main plaza. There are stone benches on which 
 [[Go to South Plaza|South Plaza]]
 [[Go to East Plaza|East Plaza]]
 [[Go to Plaza Statue|Plaza Statue]]
-&lt;br&gt;</tw-passagedata><tw-passagedata pid="19" name="Plaza Statue" tags="Room" position="2300,800" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;br&gt;</tw-passagedata><tw-passagedata pid="18" name="Plaza Statue" tags="Room" position="2300,800" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Plaza Statue&lt;/h2&gt;
 &lt;&lt;if $location isnot &quot;Plaza Statue&quot;&gt;&gt;
 	&lt;&lt;set $hidecount to 0&gt;&gt;
@@ -1118,7 +1161,7 @@ You are standing beneath the grand statue in the center of campus, honoring the 
 [[Go to West Plaza|West Plaza]]
 [[Go to East Plaza|East Plaza]]
 [[Go to South Plaza|South Plaza]]
-&lt;br&gt;</tw-passagedata><tw-passagedata pid="20" name="South Plaza" tags="Room" position="2300,950" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;br&gt;</tw-passagedata><tw-passagedata pid="19" name="South Plaza" tags="Room" position="2300,950" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;South Plaza&lt;/h2&gt;
 &lt;&lt;if $location isnot &quot;South Plaza&quot;&gt;&gt;
 	&lt;&lt;set $hidecount to 0&gt;&gt;
@@ -1155,7 +1198,7 @@ You are in the southern part of the main plaza. This part of the plaza leads to 
 [[Go to East Plaza|East Plaza]]
 [[Go to North Plaza|North Plaza]]
 [[Go to Plaza Statue|Plaza Statue]]
-&lt;br&gt;</tw-passagedata><tw-passagedata pid="21" name="North Plaza" tags="Room" position="2300,650" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;br&gt;</tw-passagedata><tw-passagedata pid="20" name="North Plaza" tags="Room" position="2300,650" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;North Plaza&lt;/h2&gt;
 &lt;&lt;if $location isnot &quot;North Plaza&quot;&gt;&gt;
 	&lt;&lt;set $hidecount to 0&gt;&gt;
@@ -1192,7 +1235,7 @@ You are in the northern part of the main plaza. A pleasant floral aroma drifts o
 [[Go to East Plaza|East Plaza]]
 [[Go to South Plaza|South Plaza]]
 [[Go to Plaza Statue|Plaza Statue]]
-&lt;br&gt;</tw-passagedata><tw-passagedata pid="22" name="East Plaza" tags="Room" position="2450,800" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;br&gt;</tw-passagedata><tw-passagedata pid="21" name="East Plaza" tags="Room" position="2450,800" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;East Plaza&lt;/h2&gt;
 &lt;&lt;if $location isnot &quot;East Plaza&quot;&gt;&gt;
 	&lt;&lt;set $hidecount to 0&gt;&gt;
@@ -1232,7 +1275,7 @@ You are in the eastern part of the main plaza. Students are hanging out, chattin
 [[Go to North Plaza|North Plaza]]
 [[Go to West Plaza|West Plaza]]
 [[Go to Plaza Statue|Plaza Statue]]
-&lt;br&gt;</tw-passagedata><tw-passagedata pid="23" name="Library" tags="Room" position="2450,650" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;br&gt;</tw-passagedata><tw-passagedata pid="22" name="Library" tags="Room" position="2450,650" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Library&lt;/h2&gt;
 &lt;&lt;if $location isnot &quot;Library&quot;&gt;&gt;
 	&lt;&lt;set $hidecount to 0&gt;&gt;
@@ -1268,7 +1311,7 @@ You are in the university&#39;s library. A central atrium rises up four floors t
 
 [[Go to East Plaza|East Plaza]]
 [[Go to North Plaza|North Plaza]]
-&lt;br&gt;</tw-passagedata><tw-passagedata pid="24" name="Gardens" tags="Room" position="2300,500" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;br&gt;</tw-passagedata><tw-passagedata pid="23" name="Gardens" tags="Room" position="2300,500" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Gardens&lt;/h2&gt;
 &lt;&lt;if $location isnot &quot;Gardens&quot;&gt;&gt;
 	&lt;&lt;set $hidecount to 0&gt;&gt;
@@ -1300,7 +1343,7 @@ You are in the school gardens. Students with a green thumb cultivate all sorts o
 &lt;&lt;Actions&gt;&gt;
 
 [[Go to North Plaza|North Plaza]]
-&lt;br&gt;</tw-passagedata><tw-passagedata pid="25" name="Athletic Centre" tags="Room" position="2300,1100" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;br&gt;</tw-passagedata><tw-passagedata pid="24" name="Athletic Centre" tags="Room" position="2300,1100" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Athletics Centre&lt;/h2&gt;
 &lt;&lt;if $location isnot &quot;Athletic Centre&quot;&gt;&gt;
 	&lt;&lt;set $hidecount to 0&gt;&gt;
@@ -1337,7 +1380,7 @@ The athletics center exits to the southern part of the main plaza. You can also 
 [[Go to Athletics Track|Athletics Track]]
 [[Go to Athletics Court|Athletics Court]]
 [[Go to Shower Room|Athletics Showers]]
-&lt;br&gt;</tw-passagedata><tw-passagedata pid="26" name="Athletics Track" tags="Room" position="2150,1100" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;br&gt;</tw-passagedata><tw-passagedata pid="25" name="Athletics Track" tags="Room" position="2150,1100" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Athletics Track&lt;/h2&gt;
 &lt;&lt;if $location isnot &quot;Athletics Track&quot;&gt;&gt;
 	&lt;&lt;set $hidecount to 0&gt;&gt;
@@ -1370,7 +1413,7 @@ You are standing beside the athletics centre&#39;s running track. A number of st
 
 [[Go to Athletics Centre|Athletic Centre]]
 [[Go to Athletics Court|Athletics Court]]
-&lt;br&gt;</tw-passagedata><tw-passagedata pid="27" name="Athletics Court" tags="Room" position="2300,1250" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;br&gt;</tw-passagedata><tw-passagedata pid="26" name="Athletics Court" tags="Room" position="2300,1250" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Athletics Court&lt;/h2&gt;
 &lt;&lt;if $location isnot &quot;Athletics Court&quot;&gt;&gt;
 	&lt;&lt;set $hidecount to 0&gt;&gt;
@@ -1406,7 +1449,7 @@ You are standing on the sidelines of the athletics centre&#39;s basketball court
 [[Go to Athletics Centre|Athletic Centre]]
 [[Go to Athletics Track|Athletics Track]]
 [[Go to Shower Room|Athletics Showers]]
-&lt;br&gt;</tw-passagedata><tw-passagedata pid="28" name="Athletics Showers" tags="Room" position="2450,1100" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;br&gt;</tw-passagedata><tw-passagedata pid="27" name="Athletics Showers" tags="Room" position="2450,1100" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Shower Room&lt;/h2&gt;
 &lt;&lt;if $location isnot &quot;Athletics Showers&quot;&gt;&gt;
 	&lt;&lt;set $hidecount to 0&gt;&gt;
@@ -1444,7 +1487,7 @@ The shower room exits out to the athletic center lobby. A sign points to the ath
 [[Go to Athletics Centre|Athletic Centre]]
 [[Go to Swimming Pool|Athletics Pool]]
 [[Go to Athletics Court|Athletics Court]]
-&lt;br&gt;</tw-passagedata><tw-passagedata pid="29" name="Athletics Pool" tags="Room" position="2600,1100" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;br&gt;</tw-passagedata><tw-passagedata pid="28" name="Athletics Pool" tags="Room" position="2600,1100" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Swimming Pool&lt;/h2&gt;
 &lt;&lt;if $location isnot &quot;Athletics Pool&quot;&gt;&gt;
 	&lt;&lt;set $hidecount to 0&gt;&gt;
@@ -1480,7 +1523,7 @@ A door leads back to the shower room.
 &lt;&lt;Actions&gt;&gt;
 
 [[Return to Shower Room|Athletics Showers]]
-&lt;br&gt;</tw-passagedata><tw-passagedata pid="30" name="Theatre" tags="Room" position="2450,950" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;br&gt;</tw-passagedata><tw-passagedata pid="29" name="Theatre" tags="Room" position="2450,950" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Theatre&lt;/h2&gt;
 &lt;&lt;if $location isnot &quot;Theatre&quot;&gt;&gt;
 	&lt;&lt;set $hidecount to 0&gt;&gt;
@@ -1515,7 +1558,7 @@ You are in the university&#39;s drama theatre. Thick, dark curtains frame the st
 
 [[Go to East Plaza|East Plaza]]
 [[Go to South Plaza|South Plaza]]
-&lt;br&gt;</tw-passagedata><tw-passagedata pid="31" name="Main Hall" tags="Room" position="2600,800" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;br&gt;</tw-passagedata><tw-passagedata pid="30" name="Main Hall" tags="Room" position="2600,800" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Main Hall&lt;/h2&gt;
 &lt;&lt;if $location isnot &quot;Main Hall&quot;&gt;&gt;
 	&lt;&lt;set $hidecount to 0&gt;&gt;
@@ -1554,7 +1597,7 @@ From the main hall, you can head to the science labs, the art room, a lecture ha
 [[Go to Science Labs|Science Labs]]
 [[Go to Art Room|Art Room]]
 [[Go to Lecture Hall|Lecture Hall]]
-&lt;br&gt;</tw-passagedata><tw-passagedata pid="32" name="Lecture Hall" tags="Room" position="2600,950" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;br&gt;</tw-passagedata><tw-passagedata pid="31" name="Lecture Hall" tags="Room" position="2600,950" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Lecture Hall&lt;/h2&gt;
 &lt;&lt;if $location isnot &quot;Lecture Hall&quot;&gt;&gt;
 	&lt;&lt;set $hidecount to 0&gt;&gt;
@@ -1588,7 +1631,7 @@ You are in one of the university&#39;s lecture halls. It is a spacious room with
 &lt;&lt;Actions&gt;&gt;
 
 [[Go to Main Hall|Main Hall]]
-&lt;br&gt;</tw-passagedata><tw-passagedata pid="33" name="Science Labs" tags="Room" position="2600,650" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;br&gt;</tw-passagedata><tw-passagedata pid="32" name="Science Labs" tags="Room" position="2600,650" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Science Labs&lt;/h2&gt;
 &lt;&lt;if $location isnot &quot;Science Labs&quot;&gt;&gt;
 	&lt;&lt;set $hidecount to 0&gt;&gt;
@@ -1622,7 +1665,7 @@ You are in the university&#39;s science labs. Here, students conduct various exp
 &lt;&lt;Actions&gt;&gt;
 
 [[Go to Main Hall|Main Hall]]
-&lt;br&gt;</tw-passagedata><tw-passagedata pid="34" name="Art Room" tags="Room" position="2750,800" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;br&gt;</tw-passagedata><tw-passagedata pid="33" name="Art Room" tags="Room" position="2750,800" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Art Room&lt;/h2&gt;
 &lt;&lt;if $location isnot &quot;Art Room&quot;&gt;&gt;
 	&lt;&lt;set $hidecount to 0&gt;&gt;
@@ -1658,7 +1701,7 @@ The art room exits out to the main hall of the university.
 &lt;&lt;Actions&gt;&gt;
 
 [[Go to Main Hall|Main Hall]]
-&lt;br&gt;</tw-passagedata><tw-passagedata pid="35" name="BadEndPlazaW" tags="Ending(Done)" position="1725,250" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $npcspecies to $specieslist.random()&gt;&gt;
+&lt;br&gt;</tw-passagedata><tw-passagedata pid="34" name="BadEndPlazaW" tags="Ending(Done)" position="1725,250" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $npcspecies to $specieslist.random()&gt;&gt;
 &lt;&lt;set $npcadj to $adjlist.random()&gt;&gt;
 &lt;h2&gt;Bad End: West Plaza&lt;/h2&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
@@ -1681,7 +1724,7 @@ Then you are soaring through the air as the $npcspecies lifts your head up, and 
 
 The assembled crowd cheers as the fursuiter does a little dance for them, hamming it up with exaggerated movements. You&#39;re initially embarrassed to be put on display like this, but the cheers and adoration of the crowd does feel quite nice... you begin to hope that whoever&#39;s wearing you decides to do this often... and remembers to wash you.
 
-&lt;b&gt;GAME OVER!&lt;/b&gt;</tw-passagedata><tw-passagedata pid="36" name="BadEndPlazaN" tags="Ending(Done)" position="1850,250" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;b&gt;GAME OVER!&lt;/b&gt;</tw-passagedata><tw-passagedata pid="35" name="BadEndPlazaN" tags="Ending(Done)" position="1850,250" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Bad End: North Plaza&lt;/h2&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
@@ -1707,7 +1750,7 @@ Thankfully, the $hunteradj $hunterspecies grabs your leg before you float up int
 
 He grabs your discarded tagger and takes off, leaving you to float up among the other colorful balloons, bumping against them with gentle squeaks.
 
-&lt;b&gt;GAME OVER!&lt;/b&gt;</tw-passagedata><tw-passagedata pid="37" name="BadEndPlazaS" tags="Ending(Done)" position="1975,250" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;b&gt;GAME OVER!&lt;/b&gt;</tw-passagedata><tw-passagedata pid="36" name="BadEndPlazaS" tags="Ending(Done)" position="1975,250" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $npcspecies to $specieslist.random()&gt;&gt;
 &lt;h2&gt;Bad End: South Plaza&lt;/h2&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
@@ -1732,13 +1775,13 @@ The ground rushes up to meet you as your legs begin to shrink, disappearing into
 
 He picks you up and wraps you around his wrist, fastening your brown leather straps. &quot;Now I&#39;ll know exactly when I catch my next target.&quot;
 
-&lt;b&gt;GAME OVER!&lt;/b&gt;</tw-passagedata><tw-passagedata pid="38" name="BadEndPlazaE" tags="Ending" position="2100,250" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;b&gt;GAME OVER!&lt;/b&gt;</tw-passagedata><tw-passagedata pid="37" name="BadEndPlazaE" tags="Ending" position="2100,250" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Bad End: East Plaza&lt;/h2&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
 You are caught by a $hunteradj $hunterspecies. He turns you into a towel.
 
-GAME OVER!</tw-passagedata><tw-passagedata pid="39" name="BadEndPlazaStatue" tags="Ending(Done)" position="1475,250" size="100,100">&lt;&lt;nobr&gt;&gt;
+GAME OVER!</tw-passagedata><tw-passagedata pid="38" name="BadEndPlazaStatue" tags="Ending(Done)" position="1475,250" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Bad End: Plaza Statue&lt;/h2&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
@@ -1772,7 +1815,7 @@ The $hunterspecies leaps back to avoid getting splashed, and he laughs as water 
 
 &quot;Mmm, cool and refreshing!&quot; he declares, to laughs from the crowd. He takes a second sip before picking up your tagger and taking off, leaving you to quench the thirsts of the growing queue of students.
 
-&lt;b&gt;GAME OVER!&lt;/b&gt;</tw-passagedata><tw-passagedata pid="40" name="BadEndGardens" tags="Ending(Done)" position="1600,250" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;b&gt;GAME OVER!&lt;/b&gt;</tw-passagedata><tw-passagedata pid="39" name="BadEndGardens" tags="Ending(Done)" position="1600,250" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Bad End: Gardens&lt;/h2&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
@@ -1794,7 +1837,7 @@ Waving the pollen away, the $hunterspecies bends down to pick up your discarded 
 
 He departs, leaving you to stretch up towards the sun and bask in its warmth.
 
-&lt;b&gt;GAME OVER!&lt;/b&gt;</tw-passagedata><tw-passagedata pid="41" name="BadEndLibrary" tags="Ending(Done)" position="2100,125" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;b&gt;GAME OVER!&lt;/b&gt;</tw-passagedata><tw-passagedata pid="40" name="BadEndLibrary" tags="Ending(Done)" position="2100,125" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $npcspecies to $specieslist.random()&gt;&gt;
 &lt;h2&gt;Bad End: Library&lt;/h2&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
@@ -1841,7 +1884,7 @@ When they pull out of you, cum gushes from both of your used holes, dripping to 
 
 Without fanfare, he dumps the book and you, still dripping, into the &quot;Book Return&quot; slot by the exit to the library, and goes on his way.
 
-&lt;b&gt;GAME OVER!&lt;/b&gt;</tw-passagedata><tw-passagedata pid="42" name="BadEndTheatre" tags="Ending(Done)" position="1975,125" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;b&gt;GAME OVER!&lt;/b&gt;</tw-passagedata><tw-passagedata pid="41" name="BadEndTheatre" tags="Ending(Done)" position="1975,125" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Bad End: Theatre&lt;/h2&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
@@ -1873,7 +1916,7 @@ The $hunterspecies reaches down and picks you up, giving you a squeeze. Your bod
 
 He exits stage left, and you hope he does.
 
-&lt;b&gt;GAME OVER!&lt;/b&gt;</tw-passagedata><tw-passagedata pid="43" name="BadEndMainHall" tags="Ending(Done)" position="1475,125" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;b&gt;GAME OVER!&lt;/b&gt;</tw-passagedata><tw-passagedata pid="42" name="BadEndMainHall" tags="Ending(Done)" position="1475,125" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $npcspecies to $specieslist.random()&gt;&gt;
 &lt;&lt;set $npcadj to $adjlist.random()&gt;&gt;
 &lt;h2&gt;Bad End: Main Hall&lt;/h2&gt;
@@ -1905,13 +1948,13 @@ As the day goes on, students approach, popping coins into your mouth and orderin
 
 You feel an orgasmic rush to dispense the item, but with each item that leaves, you feel like a part of you has disappeared. You&#39;re not sure what&#39;s missing, but you know there&#39;s something that should be there. Until someone orders one of your packages of gummi worms, and you forget that you&#39;ve forgotten anything. You&#39;re just a vending machine, after all. You don&#39;t need to remember.
 
-&lt;b&gt;GAME OVER!&lt;/b&gt;</tw-passagedata><tw-passagedata pid="44" name="BadEndScienceLabs" tags="Ending" position="1600,125" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;b&gt;GAME OVER!&lt;/b&gt;</tw-passagedata><tw-passagedata pid="43" name="BadEndScienceLabs" tags="Ending" position="1600,125" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Bad End: Science Labs&lt;/h2&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
 You are caught by a $hunteradj $hunterspecies. He turns you into a slime.
 
-GAME OVER!</tw-passagedata><tw-passagedata pid="45" name="BadEndArtRoom" tags="Ending(Done)" position="1725,125" size="100,100">&lt;&lt;nobr&gt;&gt;
+GAME OVER!</tw-passagedata><tw-passagedata pid="44" name="BadEndArtRoom" tags="Ending(Done)" position="1725,125" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Bad End: Art Room&lt;/h2&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
@@ -1935,37 +1978,37 @@ You wobble briefly as your legs stiffen, and the $hunterspecies grabs you, lifti
 
 &quot;Ahh, perfect!&quot; The $hunterspecies chuckles. &quot;And now they won&#39;t even know which one of the mannequins wasn&#39;t here before. Because that&#39;s all you are now!&quot; He boops you on the nose, and picks up your discarded tagger. &quot;Have fun!&quot;
 
-&lt;b&gt;GAME OVER!&lt;/b&gt;</tw-passagedata><tw-passagedata pid="46" name="BadEndLectureHall" tags="Ending" position="1850,125" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;b&gt;GAME OVER!&lt;/b&gt;</tw-passagedata><tw-passagedata pid="45" name="BadEndLectureHall" tags="Ending" position="1850,125" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Bad End: Lecture Hall&lt;/h2&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
 You are caught by a $hunteradj $hunterspecies. He turns you into a cock.
 
-GAME OVER!</tw-passagedata><tw-passagedata pid="47" name="BadEndAthletics" tags="Ending" position="1600,0" size="100,100">&lt;&lt;nobr&gt;&gt;
+GAME OVER!</tw-passagedata><tw-passagedata pid="46" name="BadEndAthletics" tags="Ending" position="1600,0" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Bad End: Athletics Centre&lt;/h2&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
 You are caught by a $hunteradj $hunterspecies. He turns you into a trophy.
 
-GAME OVER!</tw-passagedata><tw-passagedata pid="48" name="BadEndAthShowers" tags="Ending" position="1725,0" size="100,100">&lt;&lt;nobr&gt;&gt;
+GAME OVER!</tw-passagedata><tw-passagedata pid="47" name="BadEndAthShowers" tags="Ending" position="1725,0" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Bad End: Shower Room&lt;/h2&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
 You are caught by a $hunteradj $hunterspecies. He turns you into a jockstrap.
 
-GAME OVER!</tw-passagedata><tw-passagedata pid="49" name="BadEndAthPool" tags="Ending" position="1850,0" size="100,100">&lt;&lt;nobr&gt;&gt;
+GAME OVER!</tw-passagedata><tw-passagedata pid="48" name="BadEndAthPool" tags="Ending" position="1850,0" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Bad End: Swimming Pool&lt;/h2&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
 You are caught by a $hunteradj $hunterspecies. He turns you into a speedo.
 
-GAME OVER!</tw-passagedata><tw-passagedata pid="50" name="BadEndAthTrack" tags="Ending" position="1975,0" size="100,100">&lt;&lt;nobr&gt;&gt;
+GAME OVER!</tw-passagedata><tw-passagedata pid="49" name="BadEndAthTrack" tags="Ending" position="1975,0" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Bad End: Athletics Track&lt;/h2&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
 You are caught by a $hunteradj $hunterspecies. He turns you into shoes.
 
-GAME OVER!</tw-passagedata><tw-passagedata pid="51" name="BadEndAthCourt" tags="Ending(Done)" position="2100,0" size="100,100">&lt;&lt;nobr&gt;&gt;
+GAME OVER!</tw-passagedata><tw-passagedata pid="50" name="BadEndAthCourt" tags="Ending(Done)" position="2100,0" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Bad End: Basketball Court&lt;/h2&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
@@ -1991,7 +2034,7 @@ A couple of the players see what&#39;s happening and the game quickly grinds to 
     
     You hope you&#39;re durable too, because you want to spend as much time as you can wrapped around his feet. It&#39;s really the perfect place for socks like you to be.
 
-&lt;b&gt;GAME OVER!&lt;/b&gt;</tw-passagedata><tw-passagedata pid="52" name="BadEndDormRoom" tags="Ending(Done)" position="1475,0" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;b&gt;GAME OVER!&lt;/b&gt;</tw-passagedata><tw-passagedata pid="51" name="BadEndDormRoom" tags="Ending(Done)" position="1475,0" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $flavorlist = [&quot;grape&quot;, &quot;strawberry&quot;, &quot;green apple&quot;, &quot;peach&quot;, &quot;blueberry&quot;, &quot;cherry&quot;, &quot;tropical fruit&quot;, &quot;root beer&quot;, &quot;orange&quot;, &quot;mixed berry&quot;, &quot;watermelon&quot;, &quot;mango&quot;]&gt;&gt;
 &lt;&lt;set $sodaflavor to $flavorlist.random()&gt;&gt;
 
@@ -2020,7 +2063,7 @@ As the $hunterspecies takes a sip of you, you feel the most curious sensation. A
 Once the $hunterspecies has finished every last drop of you, you feel so profoundly empty. Who were you? What did you used to be? You were always a soda can, weren&#39;t you? Why does a soda can need to think? You don&#39;t really need to think, you&#39;re just an empty soda can being tossed in the bin.&lt;br&gt;&lt;br&gt;
 
 &lt;b&gt;GAME OVER!&lt;/b&gt;
-&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="53" name="Wait" tags="" position="975,800" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="52" name="Wait" tags="" position="975,800" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $npcspecies to $specieslist.random()&gt;&gt;
 &lt;&lt;set $npcadj to $adjlist.random()&gt;&gt;
 &lt;&lt;set $npcTF to $targetTFlist.random()&gt;&gt;
@@ -2059,7 +2102,7 @@ $waitactiondesc[$location]
     &lt;&lt;else&gt;&gt;
 		[[Continue|GoToLocation]]
     &lt;&lt;/if&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="54" name="UseComputer" tags="" position="1700,650" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $showfooter to false&gt;&gt;&lt;&lt;set $hidecount to $hidecount+1&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="53" name="UseComputer" tags="" position="1700,650" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $showfooter to false&gt;&gt;&lt;&lt;set $hidecount to $hidecount+1&gt;&gt;
 You sit down at the computer.&lt;br&gt;&lt;br&gt;
 
 &lt;&lt;linkappend &quot;View campus map&quot; t8n&gt;&gt;&lt;br&gt;
@@ -2099,7 +2142,7 @@ You sit down at the computer.&lt;br&gt;&lt;br&gt;
 		[[Stop using the computer|GoToLocation]]
     &lt;&lt;/if&gt;&gt;
 &lt;&lt;/if&gt;&gt;
-&lt;br&gt;&lt;br&gt;&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="55" name="AskInfo" tags="" position="975,950" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $showfooter to false&gt;&gt;
+&lt;br&gt;&lt;br&gt;&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="54" name="AskInfo" tags="" position="975,950" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $showfooter to false&gt;&gt;
 &lt;&lt;set $npcspecies to $specieslist.random()&gt;&gt;
 &lt;&lt;set $npcadj to $adjlist.random()&gt;&gt;
 &lt;&lt;set $npchasinfo to random(1,20)&gt;&gt;
@@ -2155,7 +2198,7 @@ You look around for someone to ask about $targetname.&lt;br&gt;&lt;br&gt;
 &lt;&lt;/if&gt;&gt;
 &lt;br&gt;&lt;br&gt;
 [[Return|GoToLocation]] 
-&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="56" name="EscapeHunter" tags="" position="1125,1050" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $showfooter to false&gt;&gt;
+&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="55" name="EscapeHunter" tags="" position="1125,1050" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $showfooter to false&gt;&gt;
 &lt;&lt;set $badendlocs = {
     &quot;Dormitory Hallway&quot;: &quot;BadEndDormHall&quot;, 
     &quot;Dormitory Bathroom&quot;: &quot;BadEndDormBathroom&quot;,
@@ -2209,19 +2252,16 @@ You look around for someone to ask about $targetname.&lt;br&gt;&lt;br&gt;
 &lt;&lt;/for&gt;&gt;
 
 &lt;&lt;if _availableEscapes.length &gt; 0&gt;&gt;
-    /* Randomly select one of the available escape options */
-    &lt;&lt;set _randomIndex = random(_availableEscapes.length)&gt;&gt;
+    &lt;&lt;set _randomIndex = random(0, _availableEscapes.length - 1)&gt;&gt;
     &lt;&lt;set _selectedIndex = _availableEscapes[_randomIndex]&gt;&gt;
-    /* Remove the used item from inventory */
     &lt;&lt;run $inventory.delete(_escapeOptions[_selectedIndex].item)&gt;&gt;
-    /* Display the escape text */
     &lt;&lt;print _escapeOptions[_selectedIndex].text&gt;&gt;
     &lt;br&gt;&lt;br&gt;[[Continue|GoToLocation]]
 &lt;&lt;else&gt;&gt;
     /* Handle case where player has no escape items */
     &lt;&lt;goto $badendlocs[$location]&gt;&gt;
 &lt;&lt;/if&gt;&gt;
-&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="57" name="EndingMCWin" tags="Ending(Done)" position="1225,25" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $showfooter to false&gt;&gt;
+&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="56" name="EndingMCWin" tags="Ending(Done)" position="1225,25" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $showfooter to false&gt;&gt;
 &lt;h2&gt;Ending 1: Victory&lt;/h2&gt;
 &lt;&lt;if $protectending !== 1&gt;&gt;
 You get back to your dorm room. The room is empty, and it&#39;s clear that Kyle hasn&#39;t returned yet. You take a seat on your bed, facing the door, and wait for him to return.&lt;br&gt;&lt;br&gt;
@@ -2265,7 +2305,7 @@ Next year&#39;s competition?! &lt;i&gt;Gulp.&lt;/i&gt;&lt;br&gt;&lt;br&gt;
 &lt;b&gt;THE END.&lt;/b&gt;
 &lt;&lt;/linkappend&gt;&gt;
 &lt;&lt;/linkappend&gt;&gt;
-&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="58" name="EndingRMWin" tags="Ending(Done)" position="1225,125" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $showfooter to false&gt;&gt;&lt;&lt;/nobr&gt;&gt;
+&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="57" name="EndingRMWin" tags="Ending(Done)" position="1225,125" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $showfooter to false&gt;&gt;&lt;&lt;/nobr&gt;&gt;
 &lt;h2&gt;Ending 2: Caught&lt;/h2&gt;
 On your way back to your room, you spot $targetname with his back turned to you, completely unawares. You&#39;re rushing to get back before the game ends, and barely even pay attention to what the $targetspecies turns into when you hit him with the dart. You scoop up his tagger as he falls, not even breaking stride as you head back to your room.
 
@@ -2301,7 +2341,7 @@ It&#39;s dark when you arrive back at your dorm. You switch the lights on, and f
     &quot;Fuck, you make an awesome cock,&quot; he says, looking down at his new member. &quot;And you&#39;ve made me a few inches longer now, too!&quot; Kyle grabs a tissue and wipes you clean, then pulls on a pair of underwear. Cocooned in the soft cotton and held securely against his thigh, you let yourself soften, settling down until Kyle needs you again. Which, you hope, will be soon and often. You twitch a little thinking about it.   
     &lt;br&gt;
     &lt;b&gt;THE END.&lt;/b&gt;
-&lt;&lt;/linkappend&gt;&gt;</tw-passagedata><tw-passagedata pid="59" name="EndingShowdown" tags="Ending(Done)" position="1325,125" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $showfooter to false&gt;&gt;&lt;&lt;/nobr&gt;&gt;&lt;h2&gt;Ending 4: Showdown&lt;/h2&gt;
+&lt;&lt;/linkappend&gt;&gt;</tw-passagedata><tw-passagedata pid="58" name="EndingShowdown" tags="Ending(Done)" position="1325,125" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $showfooter to false&gt;&gt;&lt;&lt;/nobr&gt;&gt;&lt;h2&gt;Ending 4: Showdown&lt;/h2&gt;
 You ease open the dorm room door, your tagger drawn. You want to be ready if Kyle is already in there. It turns out, he is - and his tagger is aimed at you, too.
 
 &quot;I guess we&#39;ve both got each other, huh?&quot; Kyle says as you enter and close the door behind you. You nod. &quot;We&#39;re the only two left, so one of us is going to win, and...&quot; he trails off for a moment. &quot;Well, one of us isn&#39;t.&quot;
@@ -2365,7 +2405,7 @@ And as time goes by, you get rubbed a lot, feeling every paw that strokes up and
 &lt;&lt;/linkappend&gt;&gt;
 &lt;&lt;/linkappend&gt;&gt;
 &lt;&lt;/linkappend&gt;&gt;
-&lt;&lt;/linkappend&gt;&gt;</tw-passagedata><tw-passagedata pid="60" name="EndingMCSurvives" tags="Ending(Done)" position="1325,25" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $showfooter to false&gt;&gt;&lt;&lt;/nobr&gt;&gt;
+&lt;&lt;/linkappend&gt;&gt;</tw-passagedata><tw-passagedata pid="59" name="EndingMCSurvives" tags="Ending(Done)" position="1325,25" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $showfooter to false&gt;&gt;&lt;&lt;/nobr&gt;&gt;
 &lt;h2&gt;Ending 3: Survival&lt;/h2&gt;
 You get back to your dorm room. The room is empty, and it&#39;s clear that Kyle hasn&#39;t returned yet. You suspect that he never will.
 
@@ -2375,7 +2415,7 @@ As the clock strikes 9pm, the television turns on and the university&#39;s direc
 
 &lt;i&gt;Gulp.&lt;/i&gt;
 
-&lt;b&gt;THE END.&lt;/b&gt;</tw-passagedata><tw-passagedata pid="61" name="GossipEvent" tags="" position="975,650" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;b&gt;THE END.&lt;/b&gt;</tw-passagedata><tw-passagedata pid="60" name="GossipEvent" tags="" position="975,650" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
 As you pass by, you overhear two students talking about a $kylehunteradj $kylehunterspecies, who&#39;s hunting for a bear named Kyle -- wait, that&#39;s your roommate!&lt;br&gt;&lt;br&gt;
 
@@ -2393,7 +2433,7 @@ As you pass by, you overhear two students talking about a $kylehunteradj $kylehu
     [[Return|GoToLocation]]&lt;&lt;/replace&gt;&gt;
 &lt;&lt;/link&gt;&gt;
 &lt;/div&gt;
-&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="62" name="InterveneEvent" tags="" position="850,650" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="61" name="InterveneEvent" tags="" position="850,650" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
 
 &lt;&lt;if $interveneyes == 5&gt;&gt;
@@ -2425,7 +2465,7 @@ The hunter, a $inthunteradj $inthunterspecies, comes running moments later, bran
 &lt;&lt;/link&gt;&gt;
 &lt;/div&gt;
 &lt;&lt;/if&gt;&gt;
-&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="63" name="CampusMap" tags="" position="1425,650" size="100,100"> &lt;table style=&quot;width:100%&quot;&gt;
+&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="62" name="CampusMap" tags="" position="1425,650" size="100,100"> &lt;table style=&quot;width:100%&quot;&gt;
   &lt;tr&gt;
     &lt;td&gt; &lt;/td&gt;
     &lt;td&gt; &lt;/td&gt;
@@ -2477,7 +2517,7 @@ The hunter, a $inthunteradj $inthunterspecies, comes running moments later, bran
     &lt;td&gt; &lt;/td&gt;
     &lt;td&gt;Athletics Court ↑&lt;/td&gt;
   &lt;/tr&gt;
-&lt;/table&gt; </tw-passagedata><tw-passagedata pid="64" name="Walkthrough" tags="" position="1300,950" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $walkthrough to false&gt;&gt;&lt;&lt;/nobr&gt;&gt;
+&lt;/table&gt; </tw-passagedata><tw-passagedata pid="63" name="Walkthrough" tags="" position="1300,950" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $walkthrough to false&gt;&gt;&lt;&lt;/nobr&gt;&gt;
 &lt;b&gt;-----WARNING! CONTAINS SPOILERS!-----&lt;/b&gt;
 Click [[here|MainMenu]] to go back if you don&#39;t want to read them.
 
@@ -2648,7 +2688,7 @@ In addition, the number of targets you have caught will affect the available end
 	&lt;/tr&gt;
 &lt;/table&gt;
 &lt;&lt;/linkappend&gt;&gt;
-&lt;br&gt;[[Return|MainMenu]]</tw-passagedata><tw-passagedata pid="65" name="ToDo" tags="" position="900,300" size="100,100">-Write endings:
+&lt;br&gt;[[Return|MainMenu]]</tw-passagedata><tw-passagedata pid="64" name="ToDo" tags="" position="900,300" size="100,100">-Write endings:
 	Athletics Centre (Trophy)
     Showers (Jockstrap)
     Pool (Speedo)
@@ -2663,7 +2703,7 @@ In addition, the number of targets you have caught will affect the available end
 
 -Add multiple options for catch description
 
--Flesh out target TFs more</tw-passagedata><tw-passagedata pid="66" name="MainMenu" tags="" position="1300,800" size="100,100">&lt;h2&gt;TF Tag - Main Menu&lt;/h2&gt;
+-Flesh out target TFs more</tw-passagedata><tw-passagedata pid="65" name="MainMenu" tags="" position="1300,800" size="100,100">&lt;h2&gt;TF Tag - Main Menu&lt;/h2&gt;
 &lt;i&gt;&lt;b&gt;TF Tag&lt;/b&gt; is a work of gay pornographic furry fiction by Ky the Capybara, and is intended only for an 18+ audience. It contains inanimate transformation, permanent endings, dubious consent, and some endings contain identity death or mental shift. Play at your peril!&lt;/i&gt;
 
 Welcome to &lt;b&gt;TF Tag&lt;/b&gt;! It&#39;s the campus&#39;s annual game, and you have been selected as one of the participants! Armed with your tagger, search around the campus to find your target. Hit &#39;em with a dart and they&#39;ll transform and be out of the game. Then you&#39;ll gain their tagger and get to hunt down their target.
@@ -2682,8 +2722,8 @@ But be warned! You&#39;re not the only one on the prowl... someone out there has
 &lt;/div&gt;
 [[Walkthrough (Contains Spoilers, Duh!)|Walkthrough]]&lt;br&gt;
 [[Credits]]&lt;br&gt;&lt;br&gt;
-&lt;b&gt;[[Start Game|Start]]&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;i&gt;v0.7.1 - 2024.10.24. Note that some endings/features are incomplete, and you may encounter bugs.&lt;/i&gt;
-&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="67" name="Credits" tags="" position="1425,950" size="100,100">&lt;b&gt;TF Tag&lt;/b&gt; was made by Ky the Capybara 
+&lt;b&gt;[[Start Game|Start]]&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;i&gt;v0.8 - 2024.10.24. Note that some endings/features are incomplete, and you may encounter bugs.&lt;/i&gt;
+&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="66" name="Credits" tags="" position="1425,950" size="100,100">&lt;b&gt;TF Tag&lt;/b&gt; was made by Ky the Capybara 
 https://linktr.ee/kymaequ
 
 It was created using Twine SugarCube, a great open-source tool for making stories.
@@ -2694,14 +2734,18 @@ https://www.dormausvalley.com/bluesquirrel/index.htm
 
 Special thanks to Medkit for feedback and testing.
 
-[[Return|MainMenu]]</tw-passagedata><tw-passagedata pid="68" name="HunterMechanics" tags="" position="1125,1150" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $huntercatch to random(1,2)&gt;&gt;
+[[Return|MainMenu]]</tw-passagedata><tw-passagedata pid="67" name="HunterMechanics" tags="" position="1125,1150" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $huntercatch to random(1,2)&gt;&gt;
 &lt;&lt;if $huntercatch == 2&gt;&gt;
     &lt;&lt;goto &quot;EscapeHunter&quot;&gt;&gt;
 &lt;&lt;else&gt;&gt;
 	&lt;i&gt;You get a bad feeling about this place... It feels like someone&#39;s watching you.&lt;/i&gt;&lt;br&gt;
-&lt;&lt;/if&gt;&gt;&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="69" name="Updates" tags="" position="1000,300" size="100,100">v0.7.1 20241014.13
+&lt;&lt;/if&gt;&gt;&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="68" name="Updates" tags="" position="1000,300" size="100,100">v0.8 20241024.21
 
 -Added connections between North Plaza &amp; Library, South Plaza &amp; Theatre, and Athletics Track - Athletics Court - Athletics Showers
+-Added location-specific catch dialogues
+-Increased variety of target caught dialogues
+-Merged target caught pages
+-FIXED: If hunter escape and Protect event were in the same location, it would teleport the player
 
 v0.7 20241024.12
 
@@ -2767,7 +2811,7 @@ FIX: Fleeing from hunter will no longer land you in the same location
 v0.1 20241020.10
 
 Endings: MC Win, RM Win, MC Survives,
-Bad Ends: Dorm Hall, Dorm Bathroom, Dorm Common Room, Dorm Elevator, Athletics Court, Gardens</tw-passagedata><tw-passagedata pid="70" name="start" tags="" position="1300,1200" size="100,100"></tw-passagedata><tw-passagedata pid="71" name="Bug Tracker" tags="" position="800,300" size="100,100">b01. When catching in Gardens, black screen??
+Bad Ends: Dorm Hall, Dorm Bathroom, Dorm Common Room, Dorm Elevator, Athletics Court, Gardens</tw-passagedata><tw-passagedata pid="69" name="start" tags="" position="1300,1200" size="100,100"></tw-passagedata><tw-passagedata pid="70" name="Bug Tracker" tags="" position="800,300" size="100,100">b01. When catching in Gardens, black screen??
 
 FIXED b02. There&#39;s a possibility the hunter may randomly wander into the player&#39;s room and if the player goes there they&#39;ll trigger the dorm room bad end, without the player already being present (so the text of the ending won&#39;t really make sense)
 
@@ -2777,7 +2821,7 @@ FIXED b04. Wait action list is borked
 
 FIXED b05. Kyle&#39;s pictures in the pc lookup will be incorrect
 
-b06. Difficulty triggering Kyle wins ending?</tw-passagedata><tw-passagedata pid="72" name="TarHuntMovement" tags="" position="1300,1100" size="100,100">&lt;&lt;nobr&gt;&gt;
+b06. Difficulty triggering Kyle wins ending?</tw-passagedata><tw-passagedata pid="71" name="TarHuntMovement" tags="" position="1300,1100" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $targetLoc = $targetlocation&gt;&gt;
 &lt;&lt;set $hunterLoc = $hunterlocation&gt;&gt;
 
@@ -2923,7 +2967,7 @@ window.moveTarget = function() {
     &lt;&lt;set $targetlocknown to false&gt;&gt;
     &lt;&lt;set $cluegiven to false&gt;&gt;
 &lt;&lt;/if&gt;&gt;
-&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="73" name="ProtectEvent" tags="" position="725,650" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="72" name="ProtectEvent" tags="" position="725,650" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $npcspecies to $specieslist.random()&gt;&gt;
 &lt;&lt;set $npcadj to $adjlist.random()&gt;&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
