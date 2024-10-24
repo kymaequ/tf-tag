@@ -257,7 +257,7 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
 
 &lt;&lt;set $lastnamelist = [&quot; A.&quot;, &quot; B.&quot;, &quot; C.&quot;, &quot; D.&quot;, &quot; E.&quot;, &quot; F.&quot;, &quot; G.&quot;, &quot; H.&quot;, &quot; I.&quot;, &quot; J.&quot;, &quot; K.&quot;, &quot; L.&quot;, &quot; M.&quot;, &quot; N.&quot;, &quot; O.&quot;, &quot; P.&quot;, &quot; Q.&quot;, &quot; R.&quot;, &quot; S.&quot;, &quot; T.&quot;, &quot; U.&quot;, &quot; V.&quot;, &quot; W.&quot;, &quot; X.&quot;, &quot; Y.&quot;, &quot; Z.&quot;]&gt;&gt;
 
-&lt;&lt;set $specieslist = [&quot;husky&quot;, &quot;wolf&quot;, &quot;tiger&quot;, &quot;fox&quot;,&quot;panda&quot;,&quot;coyote&quot;,&quot;raccoon&quot;,&quot;tanuki&quot;,&quot;monkey&quot;,&quot;capybara&quot;,&quot;deer&quot;,&quot;horse&quot;,&quot;moose&quot;,&quot;shiba&quot;,&quot;lion&quot;,&quot;cat&quot;,&quot;otter&quot;,&quot;rat&quot;,&quot;mouse&quot;,&quot;rabbit&quot;,&quot;bear&quot;,&quot;dog&quot;,&quot;bull&quot;,&quot;ox&quot;,&quot;skunk&quot;,&quot;squirrel&quot;,&quot;fennec&quot;,&quot;hyena&quot;,&quot;doberman&quot;, &quot;cheetah&quot;, &quot;leopard&quot;, &quot;puma&quot;]&gt;&gt;
+&lt;&lt;set $specieslist = [&quot;husky&quot;, &quot;wolf&quot;, &quot;tiger&quot;, &quot;fox&quot;, &quot;panda&quot;, &quot;coyote&quot;, &quot;raccoon&quot;, &quot;tanuki&quot;, &quot;monkey&quot;, &quot;capybara&quot;, &quot;deer&quot;, &quot;horse&quot;, &quot;moose&quot;, &quot;shiba&quot;, &quot;lion&quot;, &quot;cat&quot;, &quot;otter&quot;, &quot;rat&quot;, &quot;mouse&quot;, &quot;rabbit&quot;, &quot;bear&quot;, &quot;dog&quot;, &quot;bull&quot;, &quot;ox&quot;, &quot;skunk&quot;, &quot;squirrel&quot;, &quot;fennec&quot;, &quot;hyena&quot;, &quot;doberman&quot;, &quot;cheetah&quot;, &quot;leopard&quot;, &quot;puma&quot;, &quot;civet&quot;, &quot;serval&quot;, &quot;antelope&quot;, &quot;zebra&quot;, &quot;badger&quot;, &quot;ferret&quot;, &quot;lynx&quot;]&gt;&gt;
 
 &lt;&lt;set $adjlist = [&quot;muscular&quot;, &quot;handsome&quot;, &quot;lithe&quot;, &quot;sexy&quot;,&quot;tall&quot;,&quot;short&quot;,&quot;blue&quot;,&quot;red&quot;,&quot;white&quot;,&quot;brown&quot;,&quot;grey&quot;,&quot;yellow&quot;,&quot;chubby&quot;,&quot;cute&quot;,&quot;chunky&quot;,&quot;fit&quot;,&quot;wild-looking&quot;,&quot;crazy-looking&quot;,&quot;nerdy-looking&quot;,&quot;smart-looking&quot;,&quot;hefty&quot;]&gt;&gt;
 
@@ -399,7 +399,7 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
 	&lt;&lt;set $kyleinroom to 0&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
-&lt;&lt;if $hours &lt; 2&gt;&gt;
+&lt;&lt;if ($hours &lt; 2) or ($hours == 2 and $minutes == 0)&gt;&gt;
 	&lt;&lt;if $targetcount == 4 and $kylehelp &gt;= 3&gt;&gt;
 		&lt;&lt;goto &quot;EndingShowdown&quot;&gt;&gt;
     &lt;&lt;elseif $targetcount &lt; 4 and $kylehelp &gt;= 3&gt;&gt;
@@ -1367,7 +1367,7 @@ You are standing beside the athletics centre&#39;s running track. A number of st
 
 [[Go to Athletics Centre|Athletic Centre]]
 &lt;br&gt;</tw-passagedata><tw-passagedata pid="27" name="Athletics Court" tags="Room" position="2300,1250" size="100,100">&lt;&lt;nobr&gt;&gt;
-&lt;h2&gt;Basketball Court&lt;/h2&gt;
+&lt;h2&gt;Athletics Court&lt;/h2&gt;
 &lt;&lt;if $location isnot &quot;Athletics Court&quot;&gt;&gt;
 	&lt;&lt;set $hidecount to 0&gt;&gt;
     &lt;&lt;set $npcaskcheck to 0&gt;&gt;
@@ -1730,13 +1730,41 @@ He picks you up and wraps you around his wrist, fastening your brown leather str
 &lt;&lt;/nobr&gt;&gt;
 You are caught by a $hunteradj $hunterspecies. He turns you into a towel.
 
-GAME OVER!</tw-passagedata><tw-passagedata pid="39" name="BadEndPlazaStatue" tags="Ending" position="1475,250" size="100,100">&lt;&lt;nobr&gt;&gt;
+GAME OVER!</tw-passagedata><tw-passagedata pid="39" name="BadEndPlazaStatue" tags="Ending(Done)" position="1475,250" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Bad End: Plaza Statue&lt;/h2&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
-You are caught by a $hunteradj $hunterspecies. He turns you into a statue.
+You&#39;re gazing up at the statue of the university&#39;s founder astride the horse, appreciating how much detail the sculptor put into every ridge and vein of the horse&#39;s massive cock, polished by countless hands rubbing it. You don&#39;t notice the $hunteradj $hunterspecies creeping up on you until you see him reflected in the shiny head of the horse cock, tagger raised. You try to dodge, but the dart is already sailing through the air, and it finds its mark.
 
-GAME OVER!</tw-passagedata><tw-passagedata pid="40" name="BadEndGardens" tags="Ending(Done)" position="1600,250" size="100,100">&lt;&lt;nobr&gt;&gt;
+&quot;Tsk tsk,&quot; the $hunterspecies says, &quot;Bad time to get distracted! Well, it&#39;s good for me!&quot;
+
+You clutch at your arm where the dart hit, and your fur at the impact site has already started to harden, draining of color until it&#39;s a stony grey.
+
+&quot;Well,&quot; the $hunteradj $hunterspecies says, approaching you, &quot;looks like our plaza&#39;s about to get a new decoration.&quot;
+
+Some nearby students have begun to take notice of the commotion, and are gathering around to watch this play out.
+
+&quot;Soon you&#39;re just gonna be another statue, methinks,&quot; teases the $hunterspecies. &quot;Standing here in the plaza for everyone to admire.&quot; He reaches out and deftly unbuttons your pants. &quot;Let&#39;s give them something to admire, hm?&quot;
+
+You whine a little as he tugs your pants down, letting your cock flop out. Someone approaches you from behind and pulls your shirt up over your head, and soon you&#39;re standing naked in the plaza in the center of a circle of onlookers, your cock rapidly stiffening at the realization that they&#39;re gonna see you naked for the rest of time.
+
+Where your body has begun to turn to stone feels cool and heavy, spreading down your arm to your fingertips, locking them in place. Your hunter nudges your still-flexible limbs into a more interesting pose, commanding you to hold it for him and everyone to appreciate.
+
+You comply, standing with one hand on your hip and looking confident but bashful.
+
+&quot;Mm, that&#39;s nice,&quot; he purrs, grabbing your cock with his $hunterspecies paw. You gasp at the touch and drip some precum, which he spreads around your cock head as he begins to jerk you off. &quot;Let&#39;s see if we can get you to cum one last time for these lovely folks watching.&quot;
+
+The crowd whoops and cheers, egging you on. You hold the pose as best you can, whimpering and moaning as he jerks you off. Slowly but surely the transformation spreads, your body becoming cooler and stiffer. Where your feet meet the ground stone spreads out suddenly and rises into a lip around you, forming a basin in which you stand with a metal drain at the bottom between your feet.
+
+With great difficulty, you tip your head back and moan loudly. You can feel your orgasm approaching, and beg that your balls keep from turning to stone long enough for you to cum.
+
+Your moan is cut short as your head petrifies, giving you a permanent, stony expression of orgasmic pleasure. Just as it turns to stone, your cock erupts, and a geyser of water gushes out. You feel like you are endlessly cumming, an orgasm that just won&#39;t finish.
+
+The $hunterspecies leaps back to avoid getting splashed, and he laughs as water pours forth from the new fountain. He opens his mouth and drinks some of the water, smacking his lips in satisfaction.
+
+&quot;Mmm, cool and refreshing!&quot; he declares, to laughs from the crowd. He takes a second sip before picking up your tagger and taking off, leaving you to quench the thirsts of the growing queue of students.
+
+&lt;b&gt;GAME OVER!&lt;/b&gt;</tw-passagedata><tw-passagedata pid="40" name="BadEndGardens" tags="Ending(Done)" position="1600,250" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Bad End: Gardens&lt;/h2&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
@@ -1758,7 +1786,7 @@ Waving the pollen away, the $hunterspecies bends down to pick up your discarded 
 
 He departs, leaving you to stretch up towards the sun and bask in its warmth.
 
-GAME OVER!</tw-passagedata><tw-passagedata pid="41" name="BadEndLibrary" tags="Ending(Done)" position="2100,125" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;b&gt;GAME OVER!&lt;/b&gt;</tw-passagedata><tw-passagedata pid="41" name="BadEndLibrary" tags="Ending(Done)" position="2100,125" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $npcspecies to $specieslist.random()&gt;&gt;
 &lt;h2&gt;Bad End: Library&lt;/h2&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
@@ -1805,19 +1833,71 @@ When they pull out of you, cum gushes from both of your used holes, dripping to 
 
 Without fanfare, he dumps the book and you, still dripping, into the &quot;Book Return&quot; slot by the exit to the library, and goes on his way.
 
-&lt;b&gt;GAME OVER!&lt;/b&gt;</tw-passagedata><tw-passagedata pid="42" name="BadEndTheatre" tags="Ending" position="1975,125" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;b&gt;GAME OVER!&lt;/b&gt;</tw-passagedata><tw-passagedata pid="42" name="BadEndTheatre" tags="Ending(Done)" position="1975,125" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Bad End: Theatre&lt;/h2&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
-You are caught by a $hunteradj $hunterspecies. He turns you into a stuffed animal.
+The theatre is silent except for the quiet snoring of a student napping in one of the theatre seats. You creep around, looking for $targetname, and decide to look around the set pieces on stage.
 
-GAME OVER!</tw-passagedata><tw-passagedata pid="43" name="BadEndMainHall" tags="Ending" position="1475,125" size="100,100">&lt;&lt;nobr&gt;&gt;
+As you peer inside a large wardrobe with a false back, you hear movement from the wings. Looking over suddenly, you see a $hunteradj $hunterspecies emerging from the shadows, his tagger drawn.
+
+You think about diving into the wardrobe, but even with the false back you don&#39;t think it would save you from your hunter. You&#39;re caught.
+
+&quot;Looks like it&#39;s curtains for you,&quot; he declares. You raise an eyebrow. &quot;Sorry,&quot; the $hunterspecies says, &quot;got caught up in the moment.&quot; He shoots, and you fall back onto the nearby sofa as the dart hits you in the gut.
+
+&quot;You weren&#39;t an easy one to track down,&quot; says the $hunteradj $hunterspecies. &quot;But I got you in the end. Now give me your tagger.&quot;
+
+You fumble, trying to draw your tagger to hand to him. Your fingers aren&#39;t responding well, and in fact seem to be becoming stubbier as they shrink down into your hand. The tagger clatters to the floor, and the $hunterspecies picks it up, watching you as you change on the sofa.
+
+Along with your fingers, your toes have also vanished, leaving your limbs with blunt stumps at the ends. Your fur has begun to soften, becoming more plush. The $hunterspecies grows in front of your eyes as you shrink, smaller and smaller until your whole body sits easily on the sofa, stubby legs and all. There&#39;s an itchy feeling on your hip, and a tag sprouts from your side, declaring you to be machine-wash safe.
+
+You try to move your arms, but they&#39;re stuck in place, sticking out in front of you like you&#39;re reaching for a hug. Your throat feels dry and you cough, watching with surprise as a little bit of cotton fluff falls out.
+
+You open your mouth to say something, but your words are lost in your throat as your mouth closes itself again, stitching itself shut as it turns into nothing more than a friendly smile stitched into your face with thread.
+
+Screwing up your eyes, you look down at your nose as it hardens and turns shiny, nothing more than a plastic facsimile of what used to be there.
+
+It becomes harder to think. Your brain feels... fluffy. Thoughts float lightly by, unbothering to you. You&#39;re just happy to sit here, soft and friendly.
+
+The $hunterspecies reaches down and picks you up, giving you a squeeze. Your body compresses and it feels really good. You want to be held by him and squeezed by him and loved by him.
+
+&quot;Aww, you&#39;re adorable,&quot; he says. &quot;I&#39;d love to keep you, but you&#39;re a bit too big to carry around with me for the rest of the day.&quot; He drops you back onto the sofa, where you land with a soft &lt;i&gt;flumph&lt;/i&gt; and topple over onto your side. &quot;You look good on the sofa, though. A nice part of the set decoration.&quot; He smiles, and inspects your tagger for his next target. &quot;Maybe I&#39;ll come back for you after the game is over.&quot;
+
+He exits stage left, and you hope he does.
+
+&lt;b&gt;GAME OVER!&lt;/b&gt;</tw-passagedata><tw-passagedata pid="43" name="BadEndMainHall" tags="Ending(Done)" position="1475,125" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;set $npcspecies to $specieslist.random()&gt;&gt;
+&lt;&lt;set $npcadj to $adjlist.random()&gt;&gt;
 &lt;h2&gt;Bad End: Main Hall&lt;/h2&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
-You are caught by a $hunteradj $hunterspecies. He turns you into a vending machine.
+The main hall of the university is busy with throngs of students heading to and from class, and you keep an eye out for $targetname, hoping to catch him as he makes his way through the crowd.
 
-GAME OVER!</tw-passagedata><tw-passagedata pid="44" name="BadEndScienceLabs" tags="Ending" position="1600,125" size="100,100">&lt;&lt;nobr&gt;&gt;
+Your eye is caught by a $hunteradj $hunterspecies, who seems to be moving in your direction with purpose. Your danger sense spikes, and you start moving away, as quickly as you can through the students. A $npcadj $npcspecies isn&#39;t looking where he&#39;s going and crashes into you, sending you sprawling to the floor.
+
+You see the $hunterspecies&#39;s drawing closer through the forest of legs and try to keep low hoping he won&#39;t see you, but he finally catches up with you near the bank of vending machines.
+
+&quot;Gotcha,&quot; he growls, his tagger aimed at you as you slowly get to your feet. You back up against the wall, searching for a way out but seeing none.
+
+You flinch as the dart strikes you in the leg and look back to the $hunteradj $hunterspecies, who is watching with smug satisfaction. &quot;Wrong place, wrong time, I guess,&quot; he says.
+
+Your legs are the first to change, quickly fusing together into one solid mass. You wobble briefly, wondering if you&#39;re about to humiliate yourself and fall on your face, but your balance steadies as your whole body begins to widen and thicken.
+
+Your fur disappears as your arms also merge into your body, taking on a shiny, black, metallic texture. Your clothes rip off as you expand, falling to tatters in front of you. One of your nipples has taken on a silver color, becoming a little dial that can be twisted for coin return. In the middle of your chest a glass window has appeared, growing rapidly to show the contents within.
+
+Packets of gummy candy and chips suspended between corkscrew rods are visible within your chest, prizes for whomever pays. Your mouth narrows until it&#39;s just a thin line, big enough only for a coin. You feel your cock stretching bizarrely, the slit becoming impossibly wide near the bottom of your rectangular body.
+
+In moments, where you once stood, there is nothing but a large, reasonably-priced vending machine.
+
+&quot;Oh, son of a bitch,&quot; the $hunterspecies curses. &quot;Your tagger is inside you.&quot; He fishes in his pocket for some coins and shoves them in your mouth. You can taste their coppery tang as they go in, disappearing down somewhere into your depths. He jabs a finger at the panel, and you feel one of your corkscrew rods twisting. There&#39;s a sudden orgasmic sensation as the tagger drops, landing with a thunk inside the catchment area that used to be your cock.
+
+The $hunterspecies grabs the tagger and takes off, on the hunt again.
+
+As the day goes on, students approach, popping coins into your mouth and ordering some of the treats you contain within.
+
+You feel an orgasmic rush to dispense the item, but with each item that leaves, you feel like a part of you has disappeared. You&#39;re not sure what&#39;s missing, but you know there&#39;s something that should be there. Until someone orders one of your packages of gummi worms, and you forget that you&#39;ve forgotten anything. You&#39;re just a vending machine, after all. You don&#39;t need to remember.
+
+&lt;b&gt;GAME OVER!&lt;/b&gt;</tw-passagedata><tw-passagedata pid="44" name="BadEndScienceLabs" tags="Ending" position="1600,125" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Bad End: Science Labs&lt;/h2&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
@@ -1903,7 +1983,7 @@ A couple of the players see what&#39;s happening and the game quickly grinds to 
     
     You hope you&#39;re durable too, because you want to spend as much time as you can wrapped around his feet. It&#39;s really the perfect place for socks like you to be.
 
-GAME OVER!</tw-passagedata><tw-passagedata pid="52" name="BadEndDormRoom" tags="Ending(Done)" position="1475,0" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;b&gt;GAME OVER!&lt;/b&gt;</tw-passagedata><tw-passagedata pid="52" name="BadEndDormRoom" tags="Ending(Done)" position="1475,0" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $flavorlist = [&quot;grape&quot;, &quot;strawberry&quot;, &quot;green apple&quot;, &quot;peach&quot;, &quot;blueberry&quot;, &quot;cherry&quot;, &quot;tropical fruit&quot;, &quot;root beer&quot;, &quot;orange&quot;, &quot;mixed berry&quot;, &quot;watermelon&quot;, &quot;mango&quot;]&gt;&gt;
 &lt;&lt;set $sodaflavor to $flavorlist.random()&gt;&gt;
 
@@ -2018,6 +2098,8 @@ You sit down at the computer.&lt;br&gt;&lt;br&gt;
 &lt;&lt;set $hidecount to $hidecount+1&gt;&gt;
 &lt;&lt;set $npcaskcheck to 1&gt;&gt;
 &lt;&lt;set $isnpcaround to random (1,20)&gt;&gt;
+
+/* List of possible NPC responses */
 &lt;&lt;set $npcinfolist = [
 	&quot;&lt;&lt;set $targetlocknown to true&gt;&gt;Hmm, $targetname? Yeah, I think I saw him at the $targetlocation.&quot;,
     &quot;You should be more worried about the $hunteradj $hunterspecies looking for you around the $hunterlocation!&quot;,
@@ -2032,21 +2114,29 @@ You sit down at the computer.&lt;br&gt;&lt;br&gt;
     &quot;&lt;&lt;set $targetlocknown to true&gt;&gt;Oh, $targetname the $targetspecies? I saw him at the $targetlocation earlier.&quot;,
     &quot;&lt;&lt;set $lastseenknown to true&gt;&gt;&lt;&lt;set $targetlocknown to true&gt;&gt;Yeah, I saw a $targetadj $targetspecies near the $targetlocation about $targetlastseen minutes ago.&quot;,
     &quot;Are you hunting $targetname? He&#39;s my friend, no way I&#39;m telling you where he is!&quot;,
-    &quot;$targetname? I saw him $locationclue[$targetlocation] earlier.&quot;,
-    &quot;&lt;&lt;set $lastseenknown to true&gt;&gt;You&#39;re hunting $targetname, eh? Yeah, he was $locationclue[$targetlocation] about $targetlastseen minutes ago.&quot;,
+    &quot;&lt;&lt;set $cluegiven to true&gt;&gt;$targetname? I saw him $locationclue[$targetlocation] earlier.&quot;,
+    &quot;&lt;&lt;set $lastseenknown to true&gt;&gt;&lt;&lt;set $cluegiven to true&gt;&gt;You&#39;re hunting $targetname, eh? Yeah, he was $locationclue[$targetlocation] about $targetlastseen minutes ago.&quot;,
     &quot;No, but I did hear someone was searching for &lt;i&gt;you&lt;/i&gt;! Last I heard, he was looking around the $hunterlocation, so I&#39;d avoid that area for now if I was you! Unless you &lt;i&gt;want&lt;/i&gt; to get caught, of course...&quot;,
     &quot;Man, I wish I was playing. I&#39;d love to get transformed! But nah, sorry, I haven&#39;t seen him.&quot;,
-	&quot;$targetname? He likes $locationclue[$targetlocation], you might find him there!&quot;,
+    &quot;&lt;&lt;set $targetlocknown to true&gt;&gt;I think I saw someone matching that description at the $targetlocation a little while ago.&quot;,
+    &quot;&lt;&lt;set $targetlocknown to true&gt;&gt;&lt;&lt;set $lastseenknown to true&gt;&gt;Oh yeah, I saw him near the $targetlocation about $targetlastseen minutes ago.&quot;,
+    &quot;&lt;&lt;set $cluegiven to true&gt;&gt;&lt;&lt;set $lastseenknown to true&gt;&gt;I shouldn&#39;t say, but... what the hell. I saw him $locationclue[$targetlocation] about $targetlastseen minutes ago.&quot;,
+    &quot;&lt;&lt;set $targetlocknown to true&gt;&gt;That asshole? Yeah, he&#39;s at the $targetlocation. I hope you get him!&quot;,
+    &quot;I always wanted to see that $targetspecies get transformed! He&#39;d look great as a nice jockstrap, or maybe a tight onahole... ahh... Oh, but no, sorry, I&#39;m not sure where he is.&quot;,
+    &quot;&lt;&lt;set $cluegiven to true&gt;&gt;&lt;&lt;set $lastseenknown to true&gt;&gt;Man, I wish I was playing. I&#39;d love to transform that $targetadj $targetspecies myself! About $targetlastseen minutesago I saw him $locationclue[$targetlocation]. Good luck!&quot;,
+	&quot;&lt;&lt;set $cluegiven to true&gt;&gt;$targetname? I saw him $locationclue[$targetlocation], you might find him there!&quot;,
     ]&gt;&gt;
     
 You look around for someone to ask about $targetname.&lt;br&gt;&lt;br&gt;
 &lt;&lt;if $targetLastLoc == $location&gt;&gt;
-	A $npcadj $npcspecies sees you prowling around and says, &quot;Are you looking for a $targetname? He just left! He should still be somewhere nearby...&quot;
+	A $npcadj $npcspecies sees you prowling around and says, &quot;Are you looking for a $targetadj $targetspecies? He just left! He should still be somewhere nearby...&quot;
+&lt;&lt;elseif $targetlocation == $location&gt;&gt;
+	You ask a $npcadj $npcspecies if he&#39;s seen your target, and he says, &quot;You&#39;re looking for $targetname? He&#39;s here right now!&quot;
 &lt;&lt;else&gt;&gt;
 	&lt;&lt;if $isnpcaround &gt; 1&gt;&gt;
 	You approach a $npcadj $npcspecies and ask if they know your target.&lt;br&gt;&lt;br&gt;
 	&lt;&lt;if $targetname == &quot;Kyle&quot;&gt;&gt;
-		&quot;That&#39;s your roommate, isn&#39;t it?&quot; the $npcspecies says. &quot;You probably know more than I do where to find him.&quot;
+		&quot;That&#39;s your roommate, isn&#39;t it?&quot; the $npcspecies says. &quot;I dunno where he is, but I imagine he&#39;ll go back to your dorm room later.&quot;
 	&lt;&lt;else&gt;&gt;
 		&lt;&lt;set $npcinfo to $npcinfolist.random()&gt;&gt;
     	The $npcspecies says, &quot;$npcinfo&quot;
@@ -2080,27 +2170,50 @@ You look around for someone to ask about $targetname.&lt;br&gt;&lt;br&gt;
     &quot;Lecture Hall&quot;: &quot;BadEndLectureHall&quot;,
     &quot;Science Labs&quot;: &quot;BadEndScienceLabs&quot;,
     &quot;Art Room&quot;: &quot;BadEndArtRoom&quot; }&gt;&gt;
-    
-&lt;&lt;set $hunterlocation to $location&gt;&gt;&lt;&lt;/nobr&gt;&gt;
-&lt;&lt;if $inventory.includes(&#39;Missing Sock&#39;)&gt;&gt;
-    &lt;&lt;run $inventory.delete(&#39;Missing Sock&#39;)&gt;&gt;
-	You spot the hunter, a $hunteradj $hunterspecies, moments before he spots you. Thinking fast, you chuck your sock at him. He recoils to avoid the sock, giving you enough time to flee. Running across campus, you briefly mourn for the short time you and your sock were reunited. You eventually find yourself at...
-    [[Continue|GoToLocation]]
-&lt;&lt;elseif $inventory.includes(&#39;Disguise&#39;)&gt;&gt;
-    &lt;&lt;run $inventory.delete(&#39;Disguise&#39;)&gt;&gt;
-	You spot the hunter, a $hunteradj $hunterspecies, moments before he spots you. Quickly donning your disguise, you flee the $hunterspecies, dodging and weaving around campus until you think you&#39;ve lost him. You find yourself at...
-    [[Continue|GoToLocation]]
-&lt;&lt;elseif $inventory.includes(&#39;Distraction&#39;)&gt;&gt;
-    &lt;&lt;run $inventory.delete(&#39;Distraction&#39;)&gt;&gt;
-	You spot the hunter, a $hunteradj $hunterspecies, moments before he spots you. Thinking fast, you start a distraction and slip away in the commotion. You run for a while, putting some distance between you and him. You eventually find yourself at...
-    [[Continue|GoToLocation]]
-&lt;&lt;elseif $inventory.includes(&#39;Makeshift Shield&#39;)&gt;&gt;
-    &lt;&lt;run $inventory.delete(&#39;Makeshift Shield&#39;)&gt;&gt;
-	You spot the hunter, a $hunteradj $hunterspecies, moments before he spots you. He raises his tagger and fires, but you bring your makeshift shield up just in time and hear the dart thunk against the shield. Tossing the shield aside, you flee while the $hunterspecies recharges his tagger. Putting some distance between yourself and him, you find yourself at...
-    [[Continue|GoToLocation]]
+
+&lt;&lt;set _escapeOptions = [
+	{
+        item: &#39;Missing Sock&#39;,
+        text: &quot;You spot the hunter, a $hunteradj $hunterspecies, moments before he spots you. Thinking fast, you chuck your sock at him. He recoils to avoid the sock, giving you enough time to flee. Running across campus, you briefly mourn for the short time you and your sock were reunited. You eventually find yourself at...&quot;
+    },
+    {
+        item: &#39;Disguise&#39;,
+        text: &quot;You spot the hunter, a $hunteradj $hunterspecies, moments before he spots you. Quickly donning your disguise, you flee the $hunterspecies, dodging and weaving around campus until you think you&#39;ve lost him. You find yourself at...&quot;
+    },
+    {
+        item: &#39;Distraction&#39;,
+        text: &quot;You spot the hunter, a $hunteradj $hunterspecies, moments before he spots you. Thinking fast, you start a distraction and slip away in the commotion. You run for a while, putting some distance between you and him. You eventually find yourself at...&quot;
+    },
+    {
+        item: &#39;Makeshift Shield&#39;,
+        text: &quot;You spot the hunter, a $hunteradj $hunterspecies, moments before he spots you. He raises his tagger and fires, but you bring your makeshift shield up just in time and hear the dart thunk against the shield. Tossing the shield aside, you flee while the $hunterspecies recharges his tagger. Putting some distance between yourself and him, you find yourself at...&quot;
+    }
+]&gt;&gt;
+
+&lt;&lt;set $hunterlocation to $location&gt;&gt;
+
+/* Create array of available escapes */
+&lt;&lt;set _availableEscapes = []&gt;&gt;
+&lt;&lt;for _i to 0; _i &lt; _escapeOptions.length; _i++&gt;&gt;
+    &lt;&lt;if $inventory.includes(_escapeOptions[_i].item)&gt;&gt;
+        &lt;&lt;run _availableEscapes.push(_i)&gt;&gt;
+    &lt;&lt;/if&gt;&gt;
+&lt;&lt;/for&gt;&gt;
+
+&lt;&lt;if _availableEscapes.length &gt; 0&gt;&gt;
+    /* Randomly select one of the available escape options */
+    &lt;&lt;set _randomIndex = random(_availableEscapes.length)&gt;&gt;
+    &lt;&lt;set _selectedIndex = _availableEscapes[_randomIndex]&gt;&gt;
+    /* Remove the used item from inventory */
+    &lt;&lt;run $inventory.delete(_escapeOptions[_selectedIndex].item)&gt;&gt;
+    /* Display the escape text */
+    &lt;&lt;print _escapeOptions[_selectedIndex].text&gt;&gt;
+    &lt;br&gt;&lt;br&gt;[[Continue|GoToLocation]]
 &lt;&lt;else&gt;&gt;
-	&lt;&lt;goto $badendlocs[$location]&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="57" name="EndingMCWin" tags="Ending(Done)" position="1225,25" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $showfooter to false&gt;&gt;
+    /* Handle case where player has no escape items */
+    &lt;&lt;goto $badendlocs[$location]&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="57" name="EndingMCWin" tags="Ending(Done)" position="1225,25" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $showfooter to false&gt;&gt;
 &lt;h2&gt;Ending 1: Victory&lt;/h2&gt;
 &lt;&lt;if $protectending !== 1&gt;&gt;
 You get back to your dorm room. The room is empty, and it&#39;s clear that Kyle hasn&#39;t returned yet. You take a seat on your bed, facing the door, and wait for him to return.&lt;br&gt;&lt;br&gt;
@@ -2177,7 +2290,7 @@ It&#39;s dark when you arrive back at your dorm. You switch the lights on, and f
     
     With an almighty roar, Kyle cums, a torrent of seed flooding out from you in great ropey strands, painting your bedspread white. This goes on for some time, and Kyle has to brace himself as his knees go weak. Eventually the gush becomes a trickle, and with a squeeze up your shaft Kyle gets the last of the cum out.
     
-    &quot;Fuck you make an awesome cock,&quot; he says, looking down at his new member. &quot;And you&#39;ve made me a few inches longer now, too!&quot; Kyle grabs a tissue and wipes you clean, then pulls on a pair of underwear. Cocooned in the soft cotton and held securely against his thigh, you let yourself soften, settling down until Kyle needs you again. Which, you hope, will be soon and often. You twitch a little thinking about it.   
+    &quot;Fuck, you make an awesome cock,&quot; he says, looking down at his new member. &quot;And you&#39;ve made me a few inches longer now, too!&quot; Kyle grabs a tissue and wipes you clean, then pulls on a pair of underwear. Cocooned in the soft cotton and held securely against his thigh, you let yourself soften, settling down until Kyle needs you again. Which, you hope, will be soon and often. You twitch a little thinking about it.   
     &lt;br&gt;
     &lt;b&gt;THE END.&lt;/b&gt;
 &lt;&lt;/linkappend&gt;&gt;</tw-passagedata><tw-passagedata pid="59" name="EndingShowdown" tags="Ending(Done)" position="1325,125" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $showfooter to false&gt;&gt;&lt;&lt;/nobr&gt;&gt;&lt;h2&gt;Ending 4: Showdown&lt;/h2&gt;
@@ -2250,7 +2363,7 @@ You get back to your dorm room. The room is empty, and it&#39;s clear that Kyle 
 
 As the clock strikes 9pm, the television turns on and the university&#39;s director appears.
 
-&quot;If you&#39;re seeing this, congratulations!&quot; he beams. &quot;You&#39;ve survived this year&#39;s TF Tag! Sadly, the time for our game has run out and the tagger serums have lost their effect, but there are still several participants remaining. So, while it&#39;s a shame we didn&#39;t have a winner to crown, never fear! There&#39;s always next year, and we&#39;ve automatically reserved a slot for all suviving students in next year&#39;s game!&quot;
+&quot;If you&#39;re seeing this, congratulations!&quot; he beams. &quot;You&#39;ve survived this year&#39;s TF Tag! Sadly, the time for our game has run out and the tagger serums have lost their effect, but there are still several participants remaining. So, while it&#39;s a shame we didn&#39;t have a winner to crown, never fear! There&#39;s always next year, and we&#39;ve automatically reserved a slot for all surviving students in next year&#39;s game!&quot;
 
 &lt;i&gt;Gulp.&lt;/i&gt;
 
@@ -2536,7 +2649,7 @@ In addition, the number of targets you have caught will affect the available end
     Science Labs (Slime)
     Lecture Hall (Cock?)
     Theatre (Plush)
-    Statue (Statue)
+    Statue (Fountain)
     East Plaza (Towel)
 
 -Update normal mode for slightly more limited items?
@@ -2545,12 +2658,8 @@ In addition, the number of targets you have caught will affect the available end
 
 -Add multiple options for catch description
 
--Flesh out target TFs more
-
--Add more Ask Info responses
-
--Refine trigger condition for Ending 1 in Dorm Room</tw-passagedata><tw-passagedata pid="66" name="MainMenu" tags="" position="1300,800" size="100,100">&lt;h2&gt;TF Tag - Main Menu&lt;/h2&gt;
-&lt;i&gt;&lt;b&gt;TF Tag&lt;/b&gt; is a work of gay pornographic furry fiction, and is intended only for an 18+ audience. It contains inanimate transformation, permanent endings, dubious consent, and some endings contain identity death or mental shift. Play at your peril!&lt;/i&gt;
+-Flesh out target TFs more</tw-passagedata><tw-passagedata pid="66" name="MainMenu" tags="" position="1300,800" size="100,100">&lt;h2&gt;TF Tag - Main Menu&lt;/h2&gt;
+&lt;i&gt;&lt;b&gt;TF Tag&lt;/b&gt; is a work of gay pornographic furry fiction by Ky the Capybara, and is intended only for an 18+ audience. It contains inanimate transformation, permanent endings, dubious consent, and some endings contain identity death or mental shift. Play at your peril!&lt;/i&gt;
 
 Welcome to &lt;b&gt;TF Tag&lt;/b&gt;! It&#39;s the campus&#39;s annual game, and you have been selected as one of the participants! Armed with your tagger, search around the campus to find your target. Hit &#39;em with a dart and they&#39;ll transform and be out of the game. Then you&#39;ll gain their tagger and get to hunt down their target.
 
@@ -2568,7 +2677,7 @@ But be warned! You&#39;re not the only one on the prowl... someone out there has
 &lt;/div&gt;
 [[Walkthrough (Contains Spoilers, Duh!)|Walkthrough]]&lt;br&gt;
 [[Credits]]&lt;br&gt;&lt;br&gt;
-&lt;b&gt;[[Start Game|Start]]&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;i&gt;v0.6.1 - 2024.10.23. Note that some endings/features are incomplete, and you may encounter bugs.&lt;/i&gt;
+&lt;b&gt;[[Start Game|Start]]&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;i&gt;v0.7 - 2024.10.24. Note that some endings/features are incomplete, and you may encounter bugs.&lt;/i&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="67" name="Credits" tags="" position="1425,950" size="100,100">&lt;b&gt;TF Tag&lt;/b&gt; was made by Ky the Capybara 
 https://linktr.ee/kymaequ
 
@@ -2585,7 +2694,15 @@ Special thanks to Medkit for feedback and testing.
     &lt;&lt;goto &quot;EscapeHunter&quot;&gt;&gt;
 &lt;&lt;else&gt;&gt;
 	&lt;i&gt;You get a bad feeling about this place... It feels like someone&#39;s watching you.&lt;/i&gt;&lt;br&gt;
-&lt;&lt;/if&gt;&gt;&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="69" name="Updates" tags="" position="1000,300" size="100,100">v0.6.1 20241023.19
+&lt;&lt;/if&gt;&gt;&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="69" name="Updates" tags="" position="1000,300" size="100,100">v0.7 20241024.08
+
+-Minor text adjustments
+-Properly flagged given information in AskInfo responses
+-Added more variety to AskInfo responses
+-Optimized hunter escape code. It will now consume a random escape item instead of the first in the list
+-New Endings: Plaza Statue, Theatre, Main Hall
+
+v0.6.1 20241023.19
 
 -Added flag to prevent player from getting Dorm Hall bad end on first visit
 -New ending: Showdown
@@ -2801,7 +2918,7 @@ window.moveTarget = function() {
 &lt;&lt;set $npcspecies to $specieslist.random()&gt;&gt;
 &lt;&lt;set $npcadj to $adjlist.random()&gt;&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
-You spot Kyle sneaking up on a $npcadj $npcspecies, his tagger drawn. At the last moment, the $npcspecies notices him, and takes off running. As he runs past, you...&lt;br&gt;&lt;br&gt;
+You spot Kyle sneaking up on a $npcadj $npcspecies, his tagger drawn. At the last moment, the $npcspecies notices him, and takes off running. As the $npcspecies runs past, you...&lt;br&gt;&lt;br&gt;
 
 &lt;div id=&quot;choices&quot;&gt;
 &lt;&lt;link &quot;Trip him!&quot;&gt;&gt;
@@ -2817,7 +2934,7 @@ You spot Kyle sneaking up on a $npcadj $npcspecies, his tagger drawn. At the las
     [[Return|GoToLocation]]&lt;&lt;/replace&gt;&gt;
 &lt;&lt;/link&gt;&gt;
 &lt;&lt;if $targetname == &quot;Kyle&quot;&gt;&gt;&lt;br&gt;
-	&lt;&lt;link &quot;Tag Kyle!&quot;&gt;&gt;
+	&lt;&lt;link &quot;Catch Kyle!&quot;&gt;&gt;
     	&lt;&lt;replace &quot;#choices&quot;&gt;&gt;
         &lt;&lt;set $protectover to 1&gt;&gt;
     	&lt;&lt;set $protectending to 1&gt;&gt;
