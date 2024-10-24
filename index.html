@@ -213,16 +213,16 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
     &quot;Dormitory Elevator&quot;: [&quot;Dormitory Hallway&quot;, &quot;West Plaza&quot;],
     &quot;West Plaza&quot;: [&quot;Dormitory Elevator&quot;, &quot;North Plaza&quot;, &quot;South Plaza&quot;, &quot;Plaza Statue&quot;],
     &quot;East Plaza&quot;: [&quot;Library&quot;, &quot;North Plaza&quot;, &quot;South Plaza&quot;, &quot;Plaza Statue&quot;, &quot;Theatre&quot;, &quot;Main Hall&quot;],
-    &quot;North Plaza&quot;: [&quot;Gardens&quot;, &quot;West Plaza&quot;, &quot;East Plaza&quot;, &quot;Plaza Statue&quot;],
-    &quot;South Plaza&quot;: [&quot;Athletic Centre&quot;, &quot;East Plaza&quot;, &quot;West Plaza&quot;, &quot;Plaza Statue&quot;],
+    &quot;North Plaza&quot;: [&quot;Gardens&quot;, &quot;West Plaza&quot;, &quot;East Plaza&quot;, &quot;Plaza Statue&quot;, &quot;Library&quot;],
+    &quot;South Plaza&quot;: [&quot;Athletic Centre&quot;, &quot;East Plaza&quot;, &quot;West Plaza&quot;, &quot;Plaza Statue&quot;, &quot;Theatre&quot;],
     &quot;Plaza Statue&quot;: [&quot;North Plaza&quot;, &quot;East Plaza&quot;, &quot;West Plaza&quot;, &quot;South Plaza&quot;],
     &quot;Athletic Centre&quot;: [&quot;Athletics Track&quot;, &quot;Athletics Showers&quot;, &quot;Athletics Court&quot;, &quot;South Plaza&quot;],
-    &quot;Athletics Track&quot;: [&quot;Athletic Centre&quot;],
-    &quot;Athletics Court&quot;: [&quot;Athletic Centre&quot;],
-    &quot;Athletics Showers&quot;: [&quot;Athletic Centre&quot;, &quot;Athletics Pool&quot;],
+    &quot;Athletics Track&quot;: [&quot;Athletic Centre&quot;, &quot;Athletics Court&quot;],
+    &quot;Athletics Court&quot;: [&quot;Athletic Centre&quot;, &quot;Athletics Track&quot;, &quot;Athletics Showers&quot;],
+    &quot;Athletics Showers&quot;: [&quot;Athletic Centre&quot;, &quot;Athletics Pool&quot;, &quot;Athletics Court&quot;],
     &quot;Athletics Pool&quot;: [&quot;Athletics Showers&quot;],
-    &quot;Theatre&quot;: [&quot;East Plaza&quot;],
-    &quot;Library&quot;: [&quot;East Plaza&quot;],
+    &quot;Theatre&quot;: [&quot;East Plaza&quot;, &quot;South Plaza&quot;],
+    &quot;Library&quot;: [&quot;East Plaza&quot;, &quot;North Plaza&quot;],
     &quot;Gardens&quot;: [&quot;North Plaza&quot;],
     &quot;Main Hall&quot;: [&quot;East Plaza&quot;, &quot;Science Labs&quot;, &quot;Art Room&quot;, &quot;Lecture Hall&quot;],
     &quot;Lecture Hall&quot;: [&quot;Main Hall&quot;],
@@ -542,7 +542,7 @@ You are in the dorm’s bathroom and showers. Apart from the rude graffiti defac
 
 &lt;&lt;Actions&gt;&gt;
 
-[[Return to Hall|Dormitory Hallway]]
+[[Return to hall|Dormitory Hallway]]
 &lt;br&gt;</tw-passagedata><tw-passagedata pid="6" name="Dormitory Common Room" tags="Room" position="1850,950" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Common Room&lt;/h2&gt;
 &lt;&lt;if $location isnot &quot;Dormitory Common Room&quot;&gt;&gt;
@@ -576,7 +576,7 @@ The common room looks out over the central plaza, which is buzzing with activity
 
 &lt;&lt;Actions&gt;&gt;
 
-	[[Leave|Dormitory Hallway]]
+	[[Return to hall|Dormitory Hallway]]
 &lt;br&gt;</tw-passagedata><tw-passagedata pid="7" name="Dormitory Elevator" tags="Room" position="2000,800" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Dorm Elevator&lt;/h2&gt;
 &lt;&lt;if $location isnot &quot;Dormitory Elevator&quot;&gt;&gt;
@@ -1077,7 +1077,7 @@ You are in the western part of the main plaza. There are stone benches on which 
 
 &lt;&lt;Actions&gt;&gt;
 
-[[Go to Dorm Building|Dormitory Elevator]]
+[[Go to Dorm Elevator|Dormitory Elevator]]
 [[Go to North Plaza|North Plaza]]
 [[Go to South Plaza|South Plaza]]
 [[Go to East Plaza|East Plaza]]
@@ -1145,11 +1145,12 @@ You are standing beneath the grand statue in the center of campus, honoring the 
 	&lt;&lt;/if&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
-You are in the southern part of the main plaza. This part of the plaza leads to the Athletics Centre, and there are a lot of jockish types milling about. A few of them are playing a game of catch, and you have to duck as a ball barely misses your head.
+You are in the southern part of the main plaza. This part of the plaza leads to the theatre and the Athletics Centre, and there are a lot of jockish types milling about. A few of them are playing a game of catch, and you have to duck as a ball barely misses your head.
 
 &lt;&lt;Actions&gt;&gt;
 
 [[Go to Athletics Centre|Athletic Centre]]
+[[Go to Theatre|Theatre]]
 [[Go to West Plaza|West Plaza]]
 [[Go to East Plaza|East Plaza]]
 [[Go to North Plaza|North Plaza]]
@@ -1181,11 +1182,12 @@ You are in the southern part of the main plaza. This part of the plaza leads to 
 	&lt;&lt;/if&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
-You are in the northern part of the main plaza. A pleasant floral aroma drifts on the breeze from the campus gardens north of here. There is a cart set up in the plaza where an otter in bright clothes is selling big balloons.
+You are in the northern part of the main plaza. A pleasant floral aroma drifts on the breeze from the campus gardens north of here. An entrance to the campus library can be found here. There is a cart set up in the plaza where an otter in bright clothes is selling big balloons.
 
 &lt;&lt;Actions&gt;&gt;
 
 [[Go to Gardens|Gardens]]
+[[Go to Library|Library]]
 [[Go to West Plaza|West Plaza]]
 [[Go to East Plaza|East Plaza]]
 [[Go to South Plaza|South Plaza]]
@@ -1259,12 +1261,13 @@ You are in the eastern part of the main plaza. Students are hanging out, chattin
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;/nobr&gt;&gt;
-You are in the university&#39;s library. A central atrium rises up four floors to a frosted glass ceiling, bathing the place in soft natural light during the day. On each floor, stack after stack of books give students access to all the knowledge they need, and then some, to survive university. There is also an area of carrel desks with a number of computers for doing research or writing papers. The library exits out to the eastern part of the central plaza.
+You are in the university&#39;s library. A central atrium rises up four floors to a frosted glass ceiling, bathing the place in soft natural light during the day. On each floor, stack after stack of books give students access to all the knowledge they need, and then some, to survive university. There is also an area of carrel desks with a number of computers for doing research or writing papers. The library exits out to the eastern and northern parts of the central plaza.
 
 [[Use the computer|UseComputer]]
 &lt;&lt;Actions&gt;&gt;
 
 [[Go to East Plaza|East Plaza]]
+[[Go to North Plaza|North Plaza]]
 &lt;br&gt;</tw-passagedata><tw-passagedata pid="24" name="Gardens" tags="Room" position="2300,500" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Gardens&lt;/h2&gt;
 &lt;&lt;if $location isnot &quot;Gardens&quot;&gt;&gt;
@@ -1361,11 +1364,12 @@ The athletics center exits to the southern part of the main plaza. You can also 
 	&lt;&lt;/if&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
-You are standing beside the athletics centre&#39;s running track. A number of students are working out here, running around the track at various paces or sitting on the bleachers to watch or rest. A door leads inside to the athletics centre lobby.
+You are standing beside the athletics centre&#39;s running track. A number of students are working out here, running around the track at various paces or sitting on the bleachers to watch or rest. A door leads inside to the athletics centre lobby, and another to the athletics court.
 
 &lt;&lt;Actions&gt;&gt;
 
 [[Go to Athletics Centre|Athletic Centre]]
+[[Go to Athletics Court|Athletics Court]]
 &lt;br&gt;</tw-passagedata><tw-passagedata pid="27" name="Athletics Court" tags="Room" position="2300,1250" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Athletics Court&lt;/h2&gt;
 &lt;&lt;if $location isnot &quot;Athletics Court&quot;&gt;&gt;
@@ -1395,11 +1399,13 @@ You are standing beside the athletics centre&#39;s running track. A number of st
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;/nobr&gt;&gt;
-You are standing on the sidelines of the athletics centre&#39;s basketball court. There aren&#39;t any scheduled games on today - the schedule was kept clear to accommodate today&#39;s TF Tag event - but some students have started a pick-up game and are laughing and playing. Bleachers beside the court provide a place for students to watch or take a break. A door leads back to the athletics centre lobby.
+You are standing on the sidelines of the athletics centre&#39;s basketball court. There aren&#39;t any scheduled games on today - the schedule was kept clear to accommodate today&#39;s TF Tag event - but some students have started a pick-up game and are laughing and playing. Bleachers beside the court provide a place for students to watch or take a break. A door leads back to the athletics centre lobby, and another leads outside to the running track. You can also head to the shower room from here.
 
 &lt;&lt;Actions&gt;&gt;
 
 [[Go to Athletics Centre|Athletic Centre]]
+[[Go to Athletics Track|Athletics Track]]
+[[Go to Shower Room|Athletics Showers]]
 &lt;br&gt;</tw-passagedata><tw-passagedata pid="28" name="Athletics Showers" tags="Room" position="2450,1100" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Shower Room&lt;/h2&gt;
 &lt;&lt;if $location isnot &quot;Athletics Showers&quot;&gt;&gt;
@@ -1431,12 +1437,13 @@ You are standing on the sidelines of the athletics centre&#39;s basketball court
 &lt;&lt;/nobr&gt;&gt;
 You are in the athletics centre&#39;s shower room. The air is heavy with the funk of sweat and musk that has permeated all surfaces. Several banks of lockers stand, painted in the school&#39;s yellow and purple, for students to store their clothes and effects. There are also a number of shower stalls, and over the sound of the hissing water you can faintly hear the &lt;i&gt;plap plap plap&lt;/i&gt; sound of someone in one of them getting a post-workout protein infusion.
 
-The shower room exits out to the athletic center lobby, and another sign points to the swimming pool, reminding students that they must shower first before going for a swim.
+The shower room exits out to the athletic center lobby. A sign points to the athletics court and to the swimming pool, reminding students that they must shower first before going for a swim.
 
 &lt;&lt;Actions&gt;&gt;
 
 [[Go to Athletics Centre|Athletic Centre]]
 [[Go to Swimming Pool|Athletics Pool]]
+[[Go to Athletics Court|Athletics Court]]
 &lt;br&gt;</tw-passagedata><tw-passagedata pid="29" name="Athletics Pool" tags="Room" position="2600,1100" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Swimming Pool&lt;/h2&gt;
 &lt;&lt;if $location isnot &quot;Athletics Pool&quot;&gt;&gt;
@@ -1502,11 +1509,12 @@ A door leads back to the shower room.
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;/nobr&gt;&gt;
-You are in the university&#39;s drama theatre. Thick, dark curtains frame the stage, which is currently littered with a number of half-painted set pieces for an upcoming production. Lots of comfortable, plush red theatre seats face the stage, and a couple of students are taking advantage of the dark and quiet to nap or write coursework. The theatre exits out to the eastern part of the central plaza.
+You are in the university&#39;s drama theatre. Thick, dark curtains frame the stage, which is currently littered with a number of half-painted set pieces for an upcoming production. Lots of comfortable, plush red theatre seats face the stage, and a couple of students are taking advantage of the dark and quiet to nap or write coursework. The theatre exits out to the eastern and southern parts of the central plaza.
 
 &lt;&lt;Actions&gt;&gt;
 
 [[Go to East Plaza|East Plaza]]
+[[Go to South Plaza|South Plaza]]
 &lt;br&gt;</tw-passagedata><tw-passagedata pid="31" name="Main Hall" tags="Room" position="2600,800" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Main Hall&lt;/h2&gt;
 &lt;&lt;if $location isnot &quot;Main Hall&quot;&gt;&gt;
@@ -2431,7 +2439,7 @@ The hunter, a $inthunteradj $inthunterspecies, comes running moments later, bran
     &lt;td&gt; &lt;/td&gt;
     &lt;td&gt; &lt;/td&gt;
     &lt;td&gt;North Plaza  &lt;/td&gt;
-    &lt;td&gt;Library ↓&lt;/td&gt;
+    &lt;td&gt;← Library ↓&lt;/td&gt;
     &lt;td&gt;Science Labs ↓&lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
@@ -2450,7 +2458,7 @@ The hunter, a $inthunteradj $inthunterspecies, comes running moments later, bran
     &lt;td&gt; &lt;/td&gt;
     &lt;td&gt; &lt;/td&gt;
     &lt;td&gt;South Plaza&lt;/td&gt;
-    &lt;td&gt;Theatre ↑&lt;/td&gt;
+    &lt;td&gt;← Theatre ↑&lt;/td&gt;
     &lt;td&gt;Lecture Hall ↑&lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
@@ -2645,11 +2653,8 @@ In addition, the number of targets you have caught will affect the available end
     Showers (Jockstrap)
     Pool (Speedo)
     Track (Shoes)
-    Main Hall (Vending Machine)
     Science Labs (Slime)
     Lecture Hall (Cock?)
-    Theatre (Plush)
-    Statue (Fountain)
     East Plaza (Towel)
 
 -Update normal mode for slightly more limited items?
@@ -2677,7 +2682,7 @@ But be warned! You&#39;re not the only one on the prowl... someone out there has
 &lt;/div&gt;
 [[Walkthrough (Contains Spoilers, Duh!)|Walkthrough]]&lt;br&gt;
 [[Credits]]&lt;br&gt;&lt;br&gt;
-&lt;b&gt;[[Start Game|Start]]&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;i&gt;v0.7 - 2024.10.24. Note that some endings/features are incomplete, and you may encounter bugs.&lt;/i&gt;
+&lt;b&gt;[[Start Game|Start]]&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;i&gt;v0.7.1 - 2024.10.24. Note that some endings/features are incomplete, and you may encounter bugs.&lt;/i&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="67" name="Credits" tags="" position="1425,950" size="100,100">&lt;b&gt;TF Tag&lt;/b&gt; was made by Ky the Capybara 
 https://linktr.ee/kymaequ
 
@@ -2694,7 +2699,11 @@ Special thanks to Medkit for feedback and testing.
     &lt;&lt;goto &quot;EscapeHunter&quot;&gt;&gt;
 &lt;&lt;else&gt;&gt;
 	&lt;i&gt;You get a bad feeling about this place... It feels like someone&#39;s watching you.&lt;/i&gt;&lt;br&gt;
-&lt;&lt;/if&gt;&gt;&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="69" name="Updates" tags="" position="1000,300" size="100,100">v0.7 20241024.08
+&lt;&lt;/if&gt;&gt;&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="69" name="Updates" tags="" position="1000,300" size="100,100">v0.7.1 20241014.13
+
+-Added connections between North Plaza &amp; Library, South Plaza &amp; Theatre, and Athletics Track - Athletics Court - Athletics Showers
+
+v0.7 20241024.12
 
 -Minor text adjustments
 -Properly flagged given information in AskInfo responses
