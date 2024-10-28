@@ -955,8 +955,11 @@ You are in the western part of the main plaza. There are stone benches on which 
     	&lt;&lt;goto &quot;EscapeHunter&quot;&gt;&gt;
 	&lt;&lt;/if&gt;&gt;
 &lt;&lt;/if&gt;&gt;
-&lt;&lt;/nobr&gt;&gt;
 You are standing beneath the grand statue in the center of campus, honoring the founder of the university. He is riding a &lt;i&gt;very&lt;/i&gt; well-endowed horse, who is rearing up dramatically. The metal of the horse&#39;s member is shiny from the many, many hands that have rubbed it over the years.
+
+&lt;&lt;if $showdowncomplete&gt;&gt;&lt;br&gt;&lt;br&gt;
+To your surprise, there is also an impressively lewd statue of two people in the throes of passion. One is fucking the other, and they are both depicted with looks of orgasmic pleasure as they kiss. Each of the figures appears to have a tagger dart sticking out of them. Some students are gathered around the statue, rubbing the bottom&#39;s exposed cock and giggling.
+&lt;&lt;/if&gt;&gt;&lt;&lt;/nobr&gt;&gt;
 
 &lt;&lt;Actions&gt;&gt;
 
@@ -2464,7 +2467,7 @@ It&#39;s dark when you arrive back at your dorm. You switch the lights on, and f
 &lt;&lt;if !$unlockedEndings.includes(&quot;EndingRMWin&quot;)&gt;&gt;
     &lt;&lt;run $unlockedEndings.push(&quot;EndingRMWin&quot;)&gt;&gt;
 &lt;&lt;/if&gt;&gt;
-&lt;&lt;/linkappend&gt;&gt;</tw-passagedata><tw-passagedata pid="58" name="EndingShowdown" tags="Ending(Done)" position="1325,125" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $showfooter to false&gt;&gt;&lt;&lt;/nobr&gt;&gt;&lt;h2&gt;Ending 4: Showdown&lt;/h2&gt;
+&lt;&lt;/linkappend&gt;&gt;</tw-passagedata><tw-passagedata pid="58" name="EndingShowdown" tags="Ending(Done)" position="1325,125" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $showfooter to false&gt;&gt;&lt;&lt;set $showdowncomplete to true&gt;&gt;&lt;&lt;/nobr&gt;&gt;&lt;h2&gt;Ending 4: Showdown&lt;/h2&gt;
 You ease open the dorm room door, your tagger drawn. You want to be ready if Kyle is already in there. It turns out, he is - and his tagger is aimed at you, too.
 
 &quot;I guess we&#39;ve both got each other, huh?&quot; Kyle says as you enter and close the door behind you. You nod. &quot;We&#39;re the only two left, so one of us is going to win, and...&quot; he trails off for a moment. &quot;Well, one of us isn&#39;t.&quot;
@@ -2837,6 +2840,7 @@ But be warned! You&#39;re not the only one on the prowl... someone out there has
 &lt;&lt;/link&gt;&gt;
 &lt;/div&gt;&lt;br&gt;
 [[Walkthrough (Contains Spoilers, Duh!)|Walkthrough]]&lt;br&gt;
+[[Ending Gallery]]&lt;br&gt;
 [[Update Log|Changelog]]&lt;br&gt;
 [[Credits]]&lt;br&gt;&lt;br&gt;
 &lt;b&gt;[[Start Game|Start]]&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;i&gt;Current game version: v1.0.2 - 2024.10.28&lt;/i&gt;
@@ -2859,7 +2863,12 @@ Special thanks to Medkit for feedback and testing.
 	&lt;br&gt;
 &lt;&lt;else&gt;&gt;
 	&lt;&lt;goto &quot;EscapeHunter&quot;&gt;&gt;
-&lt;&lt;/if&gt;&gt;&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="67" name="Updates" tags="" position="1100,400" size="100,100">v1.0.1 20241028.22
+&lt;&lt;/if&gt;&gt;&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="67" name="Updates" tags="" position="1100,400" size="100,100">v1.1 20241028.23
+
+-Added Ending Gallery to view received endings
+-Added extra paragraph to Plaza Statue if Showdown ending has been completed
+
+v1.0.1 20241028.22
 
 -Moved initialization to StoryInit; should help prevent &quot;Action macro&quot; issues
 -Adjusted opening of game to make clear Survive is a boring ending
@@ -3143,12 +3152,14 @@ You spot Kyle sneaking up on a $npcadj $npcspecies, his tagger drawn. At the las
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="72" name="Changelog" tags="" position="1300,1075" size="100,100">&lt;h2&gt;Update Log&lt;/h2&gt;
 [[Go Back|MainMenu]]
 
-&lt;i&gt;Version 1.0.2&lt;/i&gt;
-- Added a Restart? button to each ending
+&lt;i&gt;Version 1.1.0&lt;/i&gt;
+- Added an Ending Gallery to the Main Menu that will allow you to view received endings
+- &lt;&lt;linkappend &quot;! Spoiler Warning !&quot;&gt;&gt; A certain statue will now appear in the Plaza Statue location if Ending 4: Showdown has been unlocked.&lt;&lt;/linkappend&gt;&gt;
 
 &lt;i&gt;Version 1.0.1&lt;/i&gt;
 - Fixed an issue that made the hunter practically blind and unlikely to catch you if you were in the same location.
 - Saves should work properly now and not cause the Actions menu to break
+- Added a Restart button to each ending
 
 &lt;i&gt;Version 1.0 2024.10.28&lt;/i&gt;
 Release version of the game!</tw-passagedata><tw-passagedata pid="73" name="Ending Gallery" tags="" position="1425,1075" size="100,100">&lt;h2&gt;Ending Gallery&lt;/h2&gt;
@@ -3161,68 +3172,173 @@ Here you can view the endings that you&#39;ve unlocked! Note that some details, 
   &lt;tr&gt;
     &lt;td&gt;&lt;&lt;nobr&gt;&gt;&lt;&lt;if $unlockedEndings.includes(&quot;BadEndDormRoom&quot;)&gt;&gt;
     			&lt;&lt;ViewEnding&gt;&gt;
-                [[Dorm Room|BadEndDormRoom]]
+                [[Dorm Room (Soda Can)|BadEndDormRoom]]
             &lt;&lt;else&gt;&gt;
             	Dorm Room
             &lt;&lt;/if&gt;&gt;&lt;&lt;/nobr&gt;&gt;&lt;/td&gt;
     &lt;td&gt;&lt;&lt;nobr&gt;&gt;&lt;&lt;if $unlockedEndings.includes(&quot;BadEndDormHall&quot;)&gt;&gt;
     			&lt;&lt;ViewEnding&gt;&gt;
-                [[Dorm Hallway|BadEndDormHall]]
+                [[Dorm Hallway (Sex Doll)|BadEndDormHall]]
             &lt;&lt;else&gt;&gt;
             	Dorm Hallway
             &lt;&lt;/if&gt;&gt;&lt;&lt;/nobr&gt;&gt;&lt;/td&gt;
     &lt;td&gt;&lt;&lt;nobr&gt;&gt;&lt;&lt;if $unlockedEndings.includes(&quot;BadEndDormCommonRoom&quot;)&gt;&gt;
     			&lt;&lt;ViewEnding&gt;&gt;
-                [[Dorm Common Room|BadEndDormCommonRoom]]
+                [[Dorm Common Room (Condom)|BadEndDormCommonRoom]]
             &lt;&lt;else&gt;&gt;
             	Dorm Common Room
             &lt;&lt;/if&gt;&gt;&lt;&lt;/nobr&gt;&gt;&lt;/td&gt;
     &lt;td&gt;&lt;&lt;nobr&gt;&gt;&lt;&lt;if $unlockedEndings.includes(&quot;BadEndDormBathroom&quot;)&gt;&gt;
     			&lt;&lt;ViewEnding&gt;&gt;
-                [[Dorm Bathroom|BadEndDormBathroom]]
+                [[Dorm Bathroom (Deodorant)|BadEndDormBathroom]]
             &lt;&lt;else&gt;&gt;
             	Dorm Bathroom
             &lt;&lt;/if&gt;&gt;&lt;&lt;/nobr&gt;&gt;&lt;/td&gt;
     &lt;td&gt;&lt;&lt;nobr&gt;&gt;&lt;&lt;if $unlockedEndings.includes(&quot;BadEndDormElevator&quot;)&gt;&gt;
     			&lt;&lt;ViewEnding&gt;&gt;
-                [[Dorm Elevator|BadEndDormElevator]]
+                [[Dorm Elevator (Chastity Cage)|BadEndDormElevator]]
             &lt;&lt;else&gt;&gt;
             	Dorm Elevator
             &lt;&lt;/if&gt;&gt;&lt;&lt;/nobr&gt;&gt;&lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-    &lt;td&gt;Plaza East&lt;/td&gt;
-    &lt;td&gt;Plaza North&lt;/td&gt;
-    &lt;td&gt;Plaza South&lt;/td&gt;
-    &lt;td&gt;Plaza West&lt;/td&gt;
-    &lt;td&gt;Plaza Statue&lt;/td&gt;
+    &lt;td&gt;&lt;&lt;nobr&gt;&gt;&lt;&lt;if $unlockedEndings.includes(&quot;BadEndPlazaE&quot;)&gt;&gt;
+    			&lt;&lt;ViewEnding&gt;&gt;
+                [[Plaza East (Towel)|BadEndPlazaE]]
+            &lt;&lt;else&gt;&gt;
+            	Plaza East
+            &lt;&lt;/if&gt;&gt;&lt;&lt;/nobr&gt;&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;&lt;nobr&gt;&gt;&lt;&lt;if $unlockedEndings.includes(&quot;BadEndPlazaN&quot;)&gt;&gt;
+    			&lt;&lt;ViewEnding&gt;&gt;
+                [[Plaza North (Balloon)|BadEndPlazaN]]
+            &lt;&lt;else&gt;&gt;
+            	Plaza North
+            &lt;&lt;/if&gt;&gt;&lt;&lt;/nobr&gt;&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;&lt;nobr&gt;&gt;&lt;&lt;if $unlockedEndings.includes(&quot;BadEndPlazaS&quot;)&gt;&gt;
+    			&lt;&lt;ViewEnding&gt;&gt;
+                [[Plaza South (Wristwatch)|BadEndPlazaS]]
+            &lt;&lt;else&gt;&gt;
+            	Plaza South
+            &lt;&lt;/if&gt;&gt;&lt;&lt;/nobr&gt;&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;&lt;nobr&gt;&gt;&lt;&lt;if $unlockedEndings.includes(&quot;BadEndPlazaW&quot;)&gt;&gt;
+    			&lt;&lt;ViewEnding&gt;&gt;
+                [[Plaza West (Fursuit)|BadEndPlazaW]]
+            &lt;&lt;else&gt;&gt;
+            	Plaza West
+            &lt;&lt;/if&gt;&gt;&lt;&lt;/nobr&gt;&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;&lt;nobr&gt;&gt;&lt;&lt;if $unlockedEndings.includes(&quot;BadEndPlazaStatue&quot;)&gt;&gt;
+    			&lt;&lt;ViewEnding&gt;&gt;
+                [[Plaza Statue (Fountain)|BadEndPlazaStatue]]
+            &lt;&lt;else&gt;&gt;
+            	Plaza Statue
+            &lt;&lt;/if&gt;&gt;&lt;&lt;/nobr&gt;&gt;&lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-    &lt;td&gt;Athletics Centre&lt;/td&gt;
-    &lt;td&gt;Athletics Track&lt;/td&gt;
-    &lt;td&gt;Athletics Court&lt;/td&gt;
-    &lt;td&gt;Athletics Showers&lt;/td&gt;
-    &lt;td&gt;Athletics Pool&lt;/td&gt;
+    &lt;td&gt;&lt;&lt;nobr&gt;&gt;&lt;&lt;if $unlockedEndings.includes(&quot;BadEndAthletics&quot;)&gt;&gt;
+    			&lt;&lt;ViewEnding&gt;&gt;
+                [[Athletics Centre (Trophy)|BadEndAthletics]]
+            &lt;&lt;else&gt;&gt;
+            	Athletics Centre
+            &lt;&lt;/if&gt;&gt;&lt;&lt;/nobr&gt;&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;&lt;nobr&gt;&gt;&lt;&lt;if $unlockedEndings.includes(&quot;BadEndAthTrack&quot;)&gt;&gt;
+    			&lt;&lt;ViewEnding&gt;&gt;
+                [[Athletics Track (Shoe)|BadEndAthTrack]]
+            &lt;&lt;else&gt;&gt;
+            	Athletics Track
+            &lt;&lt;/if&gt;&gt;&lt;&lt;/nobr&gt;&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;&lt;nobr&gt;&gt;&lt;&lt;if $unlockedEndings.includes(&quot;BadEndAthCourt&quot;)&gt;&gt;
+    			&lt;&lt;ViewEnding&gt;&gt;
+                [[Athletics Court (Socks)|BadEndAthCourt]]
+            &lt;&lt;else&gt;&gt;
+            	Athletics Court
+            &lt;&lt;/if&gt;&gt;&lt;&lt;/nobr&gt;&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;&lt;nobr&gt;&gt;&lt;&lt;if $unlockedEndings.includes(&quot;BadEndAthShowers&quot;)&gt;&gt;
+    			&lt;&lt;ViewEnding&gt;&gt;
+                [[Athletics Showers (Jockstrap)|BadEndAthShowers]]
+            &lt;&lt;else&gt;&gt;
+            	Athletics Showers
+            &lt;&lt;/if&gt;&gt;&lt;&lt;/nobr&gt;&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;&lt;nobr&gt;&gt;&lt;&lt;if $unlockedEndings.includes(&quot;BadEndAthPool&quot;)&gt;&gt;
+    			&lt;&lt;ViewEnding&gt;&gt;
+                [[Athletics Pool (Speedo)|BadEndAthPool]]
+            &lt;&lt;else&gt;&gt;
+            	Athletics Pool
+            &lt;&lt;/if&gt;&gt;&lt;&lt;/nobr&gt;&gt;&lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-    &lt;td&gt;Main Hall&lt;/td&gt;
-    &lt;td&gt;Art Room&lt;/td&gt;
-    &lt;td&gt;Lecture Hall&lt;/td&gt;
-    &lt;td&gt;Science Lab&lt;/td&gt;
-    &lt;td&gt;Library&lt;/td&gt;
+    &lt;td&gt;&lt;&lt;nobr&gt;&gt;&lt;&lt;if $unlockedEndings.includes(&quot;BadEndMainHall&quot;)&gt;&gt;
+    			&lt;&lt;ViewEnding&gt;&gt;
+                [[Main Hall (Vending Machine)|BadEndMainHall]]
+            &lt;&lt;else&gt;&gt;
+            	Main Hall
+            &lt;&lt;/if&gt;&gt;&lt;&lt;/nobr&gt;&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;&lt;nobr&gt;&gt;&lt;&lt;if $unlockedEndings.includes(&quot;BadEndArtRoom&quot;)&gt;&gt;
+    			&lt;&lt;ViewEnding&gt;&gt;
+                [[Art Room (Mannequin)|BadEndArtRoom]]
+            &lt;&lt;else&gt;&gt;
+            	Art Room
+            &lt;&lt;/if&gt;&gt;&lt;&lt;/nobr&gt;&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;&lt;nobr&gt;&gt;&lt;&lt;if $unlockedEndings.includes(&quot;BadEndLectureHall&quot;)&gt;&gt;
+    			&lt;&lt;ViewEnding&gt;&gt;
+                [[Lecture Hall (Chalk)|BadEndLectureHall]]
+            &lt;&lt;else&gt;&gt;
+            	Lecture Hall
+            &lt;&lt;/if&gt;&gt;&lt;&lt;/nobr&gt;&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;&lt;nobr&gt;&gt;&lt;&lt;if $unlockedEndings.includes(&quot;BadEndScienceLabs&quot;)&gt;&gt;
+    			&lt;&lt;ViewEnding&gt;&gt;
+                [[Science Lab (Serum)|BadEndScienceLabs]]
+            &lt;&lt;else&gt;&gt;
+            	Science Lab
+            &lt;&lt;/if&gt;&gt;&lt;&lt;/nobr&gt;&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;&lt;nobr&gt;&gt;&lt;&lt;if $unlockedEndings.includes(&quot;BadEndLibrary&quot;)&gt;&gt;
+    			&lt;&lt;ViewEnding&gt;&gt;
+                [[Library (Onahole)|BadEndLibrary]]
+            &lt;&lt;else&gt;&gt;
+            	Library
+            &lt;&lt;/if&gt;&gt;&lt;&lt;/nobr&gt;&gt;&lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-    &lt;td&gt;Theatre&lt;/td&gt;
-    &lt;td&gt;Gardens&lt;/td&gt;
+    &lt;td&gt;&lt;&lt;nobr&gt;&gt;&lt;&lt;if $unlockedEndings.includes(&quot;BadEndTheatre&quot;)&gt;&gt;
+    			&lt;&lt;ViewEnding&gt;&gt;
+                [[Theatre (Plush Toy)|BadEndTheatre]]
+            &lt;&lt;else&gt;&gt;
+            	Theatre
+            &lt;&lt;/if&gt;&gt;&lt;&lt;/nobr&gt;&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;&lt;nobr&gt;&gt;&lt;&lt;if $unlockedEndings.includes(&quot;BadEndGardens&quot;)&gt;&gt;
+    			&lt;&lt;ViewEnding&gt;&gt;
+                [[Gardens (Plant)|BadEndGardens]]
+            &lt;&lt;else&gt;&gt;
+            	Gardens
+            &lt;&lt;/if&gt;&gt;&lt;&lt;/nobr&gt;&gt;&lt;/td&gt;
   &lt;/tr&gt;
    &lt;tr&gt;
     &lt;td&gt;&lt;b&gt;Main Endings&lt;/b&gt;&lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-    &lt;td&gt;Ending 1: Victory&lt;/td&gt;
-    &lt;td&gt;Ending 2: Caught&lt;/td&gt;
-    &lt;td&gt;Ending 3: Survival&lt;/td&gt;
-    &lt;td&gt;Ending 4: Showdown&lt;/td&gt;
+    &lt;td&gt;&lt;&lt;nobr&gt;&gt;&lt;&lt;if $unlockedEndings.includes(&quot;EndingMCWin&quot;)&gt;&gt;
+    			&lt;&lt;ViewEnding&gt;&gt;
+                [[Ending 1: Victory (Pool Toy)|EndingMCWin]]
+            &lt;&lt;else&gt;&gt;
+            	Ending 1: Victory
+            &lt;&lt;/if&gt;&gt;&lt;&lt;/nobr&gt;&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;&lt;nobr&gt;&gt;&lt;&lt;if $unlockedEndings.includes(&quot;EndingRMWin&quot;)&gt;&gt;
+    			&lt;&lt;ViewEnding&gt;&gt;
+                [[Ending 2: Caught (Cock)|EndingRMWin]]
+            &lt;&lt;else&gt;&gt;
+            	Ending 2: Caught
+            &lt;&lt;/if&gt;&gt;&lt;&lt;/nobr&gt;&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;&lt;nobr&gt;&gt;&lt;&lt;if $unlockedEndings.includes(&quot;EndingMCSurvives&quot;)&gt;&gt;
+    			&lt;&lt;ViewEnding&gt;&gt;
+                [[Ending 3: Survival|EndingMCSurvives]]
+            &lt;&lt;else&gt;&gt;
+            	Ending 3: Survival
+            &lt;&lt;/if&gt;&gt;&lt;&lt;/nobr&gt;&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;&lt;nobr&gt;&gt;&lt;&lt;if $unlockedEndings.includes(&quot;EndingShowdown&quot;)&gt;&gt;
+    			&lt;&lt;ViewEnding&gt;&gt;
+                [[Ending 4: Showdown (Statue)|EndingShowdown]]
+            &lt;&lt;else&gt;&gt;
+            	Ending 4: Showdown
+            &lt;&lt;/if&gt;&gt;&lt;&lt;/nobr&gt;&gt;&lt;/td&gt;
   &lt;/tr&gt;
 &lt;/table&gt; 
 
@@ -3460,7 +3576,7 @@ Here you can view the endings that you&#39;ve unlocked! Note that some details, 
 
 
 
-
+&lt;&lt;set $showdowncomplete to false&gt;&gt;
 
 &lt;&lt;set $unlockedEndings = []&gt;&gt;
 
