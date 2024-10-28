@@ -120,7 +120,64 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
 .endings-table th {
     background-color: #f0f0f0;
     font-weight: bold;
-}</style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-tag name="Widget" color="orange"></tw-tag><tw-tag name="Ending" color="red"></tw-tag><tw-tag name="Room" color="blue"></tw-tag><tw-tag name="Ending(Done)" color="green"></tw-tag><tw-passagedata pid="1" name="Start" tags="" position="1425,800" size="100,100">&lt;&lt;goto &quot;Start2&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="2" name="PassageFooter" tags="" position="1300,650" size="100,100">&lt;&lt;nobr&gt;&gt;
+}</style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-tag name="Widget" color="orange"></tw-tag><tw-tag name="Ending" color="red"></tw-tag><tw-tag name="Room" color="blue"></tw-tag><tw-tag name="Ending(Done)" color="green"></tw-tag><tw-passagedata pid="1" name="Start" tags="" position="1425,800" size="100,100">&lt;&lt;GenTarget&gt;&gt;
+
+&lt;&lt;set $hunterspecies to $specieslist.random()&gt;&gt;
+&lt;&lt;set $hunteradj to $adjlist.random()&gt;&gt;
+&lt;&lt;set $hunterlocation to $kyletargetloclist.random()&gt;&gt;
+
+&lt;&lt;set $kylehunterspecies to $specieslist.random()&gt;&gt;
+&lt;&lt;set $kylehunteradj to $adjlist.random()&gt;&gt;
+&lt;&lt;set $kyletargetname to [$namelist.pluck()+$lastnamelist.pluck()]&gt;&gt;
+&lt;&lt;set $kyletargetspecies to $specieslist.random()&gt;&gt;
+&lt;&lt;set $kyletargetadj to $adjlist.random()&gt;&gt;
+&lt;&lt;set $kyletargetloc to $kyletargetloclist.random()&gt;&gt;
+&lt;&lt;set $gossiplocation to $kyletargetloclist.random()&gt;&gt;
+
+/* Define Intervene Event Variables */
+&lt;&lt;set $intervenelocation to $kyletargetloclist.random()&gt;&gt;
+&lt;&lt;if ($intervenelocation is $gossiplocation)&gt;&gt;
+    &lt;&lt;set _filtered to $kyletargetloclist.filter(loc =&gt; loc isnot $gossiplocation)&gt;&gt;
+    &lt;&lt;set $intervenelocation to _filtered.random()&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+&lt;&lt;set $inthunterspecies to $specieslist.random()&gt;&gt;
+&lt;&lt;set $inthunteradj to $adjlist.random()&gt;&gt;
+&lt;&lt;set $inttargetspecies to $specieslist.random()&gt;&gt;
+&lt;&lt;set $inttargetadj to $adjlist.random()&gt;&gt;
+
+/*Define Protect Event Variables */
+&lt;&lt;set $protectlocation to $kyletargetloclist.random()&gt;&gt;
+&lt;&lt;if ($protectlocation is $gossiplocation) or ($protectlocation is $intervenelocation)&gt;&gt;
+    &lt;&lt;set _filtered to $kyletargetloclist.filter(loc =&gt; loc isnot $gossiplocation and loc isnot $intervenelocation)&gt;&gt;
+    &lt;&lt;set $protectlocation to _filtered.random()&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+
+&lt;&lt;set $start to false&gt;&gt;
+&lt;&lt;set $gameover to false&gt;&gt;
+&lt;&lt;set $hours to 12&gt;&gt;
+&lt;&lt;set $minutes to 10&gt;&gt;
+&lt;&lt;set $inventory to []&gt;&gt;
+&lt;&lt;set $targetcount to 0&gt;&gt;
+&lt;&lt;set $targetmovecounter to -1&gt;&gt;
+&lt;&lt;set $huntermovecounter to -1&gt;&gt;
+&lt;&lt;set $hidecount to 0&gt;&gt;
+&lt;&lt;set $kyleinroom to 1&gt;&gt;
+&lt;&lt;set $kyletarget to 0&gt;&gt;
+&lt;&lt;set $kylehelp to 0&gt;&gt;
+&lt;&lt;set $kyleinfo to 0&gt;&gt;
+&lt;&lt;set $kyleconvo1 to 1&gt;&gt; /* First convo */
+&lt;&lt;set $kyleconvo2 to 1&gt;&gt; /* Ask about his target */
+&lt;&lt;set $kyleconvo3 to 1&gt;&gt; /* Ask about your target */
+&lt;&lt;set $kyleconvo4 to 1&gt;&gt; /* Ask what if have each other */
+&lt;&lt;set $foundsock to 0&gt;&gt;
+&lt;&lt;set $gossipover to 0&gt;&gt;
+&lt;&lt;set $interveneover to 0&gt;&gt;
+&lt;&lt;set $interveneyes to 0&gt;&gt;
+&lt;&lt;set $protectover to 0&gt;&gt;
+&lt;&lt;set $protectending to 0&gt;&gt;
+&lt;&lt;set $firstvisit to 0&gt;&gt;
+
+&lt;&lt;goto &quot;Start2&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="2" name="PassageFooter" tags="" position="1300,650" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;if $showfooter&gt;&gt;
 
 /* Gossip Special Event */
@@ -644,7 +701,11 @@ With horror, you realize he&#39;s bringing you closer and closer to his musky pi
 
 &quot;Ahh, much better, wouldn&#39;t you agree?&quot; he says, putting your cap back on. &quot;Let&#39;s hope you last longer than my last stick.&quot;
 
-&lt;b&gt;GAME OVER!&lt;/b&gt;</tw-passagedata><tw-passagedata pid="11" name="BadEndDormCommonRoom" tags="Ending(Done)" position="1850,375" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;b&gt;GAME OVER!&lt;/b&gt;
+[[Restart?|MainMenu]]
+&lt;&lt;if !$unlockedEndings.includes(&quot;BadEndDormBathroom&quot;)&gt;&gt;
+    &lt;&lt;run $unlockedEndings.push(&quot;BadEndDormBathroom&quot;)&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="11" name="BadEndDormCommonRoom" tags="Ending(Done)" position="1850,375" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Bad End: Common Room&lt;/h2&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
@@ -670,7 +731,11 @@ He collapses onto the sofa, panting, as his orgasm finishes.
 
 &quot;Damn, that was good,&quot; he says. &quot;Well, time to get back to the hunt!&quot; Without fanfare, he peels you off his cock, ties you shut, and tosses you in the bin.
 
-&lt;b&gt;GAME OVER!&lt;/b&gt;</tw-passagedata><tw-passagedata pid="12" name="BadEndDormElevator" tags="Ending(Done)" position="1975,375" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;b&gt;GAME OVER!&lt;/b&gt;
+[[Restart?|MainMenu]]
+&lt;&lt;if !$unlockedEndings.includes(&quot;BadEndDormCommonRoom&quot;)&gt;&gt;
+    &lt;&lt;run $unlockedEndings.push(&quot;BadEndDormCommonRoom&quot;)&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="12" name="BadEndDormElevator" tags="Ending(Done)" position="1975,375" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Bad End: Dorm Elevator&lt;/h2&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
@@ -706,7 +771,11 @@ He pulls his pants back up, trapping you inside the dark folds of cloth, and res
 
 He exits the elevator, on the hunt for his next target, and you&#39;re along for the ride whether you like it or not.
 
-&lt;b&gt;GAME OVER!&lt;/b&gt;</tw-passagedata><tw-passagedata pid="13" name="GoToLocation" tags="" position="1125,950" size="100,100">&lt;&lt;set $showfooter to false&gt;&gt;
+&lt;b&gt;GAME OVER!&lt;/b&gt;
+[[Restart?|MainMenu]]
+&lt;&lt;if !$unlockedEndings.includes(&quot;BadEndDormElevator&quot;)&gt;&gt;
+    &lt;&lt;run $unlockedEndings.push(&quot;BadEndDormElevator&quot;)&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="13" name="GoToLocation" tags="" position="1125,950" size="100,100">&lt;&lt;set $showfooter to false&gt;&gt;
 &lt;&lt;if $location == $hunterlocation&gt;&gt;
 	&lt;&lt;if [&quot;Wait&quot;, &quot;Search&quot;, &quot;NextTarget&quot;, &quot;AskInfo&quot;, &quot;UseComputer&quot;, &quot;InterveneEvent&quot;, &quot;GossipEvent&quot;, &quot;ProtectEvent&quot;].includes(previous())&gt;&gt;
 		&lt;&lt;goto $location&gt;&gt;
@@ -2706,6 +2775,7 @@ But be warned! You&#39;re not the only one on the prowl... someone out there has
 &lt;&lt;/link&gt;&gt;
 &lt;/div&gt;&lt;br&gt;
 [[Walkthrough (Contains Spoilers, Duh!)|Walkthrough]]&lt;br&gt;
+[[Ending Gallery]]&lt;br&gt;
 [[Update Log|Changelog]]&lt;br&gt;
 [[Credits]]&lt;br&gt;&lt;br&gt;
 &lt;b&gt;[[Start Game|Start]]&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;i&gt;Current game version: v1.0.1 - 2024.10.28&lt;/i&gt;
@@ -2734,6 +2804,7 @@ Special thanks to Medkit for feedback and testing.
 -Adjusted opening of game to make clear Survive is a boring ending
 -Started implementing Ending Gallery
 -Fixed bug that made Hunter way too lenient
+-Fixed new bug that made things not reset on new game
 
 v1.0 20241028.12
 
@@ -3032,13 +3103,28 @@ Here you can view the endings that you&#39;ve unlocked! Note that some details, 
             &lt;&lt;/if&gt;&gt;&lt;&lt;/nobr&gt;&gt;&lt;/td&gt;
     &lt;td&gt;&lt;&lt;nobr&gt;&gt;&lt;&lt;if $unlockedEndings.includes(&quot;BadEndDormHall&quot;)&gt;&gt;
     			&lt;&lt;ViewEnding&gt;&gt;
-                [[Dorm Room|BadEndDormHall]]
+                [[Dorm Hallway|BadEndDormHall]]
             &lt;&lt;else&gt;&gt;
             	Dorm Hallway
             &lt;&lt;/if&gt;&gt;&lt;&lt;/nobr&gt;&gt;&lt;/td&gt;
-    &lt;td&gt;Dorm Common Room&lt;/td&gt;
-    &lt;td&gt;Dorm Bathroom&lt;/td&gt;
-    &lt;td&gt;Dorm Elevator&lt;/td&gt;
+    &lt;td&gt;&lt;&lt;nobr&gt;&gt;&lt;&lt;if $unlockedEndings.includes(&quot;BadEndDormCommonRoom&quot;)&gt;&gt;
+    			&lt;&lt;ViewEnding&gt;&gt;
+                [[Dorm Common Room|BadEndDormCommonRoom]]
+            &lt;&lt;else&gt;&gt;
+            	Dorm Common Room
+            &lt;&lt;/if&gt;&gt;&lt;&lt;/nobr&gt;&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;&lt;nobr&gt;&gt;&lt;&lt;if $unlockedEndings.includes(&quot;BadEndDormBathroom&quot;)&gt;&gt;
+    			&lt;&lt;ViewEnding&gt;&gt;
+                [[Dorm Bathroom|BadEndDormBathroom]]
+            &lt;&lt;else&gt;&gt;
+            	Dorm Bathroom
+            &lt;&lt;/if&gt;&gt;&lt;&lt;/nobr&gt;&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;&lt;nobr&gt;&gt;&lt;&lt;if $unlockedEndings.includes(&quot;BadEndDormElevator&quot;)&gt;&gt;
+    			&lt;&lt;ViewEnding&gt;&gt;
+                [[Dorm Elevator|BadEndDormElevator]]
+            &lt;&lt;else&gt;&gt;
+            	Dorm Elevator
+            &lt;&lt;/if&gt;&gt;&lt;&lt;/nobr&gt;&gt;&lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
     &lt;td&gt;Plaza East&lt;/td&gt;
@@ -3097,31 +3183,6 @@ Here you can view the endings that you&#39;ve unlocked! Note that some details, 
 	&lt;&lt;set $hardmode to false&gt;&gt;
     &lt;&lt;set $randomcatchchance to 50&gt;&gt;
 &lt;&lt;/if&gt;&gt;
-
-&lt;&lt;set $start to false&gt;&gt;
-&lt;&lt;set $gameover to false&gt;&gt;
-&lt;&lt;set $hours to 12&gt;&gt;
-&lt;&lt;set $minutes to 10&gt;&gt;
-&lt;&lt;set $inventory to []&gt;&gt;
-&lt;&lt;set $targetcount to 0&gt;&gt;
-&lt;&lt;set $targetmovecounter to -1&gt;&gt;
-&lt;&lt;set $huntermovecounter to -1&gt;&gt;
-&lt;&lt;set $hidecount to 0&gt;&gt;
-&lt;&lt;set $kyleinroom to 1&gt;&gt;
-&lt;&lt;set $kyletarget to 0&gt;&gt;
-&lt;&lt;set $kylehelp to 0&gt;&gt;
-&lt;&lt;set $kyleinfo to 0&gt;&gt;
-&lt;&lt;set $kyleconvo1 to 1&gt;&gt; /* First convo */
-&lt;&lt;set $kyleconvo2 to 1&gt;&gt; /* Ask about his target */
-&lt;&lt;set $kyleconvo3 to 1&gt;&gt; /* Ask about your target */
-&lt;&lt;set $kyleconvo4 to 1&gt;&gt; /* Ask what if have each other */
-&lt;&lt;set $foundsock to 0&gt;&gt;
-&lt;&lt;set $gossipover to 0&gt;&gt;
-&lt;&lt;set $interveneover to 0&gt;&gt;
-&lt;&lt;set $interveneyes to 0&gt;&gt;
-&lt;&lt;set $protectover to 0&gt;&gt;
-&lt;&lt;set $protectending to 0&gt;&gt;
-&lt;&lt;set $firstvisit to 0&gt;&gt;
 
 /* Set up Random Generators */
 &lt;&lt;set $loclist = [&quot;Dormitory Hallway&quot;, &quot;Dormitory Bathroom&quot;, &quot;Dormitory Common Room&quot;, &quot;Dormitory Elevator&quot;, &quot;West Plaza&quot;, &quot;North Plaza&quot;, &quot;South Plaza&quot;, &quot;East Plaza&quot;, &quot;Plaza Statue&quot;, &quot;Gardens&quot;, &quot;Athletic Centre&quot;, &quot;Athletics Track&quot;, &quot;Athletics Court&quot;, &quot;Athletics Showers&quot;, &quot;Athletics Pool&quot;, &quot;Library&quot;, &quot;Theatre&quot;, &quot;Science Labs&quot;, &quot;Main Hall&quot;, &quot;Lecture Hall&quot;, &quot;Art Room&quot;]&gt;&gt;
@@ -3342,37 +3403,7 @@ Here you can view the endings that you&#39;ve unlocked! Note that some details, 
     &lt;&lt;set $inventory.push($currentItem)&gt;&gt;
 &lt;&lt;/widget&gt;&gt;
 
-&lt;&lt;GenTarget&gt;&gt;
 
-&lt;&lt;set $hunterspecies to $specieslist.random()&gt;&gt;
-&lt;&lt;set $hunteradj to $adjlist.random()&gt;&gt;
-&lt;&lt;set $hunterlocation to $kyletargetloclist.random()&gt;&gt;
-
-&lt;&lt;set $kylehunterspecies to $specieslist.random()&gt;&gt;
-&lt;&lt;set $kylehunteradj to $adjlist.random()&gt;&gt;
-&lt;&lt;set $kyletargetname to [$namelist.pluck()+$lastnamelist.pluck()]&gt;&gt;
-&lt;&lt;set $kyletargetspecies to $specieslist.random()&gt;&gt;
-&lt;&lt;set $kyletargetadj to $adjlist.random()&gt;&gt;
-&lt;&lt;set $kyletargetloc to $kyletargetloclist.random()&gt;&gt;
-&lt;&lt;set $gossiplocation to $kyletargetloclist.random()&gt;&gt;
-
-/* Define Intervene Event Variables */
-&lt;&lt;set $intervenelocation to $kyletargetloclist.random()&gt;&gt;
-&lt;&lt;if ($intervenelocation is $gossiplocation)&gt;&gt;
-    &lt;&lt;set _filtered to $kyletargetloclist.filter(loc =&gt; loc isnot $gossiplocation)&gt;&gt;
-    &lt;&lt;set $intervenelocation to _filtered.random()&gt;&gt;
-&lt;&lt;/if&gt;&gt;
-&lt;&lt;set $inthunterspecies to $specieslist.random()&gt;&gt;
-&lt;&lt;set $inthunteradj to $adjlist.random()&gt;&gt;
-&lt;&lt;set $inttargetspecies to $specieslist.random()&gt;&gt;
-&lt;&lt;set $inttargetadj to $adjlist.random()&gt;&gt;
-
-/*Define Protect Event Variables */
-&lt;&lt;set $protectlocation to $kyletargetloclist.random()&gt;&gt;
-&lt;&lt;if ($protectlocation is $gossiplocation) or ($protectlocation is $intervenelocation)&gt;&gt;
-    &lt;&lt;set _filtered to $kyletargetloclist.filter(loc =&gt; loc isnot $gossiplocation and loc isnot $intervenelocation)&gt;&gt;
-    &lt;&lt;set $protectlocation to _filtered.random()&gt;&gt;
-&lt;&lt;/if&gt;&gt;
 
 
 
