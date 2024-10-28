@@ -120,7 +120,17 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
 .endings-table th {
     background-color: #f0f0f0;
     font-weight: bold;
-}</style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-tag name="Widget" color="orange"></tw-tag><tw-tag name="Ending" color="red"></tw-tag><tw-tag name="Room" color="blue"></tw-tag><tw-tag name="Ending(Done)" color="green"></tw-tag><tw-passagedata pid="1" name="Start" tags="" position="1425,800" size="100,100">&lt;&lt;GenTarget&gt;&gt;
+}</style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-tag name="Widget" color="orange"></tw-tag><tw-tag name="Ending" color="red"></tw-tag><tw-tag name="Room" color="blue"></tw-tag><tw-tag name="Ending(Done)" color="green"></tw-tag><tw-passagedata pid="1" name="Start" tags="" position="1425,800" size="100,100">/* Define NPCs */
+
+&lt;&lt;set $namelist = [&quot;Allan&quot;,&quot;Adam&quot;,&quot;Benny&quot;,&quot;Bruce&quot;,&quot;Cal&quot;,&quot;Colin&quot;,&quot;Dave&quot;,&quot;Daniel&quot;,&quot;Evan&quot;,&quot;Eason&quot;,&quot;Fred&quot;,&quot;Felix&quot;,&quot;George&quot;,&quot;Greg&quot;,&quot;Hal&quot;,&quot;Henry&quot;,&quot;Ivan&quot;,&quot;Isaac&quot;,&quot;Jack&quot;,&quot;John&quot;,&quot;Kevin&quot;,&quot;Kent&quot;,&quot;Louis&quot;,&quot;Lyle&quot;,&quot;Mike&quot;,&quot;Mason&quot;,&quot;Noel&quot;,&quot;Nick&quot;,&quot;Oscar&quot;,&quot;Owen&quot;,&quot;Perry&quot;,&quot;Phil&quot;,&quot;Quentin&quot;,&quot;Quinn&quot;,&quot;Raul&quot;,&quot;Ryan&quot;,&quot;Sammy&quot;,&quot;Shawn&quot;,&quot;Trevor&quot;,&quot;Tyler&quot;,&quot;Ulric&quot;,&quot;Ulysses&quot;,&quot;Vance&quot;,&quot;Vic&quot;,&quot;Will&quot;,&quot;Wes&quot;,&quot;Xavier&quot;,&quot;Wes&quot;,&quot;Yannis&quot;,&quot;Yuri&quot;,&quot;Zack&quot;,&quot;Zane&quot;,&quot;Zooks&quot;,&quot;Ritz&quot;,&quot;Blueballs&quot;,&quot;Decro&quot;,&quot;Medley&quot;,&quot;Maple&quot;,&quot;Ky&quot;] &gt;&gt;
+
+&lt;&lt;set $lastnamelist = [&quot; A.&quot;, &quot; B.&quot;, &quot; C.&quot;, &quot; D.&quot;, &quot; E.&quot;, &quot; F.&quot;, &quot; G.&quot;, &quot; H.&quot;, &quot; I.&quot;, &quot; J.&quot;, &quot; K.&quot;, &quot; L.&quot;, &quot; M.&quot;, &quot; N.&quot;, &quot; O.&quot;, &quot; P.&quot;, &quot; Q.&quot;, &quot; R.&quot;, &quot; S.&quot;, &quot; T.&quot;, &quot; U.&quot;, &quot; V.&quot;, &quot; W.&quot;, &quot; X.&quot;, &quot; Y.&quot;, &quot; Z.&quot;]&gt;&gt;
+
+&lt;&lt;set $specieslist = [&quot;husky&quot;, &quot;wolf&quot;, &quot;tiger&quot;, &quot;fox&quot;, &quot;panda&quot;, &quot;coyote&quot;, &quot;raccoon&quot;, &quot;tanuki&quot;, &quot;monkey&quot;, &quot;capybara&quot;, &quot;deer&quot;, &quot;horse&quot;, &quot;moose&quot;, &quot;shiba&quot;, &quot;lion&quot;, &quot;cat&quot;, &quot;otter&quot;, &quot;rat&quot;, &quot;mouse&quot;, &quot;rabbit&quot;, &quot;bear&quot;, &quot;dog&quot;, &quot;bull&quot;, &quot;ox&quot;, &quot;skunk&quot;, &quot;squirrel&quot;, &quot;fennec&quot;, &quot;hyena&quot;, &quot;doberman&quot;, &quot;cheetah&quot;, &quot;leopard&quot;, &quot;puma&quot;, &quot;civet&quot;, &quot;serval&quot;, &quot;antelope&quot;, &quot;zebra&quot;, &quot;badger&quot;, &quot;ferret&quot;, &quot;lynx&quot;]&gt;&gt;
+
+&lt;&lt;set $adjlist = [&quot;muscular&quot;, &quot;handsome&quot;, &quot;lithe&quot;, &quot;sexy&quot;,&quot;tall&quot;,&quot;short&quot;,&quot;blue&quot;,&quot;red&quot;,&quot;white&quot;,&quot;brown&quot;,&quot;grey&quot;,&quot;yellow&quot;,&quot;chubby&quot;,&quot;cute&quot;,&quot;chunky&quot;,&quot;fit&quot;,&quot;wild-looking&quot;,&quot;crazy-looking&quot;,&quot;nerdy-looking&quot;,&quot;smart-looking&quot;,&quot;hefty&quot;]&gt;&gt;
+
+&lt;&lt;GenTarget&gt;&gt;
 
 &lt;&lt;set $hunterspecies to $specieslist.random()&gt;&gt;
 &lt;&lt;set $hunteradj to $adjlist.random()&gt;&gt;
@@ -1519,8 +1529,8 @@ The assembled crowd cheers as the fursuiter does a little dance for them, hammin
 
 &lt;b&gt;GAME OVER!&lt;/b&gt;
 [[Restart?|MainMenu]]
-&lt;&lt;if !$unlockedEndings.includes(&quot;BadEndDormRoom&quot;)&gt;&gt;
-    &lt;&lt;run $unlockedEndings.push(&quot;BadEndDormRoom&quot;)&gt;&gt;
+&lt;&lt;if !$unlockedEndings.includes(&quot;BadEndPlazaW&quot;)&gt;&gt;
+    &lt;&lt;run $unlockedEndings.push(&quot;BadEndPlazaW&quot;)&gt;&gt;
 &lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="35" name="BadEndPlazaN" tags="Ending(Done)" position="1850,250" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Bad End: North Plaza&lt;/h2&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
@@ -1547,7 +1557,11 @@ Thankfully, the $hunteradj $hunterspecies grabs your leg before you float up int
 
 He grabs your discarded tagger and takes off, leaving you to float up among the other colorful balloons, bumping against them with gentle squeaks.
 
-&lt;b&gt;GAME OVER!&lt;/b&gt;</tw-passagedata><tw-passagedata pid="36" name="BadEndPlazaS" tags="Ending(Done)" position="1975,250" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;b&gt;GAME OVER!&lt;/b&gt;
+[[Restart?|MainMenu]]
+&lt;&lt;if !$unlockedEndings.includes(&quot;BadEndPlazaN&quot;)&gt;&gt;
+    &lt;&lt;run $unlockedEndings.push(&quot;BadEndPlazaN&quot;)&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="36" name="BadEndPlazaS" tags="Ending(Done)" position="1975,250" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $npcspecies to $specieslist.random()&gt;&gt;
 &lt;h2&gt;Bad End: South Plaza&lt;/h2&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
@@ -1572,7 +1586,11 @@ The ground rushes up to meet you as your legs begin to shrink, disappearing into
 
 He picks you up and wraps you around his wrist, fastening your brown leather straps. &quot;Now I&#39;ll know exactly when I catch my next target.&quot;
 
-&lt;b&gt;GAME OVER!&lt;/b&gt;</tw-passagedata><tw-passagedata pid="37" name="BadEndPlazaE" tags="Ending(Done)" position="2100,250" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;b&gt;GAME OVER!&lt;/b&gt;
+[[Restart?|MainMenu]]
+&lt;&lt;if !$unlockedEndings.includes(&quot;BadEndPlazaS&quot;)&gt;&gt;
+    &lt;&lt;run $unlockedEndings.push(&quot;BadEndPlazaS&quot;)&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="37" name="BadEndPlazaE" tags="Ending(Done)" position="2100,250" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Bad End: East Plaza&lt;/h2&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
@@ -1598,7 +1616,11 @@ You can feel it sinking into you, infusing into your very being. You&#39;re you,
 
 &quot;Mmf, get used to it,&quot; the $hunterspecies says, &quot;I have a feeling I&#39;m gonna be sweating a lot more chasing down the other targets today.&quot; 
 
-&lt;b&gt;GAME OVER!&lt;/b&gt;</tw-passagedata><tw-passagedata pid="38" name="BadEndPlazaStatue" tags="Ending(Done)" position="1475,250" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;b&gt;GAME OVER!&lt;/b&gt;
+[[Restart?|MainMenu]]
+&lt;&lt;if !$unlockedEndings.includes(&quot;BadEndPlazaE&quot;)&gt;&gt;
+    &lt;&lt;run $unlockedEndings.push(&quot;BadEndPlazaE&quot;)&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="38" name="BadEndPlazaStatue" tags="Ending(Done)" position="1475,250" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Bad End: Plaza Statue&lt;/h2&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
@@ -1709,7 +1731,11 @@ When they pull out of you, cum gushes from both of your used holes, dripping to 
 
 Without fanfare, he dumps the book and you, still dripping, into the &quot;Book Return&quot; slot by the exit to the library, and goes on his way.
 
-&lt;b&gt;GAME OVER!&lt;/b&gt;</tw-passagedata><tw-passagedata pid="41" name="BadEndTheatre" tags="Ending(Done)" position="1975,125" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;b&gt;GAME OVER!&lt;/b&gt;
+[[Restart?|MainMenu]]
+&lt;&lt;if !$unlockedEndings.includes(&quot;BadEndLibrary&quot;)&gt;&gt;
+    &lt;&lt;run $unlockedEndings.push(&quot;BadEndLibrary&quot;)&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="41" name="BadEndTheatre" tags="Ending(Done)" position="1975,125" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Bad End: Theatre&lt;/h2&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
@@ -1741,7 +1767,11 @@ The $hunterspecies reaches down and picks you up, giving you a squeeze. Your bod
 
 He exits stage left, and you hope he does.
 
-&lt;b&gt;GAME OVER!&lt;/b&gt;</tw-passagedata><tw-passagedata pid="42" name="BadEndMainHall" tags="Ending(Done)" position="1475,125" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;b&gt;GAME OVER!&lt;/b&gt;
+[[Restart?|MainMenu]]
+&lt;&lt;if !$unlockedEndings.includes(&quot;BadEndTheatre&quot;)&gt;&gt;
+    &lt;&lt;run $unlockedEndings.push(&quot;BadEndTheatre&quot;)&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="42" name="BadEndMainHall" tags="Ending(Done)" position="1475,125" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $npcspecies to $specieslist.random()&gt;&gt;
 &lt;&lt;set $npcadj to $adjlist.random()&gt;&gt;
 &lt;&lt;if $npcspecies == $hunterspecies&gt;&gt;
@@ -1899,7 +1929,11 @@ The $hunterspecies eventually slaps his hands together in a puff of chalk dust a
 
 He gathers (most of) your scattered pieces into the box and sets it on the lectern, then picks up your discarded tagger and sets off on the hunt again.
 
-&lt;b&gt;GAME OVER!&lt;/b&gt;</tw-passagedata><tw-passagedata pid="46" name="BadEndAthletics" tags="Ending(Done)" position="1600,0" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;b&gt;GAME OVER!&lt;/b&gt;
+[[Restart?|MainMenu]]
+&lt;&lt;if !$unlockedEndings.includes(&quot;BadEndLectureHall&quot;)&gt;&gt;
+    &lt;&lt;run $unlockedEndings.push(&quot;BadEndLectureHall&quot;)&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="46" name="BadEndAthletics" tags="Ending(Done)" position="1600,0" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Bad End: Athletics Centre&lt;/h2&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
@@ -2011,7 +2045,11 @@ Being worn by him is gives you a satisfaction you&#39;d never known before. His 
 
 As he dives into the water, you feel complete.
 
-&lt;b&gt;GAME OVER!&lt;/b&gt;</tw-passagedata><tw-passagedata pid="49" name="BadEndAthTrack" tags="Ending(Done)" position="1975,0" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;b&gt;GAME OVER!&lt;/b&gt;
+[[Restart?|MainMenu]]
+&lt;&lt;if !$unlockedEndings.includes(&quot;BadEndAthPool&quot;)&gt;&gt;
+    &lt;&lt;run $unlockedEndings.push(&quot;BadEndAthPool&quot;)&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="49" name="BadEndAthTrack" tags="Ending(Done)" position="1975,0" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Bad End: Athletics Track&lt;/h2&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
 &lt;&lt;set $npcspecies to $specieslist.random()&gt;&gt;
@@ -2073,7 +2111,11 @@ The $npcspecies stands up from the bench, testing his weight on his two new trai
 
 With each step he takes, as he picks up your dropped tagger and leaves the running track in search of his next target, you feel a rhythmic bliss, unceasingly pleased to be so close to such a powerful, wonderful paw.
 
-&lt;b&gt;GAME OVER!&lt;/b&gt;</tw-passagedata><tw-passagedata pid="50" name="BadEndAthCourt" tags="Ending(Done)" position="2100,0" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;b&gt;GAME OVER!&lt;/b&gt;
+[[Restart?|MainMenu]]
+&lt;&lt;if !$unlockedEndings.includes(&quot;BadEndAthTrack&quot;)&gt;&gt;
+    &lt;&lt;run $unlockedEndings.push(&quot;BadEndAthTrack&quot;)&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="50" name="BadEndAthCourt" tags="Ending(Done)" position="2100,0" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Bad End: Basketball Court&lt;/h2&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
@@ -2099,7 +2141,11 @@ A couple of the players see what&#39;s happening and the game quickly grinds to 
     
     You hope you&#39;re durable too, because you want to spend as much time as you can wrapped around his feet. It&#39;s really the perfect place for socks like you to be.
 
-&lt;b&gt;GAME OVER!&lt;/b&gt;</tw-passagedata><tw-passagedata pid="51" name="BadEndDormRoom" tags="Ending(Done)" position="1475,0" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;b&gt;GAME OVER!&lt;/b&gt;
+[[Restart?|MainMenu]]
+&lt;&lt;if !$unlockedEndings.includes(&quot;BadEndAthCourt&quot;)&gt;&gt;
+    &lt;&lt;run $unlockedEndings.push(&quot;BadEndAthCourt&quot;)&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="51" name="BadEndDormRoom" tags="Ending(Done)" position="1475,0" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $flavorlist = [&quot;grape&quot;, &quot;strawberry&quot;, &quot;green apple&quot;, &quot;peach&quot;, &quot;blueberry&quot;, &quot;cherry&quot;, &quot;tropical fruit&quot;, &quot;root beer&quot;, &quot;orange&quot;, &quot;mixed berry&quot;, &quot;watermelon&quot;, &quot;mango&quot;]&gt;&gt;
 &lt;&lt;set $sodaflavor to $flavorlist.random()&gt;&gt;
 
@@ -2372,6 +2418,10 @@ With that, the president signs off and the TV resumes its regular programming.&l
 Next year&#39;s competition?! &lt;i&gt;Gulp.&lt;/i&gt;&lt;br&gt;&lt;br&gt;
 
 &lt;b&gt;THE END.&lt;/b&gt;
+[[Restart?|MainMenu]]
+&lt;&lt;if !$unlockedEndings.includes(&quot;EndingMCWin&quot;)&gt;&gt;
+    &lt;&lt;run $unlockedEndings.push(&quot;EndingMCWin&quot;)&gt;&gt;
+&lt;&lt;/if&gt;&gt;
 &lt;&lt;/linkappend&gt;&gt;
 &lt;&lt;/linkappend&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="57" name="EndingRMWin" tags="Ending(Done)" position="1225,125" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $showfooter to false&gt;&gt;&lt;&lt;/nobr&gt;&gt;
@@ -2410,6 +2460,10 @@ It&#39;s dark when you arrive back at your dorm. You switch the lights on, and f
     &quot;Fuck, you make an awesome cock,&quot; he says, looking down at his new member. &quot;And you&#39;ve made me a few inches longer now, too!&quot; Kyle grabs a tissue and wipes you clean, then pulls on a pair of underwear. Cocooned in the soft cotton and held securely against his thigh, you let yourself soften, settling down until Kyle needs you again. Which, you hope, will be soon and often. You twitch a little thinking about it.   
     &lt;br&gt;
     &lt;b&gt;THE END.&lt;/b&gt;
+    [[Restart?|MainMenu]]
+&lt;&lt;if !$unlockedEndings.includes(&quot;EndingRMWin&quot;)&gt;&gt;
+    &lt;&lt;run $unlockedEndings.push(&quot;EndingRMWin&quot;)&gt;&gt;
+&lt;&lt;/if&gt;&gt;
 &lt;&lt;/linkappend&gt;&gt;</tw-passagedata><tw-passagedata pid="58" name="EndingShowdown" tags="Ending(Done)" position="1325,125" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $showfooter to false&gt;&gt;&lt;&lt;/nobr&gt;&gt;&lt;h2&gt;Ending 4: Showdown&lt;/h2&gt;
 You ease open the dorm room door, your tagger drawn. You want to be ready if Kyle is already in there. It turns out, he is - and his tagger is aimed at you, too.
 
@@ -2470,6 +2524,10 @@ Hesitantly at first, then more and more boldly, students begin to approach you, 
 And as time goes by, you get rubbed a lot, feeling every paw that strokes up and down your metal shaft, til it is shiny and bright. You&#39;re where you belong. Together.
 
 &lt;b&gt;THE END.&lt;/b&gt;
+[[Restart?|MainMenu]]
+&lt;&lt;if !$unlockedEndings.includes(&quot;EndingShowdown&quot;)&gt;&gt;
+    &lt;&lt;run $unlockedEndings.push(&quot;EndingShowdown&quot;)&gt;&gt;
+&lt;&lt;/if&gt;&gt;
 &lt;&lt;/linkappend&gt;&gt;
 &lt;&lt;/linkappend&gt;&gt;
 &lt;&lt;/linkappend&gt;&gt;
@@ -2484,7 +2542,11 @@ As the clock strikes 9pm, the television turns on and the university&#39;s direc
 
 &lt;i&gt;Gulp.&lt;/i&gt;
 
-&lt;b&gt;THE END.&lt;/b&gt;</tw-passagedata><tw-passagedata pid="60" name="GossipEvent" tags="" position="975,650" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;b&gt;THE END.&lt;/b&gt;
+[[Restart?|MainMenu]]
+&lt;&lt;if !$unlockedEndings.includes(&quot;EndingMCSurvives&quot;)&gt;&gt;
+    &lt;&lt;run $unlockedEndings.push(&quot;EndingMCSurvives&quot;)&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="60" name="GossipEvent" tags="" position="975,650" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
 As you pass by, you overhear two students talking about a $kylehunteradj $kylehunterspecies, who&#39;s hunting for a bear named Kyle -- wait, that&#39;s your roommate!&lt;br&gt;&lt;br&gt;
 
@@ -2777,7 +2839,7 @@ But be warned! You&#39;re not the only one on the prowl... someone out there has
 [[Walkthrough (Contains Spoilers, Duh!)|Walkthrough]]&lt;br&gt;
 [[Update Log|Changelog]]&lt;br&gt;
 [[Credits]]&lt;br&gt;&lt;br&gt;
-&lt;b&gt;[[Start Game|Start]]&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;i&gt;Current game version: v1.0.1 - 2024.10.28&lt;/i&gt;
+&lt;b&gt;[[Start Game|Start]]&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;i&gt;Current game version: v1.0.2 - 2024.10.28&lt;/i&gt;
 &lt;br&gt;&lt;i&gt;I&#39;d love to hear your feedback! Drop me a message if you enjoyed the game or encountered a game-breaking bug that I need to squish! https://linktr.ee/kymaequ &lt;/i&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="65" name="Credits" tags="" position="1425,950" size="100,100">&lt;h2&gt;Credits&lt;/h2&gt;
 &lt;b&gt;TF Tag&lt;/b&gt; was made by Ky the Capybara 
@@ -3081,7 +3143,10 @@ You spot Kyle sneaking up on a $npcadj $npcspecies, his tagger drawn. At the las
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="72" name="Changelog" tags="" position="1300,1075" size="100,100">&lt;h2&gt;Update Log&lt;/h2&gt;
 [[Go Back|MainMenu]]
 
-&lt;i&gt;Version 1.0.1 2024.10.28&lt;/i&gt;
+&lt;i&gt;Version 1.0.2&lt;/i&gt;
+- Added a Restart? button to each ending
+
+&lt;i&gt;Version 1.0.1&lt;/i&gt;
 - Fixed an issue that made the hunter practically blind and unlikely to catch you if you were in the same location.
 - Saves should work properly now and not cause the Actions menu to break
 
@@ -3284,16 +3349,6 @@ Here you can view the endings that you&#39;ve unlocked! Note that some details, 
 /* Set Target Hobbies */
 &lt;&lt;set $targethobbylist = [
 	&quot;Dungeons &amp; Dragons&quot;, &quot;board games&quot;, &quot;video games&quot;, &quot;spicy food&quot;, &quot;painting&quot;, &quot;drawing&quot;, &quot;pottery&quot;, &quot;music&quot;, &quot;playing guitar&quot;, &quot;playing piano&quot;, &quot;playing violin&quot;, &quot;dancing&quot;, &quot;clubbing&quot;, &quot;writing fanfiction&quot;, &quot;standup comedy&quot;, &quot;BDSM&quot;, &quot;running&quot;, &quot;swimming&quot;, &quot;working out&quot;, &quot;movies&quot;, &quot;writing mean comments online&quot;, &quot;hanging out with friends&quot;, &quot;cycling&quot;, &quot;reading&quot;, &quot;stargazing&quot;, &quot;photography&quot; ]&gt;&gt;
-
-/* Define NPCs */
-
-&lt;&lt;set $namelist = [&quot;Allan&quot;,&quot;Adam&quot;,&quot;Benny&quot;,&quot;Bruce&quot;,&quot;Cal&quot;,&quot;Colin&quot;,&quot;Dave&quot;,&quot;Daniel&quot;,&quot;Evan&quot;,&quot;Eason&quot;,&quot;Fred&quot;,&quot;Felix&quot;,&quot;George&quot;,&quot;Greg&quot;,&quot;Hal&quot;,&quot;Henry&quot;,&quot;Ivan&quot;,&quot;Isaac&quot;,&quot;Jack&quot;,&quot;John&quot;,&quot;Kevin&quot;,&quot;Kent&quot;,&quot;Louis&quot;,&quot;Lyle&quot;,&quot;Mike&quot;,&quot;Mason&quot;,&quot;Noel&quot;,&quot;Nick&quot;,&quot;Oscar&quot;,&quot;Owen&quot;,&quot;Perry&quot;,&quot;Phil&quot;,&quot;Quentin&quot;,&quot;Quinn&quot;,&quot;Raul&quot;,&quot;Ryan&quot;,&quot;Sammy&quot;,&quot;Shawn&quot;,&quot;Trevor&quot;,&quot;Tyler&quot;,&quot;Ulric&quot;,&quot;Ulysses&quot;,&quot;Vance&quot;,&quot;Vic&quot;,&quot;Will&quot;,&quot;Wes&quot;,&quot;Xavier&quot;,&quot;Wes&quot;,&quot;Yannis&quot;,&quot;Yuri&quot;,&quot;Zack&quot;,&quot;Zane&quot;,&quot;Zooks&quot;,&quot;Ritz&quot;,&quot;Blueballs&quot;,&quot;Decro&quot;,&quot;Medley&quot;,&quot;Maple&quot;,&quot;Ky&quot;] &gt;&gt;
-
-&lt;&lt;set $lastnamelist = [&quot; A.&quot;, &quot; B.&quot;, &quot; C.&quot;, &quot; D.&quot;, &quot; E.&quot;, &quot; F.&quot;, &quot; G.&quot;, &quot; H.&quot;, &quot; I.&quot;, &quot; J.&quot;, &quot; K.&quot;, &quot; L.&quot;, &quot; M.&quot;, &quot; N.&quot;, &quot; O.&quot;, &quot; P.&quot;, &quot; Q.&quot;, &quot; R.&quot;, &quot; S.&quot;, &quot; T.&quot;, &quot; U.&quot;, &quot; V.&quot;, &quot; W.&quot;, &quot; X.&quot;, &quot; Y.&quot;, &quot; Z.&quot;]&gt;&gt;
-
-&lt;&lt;set $specieslist = [&quot;husky&quot;, &quot;wolf&quot;, &quot;tiger&quot;, &quot;fox&quot;, &quot;panda&quot;, &quot;coyote&quot;, &quot;raccoon&quot;, &quot;tanuki&quot;, &quot;monkey&quot;, &quot;capybara&quot;, &quot;deer&quot;, &quot;horse&quot;, &quot;moose&quot;, &quot;shiba&quot;, &quot;lion&quot;, &quot;cat&quot;, &quot;otter&quot;, &quot;rat&quot;, &quot;mouse&quot;, &quot;rabbit&quot;, &quot;bear&quot;, &quot;dog&quot;, &quot;bull&quot;, &quot;ox&quot;, &quot;skunk&quot;, &quot;squirrel&quot;, &quot;fennec&quot;, &quot;hyena&quot;, &quot;doberman&quot;, &quot;cheetah&quot;, &quot;leopard&quot;, &quot;puma&quot;, &quot;civet&quot;, &quot;serval&quot;, &quot;antelope&quot;, &quot;zebra&quot;, &quot;badger&quot;, &quot;ferret&quot;, &quot;lynx&quot;]&gt;&gt;
-
-&lt;&lt;set $adjlist = [&quot;muscular&quot;, &quot;handsome&quot;, &quot;lithe&quot;, &quot;sexy&quot;,&quot;tall&quot;,&quot;short&quot;,&quot;blue&quot;,&quot;red&quot;,&quot;white&quot;,&quot;brown&quot;,&quot;grey&quot;,&quot;yellow&quot;,&quot;chubby&quot;,&quot;cute&quot;,&quot;chunky&quot;,&quot;fit&quot;,&quot;wild-looking&quot;,&quot;crazy-looking&quot;,&quot;nerdy-looking&quot;,&quot;smart-looking&quot;,&quot;hefty&quot;]&gt;&gt;
 
 /* Set up Wait Actions Widget */
 &lt;&lt;widget &quot;waitAction&quot;&gt;&gt;
