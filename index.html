@@ -3012,7 +3012,8 @@ You spot Kyle sneaking up on a $npcadj $npcspecies, his tagger drawn. At the las
 [[Go Back|MainMenu]]
 
 &lt;i&gt;Version 1.0.1 2024.10.28&lt;/i&gt;
-Fixed an issue that made the hunter practically blind and unlikely to catch you if you were in the same location.
+- Fixed an issue that made the hunter practically blind and unlikely to catch you if you were in the same location.
+- Saves should work properly now and not cause the Actions menu to break
 
 &lt;i&gt;Version 1.0 2024.10.28&lt;/i&gt;
 Release version of the game!</tw-passagedata><tw-passagedata pid="73" name="Ending Gallery" tags="" position="1425,1075" size="100,100">&lt;h2&gt;Ending Gallery&lt;/h2&gt;
@@ -3029,7 +3030,12 @@ Here you can view the endings that you&#39;ve unlocked! Note that some details, 
             &lt;&lt;else&gt;&gt;
             	Dorm Room
             &lt;&lt;/if&gt;&gt;&lt;&lt;/nobr&gt;&gt;&lt;/td&gt;
-    &lt;td&gt;Dorm Hallway&lt;/td&gt;
+    &lt;td&gt;&lt;&lt;nobr&gt;&gt;&lt;&lt;if $unlockedEndings.includes(&quot;BadEndDormHall&quot;)&gt;&gt;
+    			&lt;&lt;ViewEnding&gt;&gt;
+                [[Dorm Room|BadEndDormHall]]
+            &lt;&lt;else&gt;&gt;
+            	Dorm Hallway
+            &lt;&lt;/if&gt;&gt;&lt;&lt;/nobr&gt;&gt;&lt;/td&gt;
     &lt;td&gt;Dorm Common Room&lt;/td&gt;
     &lt;td&gt;Dorm Bathroom&lt;/td&gt;
     &lt;td&gt;Dorm Elevator&lt;/td&gt;
