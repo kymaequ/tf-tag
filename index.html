@@ -120,7 +120,59 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
 .endings-table th {
     background-color: #f0f0f0;
     font-weight: bold;
-}</style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-tag name="Widget" color="orange"></tw-tag><tw-tag name="Ending" color="red"></tw-tag><tw-tag name="Room" color="blue"></tw-tag><tw-tag name="Ending(Done)" color="green"></tw-tag><tw-passagedata pid="1" name="Start" tags="" position="1425,800" size="100,100">/* Define NPCs */
+}</style><script role="script" id="twine-user-script" type="text/twine-javascript">// Story JavaScript section
+(function () {
+    // Define priority items (keep these lowercase for comparison)
+    State.variables.priorityItems = [
+        "missing sock",
+    	"disguise",
+    	"distraction",
+    	"makeshift shield",
+    	"hunter tracker",
+    ];
+    
+    window.addToInventory = function (newItem) {
+        // Initialize inventory if needed
+        if (!State.variables.inventory) {
+            State.variables.inventory = [];
+        }
+        
+        // Add item to inventory
+        State.variables.inventory.push(newItem);
+        
+        // Check if it's a priority item (case-insensitive)
+        if (State.variables.priorityItems.includes(newItem.toLowerCase())) {
+            let index = State.variables.inventory.lastIndexOf(newItem);
+            State.variables.inventory.splice(index, 1);
+            State.variables.inventory.unshift(newItem);
+        }
+    };
+})();</script><tw-tag name="Widget" color="orange"></tw-tag><tw-tag name="Ending" color="red"></tw-tag><tw-tag name="Room" color="blue"></tw-tag><tw-tag name="Ending(Done)" color="green"></tw-tag><tw-passagedata pid="1" name="Start" tags="" position="1450,900" size="100,100">&lt;&lt;if $endlessmode&gt;&gt;
+	/* Endless Mode is enabled */
+&lt;&lt;else&gt;&gt;
+	&lt;&lt;set $endlessmode to false&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+
+&lt;&lt;if $ezmode&gt;&gt;
+	/* EZMode is enabled */
+&lt;&lt;else&gt;&gt;
+	&lt;&lt;set $ezmode to false&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+
+&lt;&lt;if $hardmode&gt;&gt;
+	/* Hard Mode is enabled */
+	&lt;&lt;set $randomcatchchance to 20&gt;&gt;
+    &lt;&lt;set $trackerfound to false&gt;&gt;
+    &lt;&lt;set $disguisefound to false&gt;&gt;
+    &lt;&lt;set $distractionfound to false&gt;&gt;
+    &lt;&lt;set $shieldfound to false&gt;&gt;
+&lt;&lt;else&gt;&gt;
+	&lt;&lt;set $hardmode to false&gt;&gt;
+    &lt;&lt;set $randomcatchchance to 50&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+
+
+/* Define NPCs */
 
 &lt;&lt;set $namelist = [&quot;Allan&quot;,&quot;Adam&quot;,&quot;Benny&quot;,&quot;Bruce&quot;,&quot;Cal&quot;,&quot;Colin&quot;,&quot;Dave&quot;,&quot;Daniel&quot;,&quot;Evan&quot;,&quot;Eason&quot;,&quot;Fred&quot;,&quot;Felix&quot;,&quot;George&quot;,&quot;Greg&quot;,&quot;Hal&quot;,&quot;Henry&quot;,&quot;Ivan&quot;,&quot;Isaac&quot;,&quot;Jack&quot;,&quot;John&quot;,&quot;Kevin&quot;,&quot;Kent&quot;,&quot;Louis&quot;,&quot;Lyle&quot;,&quot;Mike&quot;,&quot;Mason&quot;,&quot;Noel&quot;,&quot;Nick&quot;,&quot;Oscar&quot;,&quot;Owen&quot;,&quot;Perry&quot;,&quot;Phil&quot;,&quot;Quentin&quot;,&quot;Quinn&quot;,&quot;Raul&quot;,&quot;Ryan&quot;,&quot;Sammy&quot;,&quot;Shawn&quot;,&quot;Trevor&quot;,&quot;Tyler&quot;,&quot;Ulric&quot;,&quot;Ulysses&quot;,&quot;Vance&quot;,&quot;Vic&quot;,&quot;Will&quot;,&quot;Wes&quot;,&quot;Xavier&quot;,&quot;Wes&quot;,&quot;Yannis&quot;,&quot;Yuri&quot;,&quot;Zack&quot;,&quot;Zane&quot;,&quot;Zooks&quot;,&quot;Ritz&quot;,&quot;Blueballs&quot;,&quot;Decro&quot;,&quot;Medley&quot;,&quot;Maple&quot;,&quot;Ky&quot;] &gt;&gt;
 
@@ -130,6 +182,40 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
 
 &lt;&lt;set $adjlist = [&quot;muscular&quot;, &quot;handsome&quot;, &quot;lithe&quot;, &quot;sexy&quot;,&quot;tall&quot;,&quot;short&quot;,&quot;blue&quot;,&quot;red&quot;,&quot;white&quot;,&quot;brown&quot;,&quot;grey&quot;,&quot;yellow&quot;,&quot;chubby&quot;,&quot;cute&quot;,&quot;chunky&quot;,&quot;fit&quot;,&quot;wild-looking&quot;,&quot;crazy-looking&quot;,&quot;nerdy-looking&quot;,&quot;smart-looking&quot;,&quot;hefty&quot;]&gt;&gt;
 
+/* Set Target Transformations */
+&lt;&lt;set $targetTFlist = [&quot;a coin&quot;, &quot;a shirt&quot;, &quot;a hat&quot;, &quot;a pair of socks&quot;, &quot;a pair of shoes&quot;, &quot;a jockstrap&quot;, &quot;a pair of underwear&quot;, &quot;a small statuette&quot;, &quot;a balloon&quot;, &quot;a towel&quot;, &quot;a condom&quot;, &quot;a stuffed toy&quot;, &quot;a dildo&quot;, &quot;an onahole&quot;, &quot;a potted plant&quot;, &quot;a collar&quot;, &quot;a harness&quot;, &quot;an acrylic standee&quot;, &quot;a small brass button&quot;, &quot;a keychain&quot;, &quot;an enamel pin&quot;, &quot;a featureless cube&quot;, &quot;a small bouncy ball&quot;, &quot;a silver bell&quot;, &quot;a music box&quot;, &quot;a USB stick&quot;, &quot;a blank book&quot;, &quot;a pair of gloves&quot;, &quot;a silver spoon&quot;, &quot;a whistle&quot;, &quot;a toy soldier&quot;, &quot;a candle&quot;, &quot;a piece of chalk&quot;, &quot;a tube of toothpaste&quot;, &quot;a ball of yarn&quot;, &quot;an ornate key&quot;, &quot;an earring&quot;, &quot;a handkerchief&quot;, &quot;an empty glass jar&quot;, &quot;a red solo cup&quot;, &quot;a hairpin&quot;, &quot;a comb&quot;, &quot;a harmonica&quot;, &quot;a squeaky rubber chicken&quot;, &quot;a string of anal beads&quot;, &quot;a rubber duck&quot;]&gt;&gt;
+&lt;&lt;set $itemPatterns = {
+    &quot;a stuffed toy&quot;: {
+        pattern: &quot;a stuffed {species} toy&quot;
+    },
+    &quot;a dildo&quot;: {
+        pattern: &quot;a {species} dildo&quot;
+    },
+    &quot;an acrylic standee&quot;: {
+        pattern: &quot;an acrylic standee of a {species}&quot;
+    },
+    &quot;a jockstrap&quot;: {
+        pattern: &quot;a {species}-patterned jockstrap&quot;
+    },
+    &quot;a pair of underwear&quot;: {
+        pattern: &quot;{species}-patterned underwear&quot;
+    },
+    &quot;a keychain&quot;: {
+        pattern: &quot;a {species} keychain&quot;
+    },
+    &quot;an enamel pin&quot;: {
+        pattern: &quot;an enamel {species} pin&quot;
+    },
+    &quot;a small statuette&quot;: {
+        pattern: &quot;a small {species} statuette&quot;
+    }
+    
+}&gt;&gt;
+
+/* Set Target Hobbies */
+&lt;&lt;set $targethobbylist = [
+	&quot;Dungeons &amp; Dragons&quot;, &quot;board games&quot;, &quot;video games&quot;, &quot;spicy food&quot;, &quot;painting&quot;, &quot;drawing&quot;, &quot;pottery&quot;, &quot;music&quot;, &quot;playing guitar&quot;, &quot;playing piano&quot;, &quot;playing violin&quot;, &quot;dancing&quot;, &quot;clubbing&quot;, &quot;writing fanfiction&quot;, &quot;standup comedy&quot;, &quot;BDSM&quot;, &quot;running&quot;, &quot;swimming&quot;, &quot;working out&quot;, &quot;movies&quot;, &quot;writing mean comments online&quot;, &quot;hanging out with friends&quot;, &quot;cycling&quot;, &quot;reading&quot;, &quot;stargazing&quot;, &quot;photography&quot;, &quot;online gambling&quot;, &quot;playing VR games&quot;, &quot;playing gacha games&quot;, &quot;vlogging&quot;, &quot;backpacking&quot;, &quot;nude modeling&quot;, &quot;running marathons&quot; ]&gt;&gt;
+
 &lt;&lt;GenTarget&gt;&gt;
 
 &lt;&lt;set $hunterspecies to $specieslist.random()&gt;&gt;
@@ -138,7 +224,7 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
 
 &lt;&lt;set $kylehunterspecies to $specieslist.random()&gt;&gt;
 &lt;&lt;set $kylehunteradj to $adjlist.random()&gt;&gt;
-&lt;&lt;set $kyletargetname to [$namelist.pluck()+$lastnamelist.pluck()]&gt;&gt;
+&lt;&lt;set $kyletargetname to [$namelist.random()+$lastnamelist.random()]&gt;&gt;
 &lt;&lt;set $kyletargetspecies to $specieslist.random()&gt;&gt;
 &lt;&lt;set $kyletargetadj to $adjlist.random()&gt;&gt;
 &lt;&lt;set $kyletargetloc to $kyletargetloclist.random()&gt;&gt;
@@ -164,13 +250,19 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
 
 &lt;&lt;set $start to false&gt;&gt;
 &lt;&lt;set $gameover to false&gt;&gt;
-&lt;&lt;set $hours to 12&gt;&gt;
-&lt;&lt;set $minutes to 10&gt;&gt;
+&lt;&lt;if $endlessmode&gt;&gt;
+	&lt;&lt;set $hours to 9999999&gt;&gt;
+	&lt;&lt;set $minutes to 10&gt;&gt;
+&lt;&lt;else&gt;&gt;
+	&lt;&lt;set $hours to 12&gt;&gt;
+	&lt;&lt;set $minutes to 10&gt;&gt;
+&lt;&lt;/if&gt;&gt;
 &lt;&lt;set $inventory to []&gt;&gt;
 &lt;&lt;set $targetcount to 0&gt;&gt;
 &lt;&lt;set $targetmovecounter to -1&gt;&gt;
 &lt;&lt;set $huntermovecounter to -1&gt;&gt;
 &lt;&lt;set $hidecount to 0&gt;&gt;
+&lt;&lt;set $kyleleavecount to 0&gt;&gt;
 &lt;&lt;set $kyleinroom to 1&gt;&gt;
 &lt;&lt;set $kyletarget to 0&gt;&gt;
 &lt;&lt;set $kylehelp to 0&gt;&gt;
@@ -181,14 +273,20 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
 &lt;&lt;set $kyleconvo4 to 1&gt;&gt; /* Ask what if have each other */
 &lt;&lt;set $foundsock to 0&gt;&gt;
 &lt;&lt;set $gossipover to 0&gt;&gt;
+&lt;&lt;set $caughteventover to false&gt;&gt;
 &lt;&lt;set $interveneover to 0&gt;&gt;
 &lt;&lt;set $interveneyes to 0&gt;&gt;
 &lt;&lt;set $protectover to 0&gt;&gt;
 &lt;&lt;set $protectending to 0&gt;&gt;
 &lt;&lt;set $firstvisit to 0&gt;&gt;
 
-&lt;&lt;goto &quot;Start2&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="2" name="PassageFooter" tags="" position="1300,650" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;goto &quot;Start2&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="2" name="PassageFooter" tags="" position="1325,750" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;if $showfooter&gt;&gt;
+
+/* Kyle Caught Special Event */
+	&lt;&lt;if ($targetcount == 25) &amp;&amp; (!$caughteventover)&gt;&gt;
+    	&lt;&lt;goto &quot;KyleCaughtEvent&quot;&gt;&gt;
+    &lt;&lt;/if&gt;&gt;
 
 /* Gossip Special Event */
 	&lt;&lt;if ($location == $gossiplocation) &amp;&amp; ($gossipover == 0)&gt;&gt;
@@ -212,7 +310,10 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
 	&lt;&lt;/if&gt;&gt;
 
 /* Display the Time &amp; Inventory */
-	&lt;&lt;set $targetmovecounter to $targetmovecounter+1&gt;&gt;
+	&lt;&lt;if $kyleleavecount &lt; 10&gt;&gt;
+    	&lt;&lt;set $kyleleavecount to $kyleleavecount+1&gt;&gt;
+    &lt;&lt;/if&gt;&gt;
+    &lt;&lt;set $targetmovecounter to $targetmovecounter+1&gt;&gt;
     &lt;&lt;set $targetlastseen to ($targetmovecounter*10)&gt;&gt;
     &lt;&lt;set $huntermovecounter to $huntermovecounter+1&gt;&gt;
 	&lt;&lt;set $minutes to $minutes-10&gt;&gt;
@@ -220,17 +321,21 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
 		&lt;&lt;set $minutes to 50&gt;&gt;
 		&lt;&lt;set $hours to $hours-1&gt;&gt;
 	&lt;&lt;/if&gt;&gt;
-	&lt;&lt;if $start&gt;&gt;
-		&lt;&lt;if $hours &gt; 1&gt;&gt;
-			&lt;i&gt;There are $hours hours and $minutes minutes remaining.&lt;/i&gt;
+    &lt;&lt;if !$endlessmode&gt;&gt;
+		&lt;&lt;if $start&gt;&gt;
+			&lt;&lt;if $hours &gt; 1&gt;&gt;
+				&lt;i&gt;There are $hours hours and $minutes minutes remaining.&lt;/i&gt;
+			&lt;&lt;/if&gt;&gt;
+			&lt;&lt;if $hours == 1&gt;&gt;
+				&lt;i&gt;There is $hours hour and $minutes minutes remaining.&lt;/i&gt;
+			&lt;&lt;/if&gt;&gt;
+			&lt;&lt;if $hours == 0&gt;&gt;
+				&lt;i&gt;There are $minutes minutes remaining.&lt;/i&gt;
+			&lt;&lt;/if&gt;&gt;
 		&lt;&lt;/if&gt;&gt;
-		&lt;&lt;if $hours == 1&gt;&gt;
-			&lt;i&gt;There is $hours hour and $minutes minutes remaining.&lt;/i&gt;
-		&lt;&lt;/if&gt;&gt;
-		&lt;&lt;if $hours == 0&gt;&gt;
-			&lt;i&gt;There are $minutes minutes remaining.&lt;/i&gt;
-		&lt;&lt;/if&gt;&gt;
-	&lt;&lt;/if&gt;&gt;
+        &lt;&lt;else&gt;&gt;
+        	&lt;b&gt;Targets Caught:&lt;/b&gt; $targetcount
+    &lt;&lt;/if&gt;&gt;
     
     &lt;&lt;if ($targetname == &quot;Kyle&quot;) &amp;&amp; ($hours &lt; 2)&gt;&gt;
     	&lt;br&gt;&lt;i&gt;Kyle will probably be returning to the dorm soon...&lt;/i&gt;
@@ -275,7 +380,7 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
 &lt;&lt;if $targetlocation == &quot;Dorm Room&quot;&gt;&gt;
 	&lt;&lt;set $targetlocation to &quot;Dormitory Hallway&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
-&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="3" name="Dorm Room" tags="Room" position="1700,800" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="3" name="Dorm Room" tags="Room" position="1725,900" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Dorm Room&lt;/h2&gt;
 &lt;&lt;if $location isnot &quot;Dorm Room&quot;&gt;&gt;
 	&lt;&lt;set $hidecount to 0&gt;&gt;
@@ -288,10 +393,7 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
 &lt;&lt;set $location to &quot;Dorm Room&quot;&gt;&gt;
 &lt;&lt;set $showfooter to true&gt;&gt;
 &lt;&lt;set $start to true&gt;&gt;
-&lt;&lt;if $hours &lt;= 10&gt;&gt;
-	&lt;&lt;set $kyleinroom to 0&gt;&gt;
-&lt;&lt;/if&gt;&gt;
-&lt;&lt;if $hours == 11 and $minutes == 10&gt;&gt;
+&lt;&lt;if $kyleleavecount &gt;= 6&gt;&gt;
 	&lt;&lt;set $kyleinroom to 0&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -352,8 +454,8 @@ You&#39;re in the dorm room you share with Kyle. It&#39;s reasonably clean, but 
     &lt;&lt;/linkappend&gt;&gt;&lt;br&gt;
 &lt;&lt;/if&gt;&gt;
 
-&lt;&lt;if $hours == 11 and $minutes == 10&gt;&gt;
-	&lt;br&gt;Kyle grunts and stands up. &quot;Well, time for me to go out hunting! Good luck, roomie!&quot;
+&lt;&lt;if $kyleleavecount == 6&gt;&gt;
+	&lt;br&gt;Kyle grunts and stands up. &quot;Well, time for me to go out hunting! Good luck, roomie!&quot;&lt;br&gt;
 &lt;&lt;/if&gt;&gt;
 
 &lt;br&gt;[[Use your laptop|UseComputer]]
@@ -367,7 +469,7 @@ You&#39;re in the dorm room you share with Kyle. It&#39;s reasonably clean, but 
 [[Wait (Have a quick wank)|Wait]]&lt;br&gt;&lt;br&gt;
 [[Leave your room|Dormitory Hallway]]&lt;br&gt;
 &lt;&lt;/nobr&gt;&gt;
-&lt;br&gt;</tw-passagedata><tw-passagedata pid="4" name="Dormitory Hallway" tags="Room" position="1850,800" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;br&gt;</tw-passagedata><tw-passagedata pid="4" name="Dormitory Hallway" tags="Room" position="1875,900" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Dorm Hallway&lt;/h2&gt;
 &lt;&lt;if $location isnot &quot;Dormitory Hallway&quot;&gt;&gt;
 	&lt;&lt;set $hidecount to 0&gt;&gt;
@@ -407,7 +509,7 @@ You are in the hallway of your dorm. A well-trodden carpet runs the length of th
 	[[Go to the bathroom|Dormitory Bathroom]]
 	[[Go to the common room|Dormitory Common Room]]
 	[[Go to the elevator|Dormitory Elevator]]
-&lt;br&gt;</tw-passagedata><tw-passagedata pid="5" name="Dormitory Bathroom" tags="Room" position="1850,650" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;br&gt;</tw-passagedata><tw-passagedata pid="5" name="Dormitory Bathroom" tags="Room" position="1875,750" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Dorm Bathroom&lt;/h2&gt;
 &lt;&lt;if $location isnot &quot;Dormitory Bathroom&quot;&gt;&gt;
 	&lt;&lt;set $hidecount to 0&gt;&gt;
@@ -439,7 +541,7 @@ You are in the dorm’s bathroom and showers. Apart from the rude graffiti defac
 &lt;&lt;Actions&gt;&gt;
 
 [[Return to hall|Dormitory Hallway]]
-&lt;br&gt;</tw-passagedata><tw-passagedata pid="6" name="Dormitory Common Room" tags="Room" position="1850,950" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;br&gt;</tw-passagedata><tw-passagedata pid="6" name="Dormitory Common Room" tags="Room" position="1875,1050" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Common Room&lt;/h2&gt;
 &lt;&lt;if $location isnot &quot;Dormitory Common Room&quot;&gt;&gt;
 	&lt;&lt;set $hidecount to 0&gt;&gt;
@@ -473,7 +575,7 @@ The common room looks out over the central plaza, which is buzzing with activity
 &lt;&lt;Actions&gt;&gt;
 
 	[[Return to hall|Dormitory Hallway]]
-&lt;br&gt;</tw-passagedata><tw-passagedata pid="7" name="Dormitory Elevator" tags="Room" position="2000,800" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;br&gt;</tw-passagedata><tw-passagedata pid="7" name="Dormitory Elevator" tags="Room" position="2025,900" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Dorm Elevator&lt;/h2&gt;
 &lt;&lt;if $location isnot &quot;Dormitory Elevator&quot;&gt;&gt;
 	&lt;&lt;set $hidecount to 0&gt;&gt;
@@ -509,7 +611,7 @@ You can take the elevator to your floor or to the ground floor, which opens to t
 
 [[Exit elevator to dorms|Dormitory Hallway]]
 [[Exit elevator to West Plaza|West Plaza]]
-&lt;br&gt;</tw-passagedata><tw-passagedata pid="8" name="Search" tags="" position="1125,800" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;br&gt;</tw-passagedata><tw-passagedata pid="8" name="Search" tags="" position="1150,900" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
 &lt;&lt;set $npcspecies to $specieslist.random()&gt;&gt;
 &lt;&lt;set $npcadj to $adjlist.random()&gt;&gt;
@@ -552,7 +654,8 @@ You can take the elevator to your floor or to the ground floor, which opens to t
             &lt;br&gt;[[Return|GoToLocation]]
     	&lt;&lt;else&gt;&gt;
         	&lt;&lt;if $foundsock == false&gt;&gt;
-        		&lt;&lt;run $inventory.push(&#39;Missing Sock&#39;)&gt;&gt;
+        		/* &lt;&lt;run $inventory.push(&#39;Missing Sock&#39;)&gt;&gt; */
+                &lt;&lt;run addToInventory(&quot;Missing Sock&quot;)&gt;&gt;
             	&lt;&lt;set $foundsock to true&gt;&gt;
 				You search your room, and find the sock you were looking for last week! How did it get under &lt;i&gt;there&lt;/i&gt;?&lt;br&gt;&lt;br&gt;
     			&lt;&lt;linkappend &quot;Under where?&quot; t8n&gt;&gt;
@@ -574,7 +677,7 @@ You can take the elevator to your floor or to the ground floor, which opens to t
         		You don&#39;t find anything useful.
         		&lt;br&gt; [[Return|GoToLocation]]
         	&lt;&lt;else&gt;&gt;
-   				&lt;&lt;run $inventory.push(&#39;Hunter Tracker&#39;)&gt;&gt;
+   				&lt;&lt;run addToInventory(&quot;Hunter Tracker&quot;)&gt;&gt;
                 &lt;&lt;set $trackerfound to true&gt;&gt;
     			You find a Hunter Tracker! This will show you where the person hunting you currently is!
     			&lt;br&gt; [[Return|GoToLocation]]
@@ -589,7 +692,7 @@ You can take the elevator to your floor or to the ground floor, which opens to t
             	You don&#39;t find anything useful.
                 &lt;br&gt; [[Return|GoToLocation]] 
             &lt;&lt;else&gt;&gt;
-   				&lt;&lt;run $inventory.push(&#39;Disguise&#39;)&gt;&gt;
+   				&lt;&lt;run addToInventory(&quot;Disguise&quot;)&gt;&gt;
             	&lt;&lt;set $disguisefound to true&gt;&gt;
     			You find some bits and bobs that could be used to make a quick disguise!
     			&lt;br&gt; [[Return|GoToLocation]]
@@ -604,7 +707,7 @@ You can take the elevator to your floor or to the ground floor, which opens to t
             	You don&#39;t find anything useful.
                 &lt;br&gt; [[Return|GoToLocation]]
             &lt;&lt;else&gt;&gt;
-   				&lt;&lt;run $inventory.push(&#39;Distraction&#39;)&gt;&gt;
+   				&lt;&lt;run addToInventory(&quot;Distraction&quot;)&gt;&gt;
             	&lt;&lt;set $distractionfound to true&gt;&gt;
     			You find some shiny things that could be used to make a quick distraction!
             	&lt;br&gt; [[Return|GoToLocation]]
@@ -619,7 +722,7 @@ You can take the elevator to your floor or to the ground floor, which opens to t
             	You don&#39;t find anything useful.
                 &lt;br&gt; [[Return|GoToLocation]]
             &lt;&lt;else&gt;&gt;
-   				&lt;&lt;run $inventory.push(&#39;Makeshift Shield&#39;)&gt;&gt;
+   				&lt;&lt;run addToInventory(&quot;Makeshift Shield&quot;)&gt;&gt;
             	&lt;&lt;set $shieldfound to true&gt;&gt;
     			You find something that could be used as a makeshift shield to deflect a dart!
             	&lt;br&gt; [[Return|GoToLocation]]
@@ -633,7 +736,7 @@ You can take the elevator to your floor or to the ground floor, which opens to t
 	[[Return|GoToLocation]]
     &lt;&lt;/if&gt;&gt;
     &lt;&lt;/if&gt;&gt;
-&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="9" name="BadEndDormHall" tags="Ending(Done)" position="1600,375" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="9" name="BadEndDormHall" tags="Ending(Done)" position="1625,475" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Bad End: Dorm Hallway&lt;/h2&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
@@ -677,7 +780,7 @@ The ribbed and textured tunnel that links your mouth hole and tail hole fills wi
 [[Restart?|MainMenu]]
 &lt;&lt;if !$unlockedEndings.includes(&quot;BadEndDormHall&quot;)&gt;&gt;
     &lt;&lt;run $unlockedEndings.push(&quot;BadEndDormHall&quot;)&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="10" name="BadEndDormBathroom" tags="Ending(Done)" position="1725,375" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="10" name="BadEndDormBathroom" tags="Ending(Done)" position="1750,475" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Bad End: Dorm Bathroom&lt;/h2&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
@@ -715,7 +818,7 @@ With horror, you realize he&#39;s bringing you closer and closer to his musky pi
 [[Restart?|MainMenu]]
 &lt;&lt;if !$unlockedEndings.includes(&quot;BadEndDormBathroom&quot;)&gt;&gt;
     &lt;&lt;run $unlockedEndings.push(&quot;BadEndDormBathroom&quot;)&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="11" name="BadEndDormCommonRoom" tags="Ending(Done)" position="1850,375" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="11" name="BadEndDormCommonRoom" tags="Ending(Done)" position="1875,475" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Bad End: Common Room&lt;/h2&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
@@ -745,7 +848,7 @@ He collapses onto the sofa, panting, as his orgasm finishes.
 [[Restart?|MainMenu]]
 &lt;&lt;if !$unlockedEndings.includes(&quot;BadEndDormCommonRoom&quot;)&gt;&gt;
     &lt;&lt;run $unlockedEndings.push(&quot;BadEndDormCommonRoom&quot;)&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="12" name="BadEndDormElevator" tags="Ending(Done)" position="1975,375" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="12" name="BadEndDormElevator" tags="Ending(Done)" position="2000,475" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Bad End: Dorm Elevator&lt;/h2&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
@@ -785,18 +888,21 @@ He exits the elevator, on the hunt for his next target, and you&#39;re along for
 [[Restart?|MainMenu]]
 &lt;&lt;if !$unlockedEndings.includes(&quot;BadEndDormElevator&quot;)&gt;&gt;
     &lt;&lt;run $unlockedEndings.push(&quot;BadEndDormElevator&quot;)&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="13" name="GoToLocation" tags="" position="1125,950" size="100,100">&lt;&lt;set $showfooter to false&gt;&gt;
-&lt;&lt;if $location == $hunterlocation&gt;&gt;
-	&lt;&lt;if [&quot;Wait&quot;, &quot;Search&quot;, &quot;NextTarget&quot;, &quot;AskInfo&quot;, &quot;UseComputer&quot;, &quot;InterveneEvent&quot;, &quot;GossipEvent&quot;, &quot;ProtectEvent&quot;].includes(previous())&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="13" name="GoToLocation" tags="" position="1150,1050" size="100,100">&lt;&lt;set $showfooter to false&gt;&gt;
+&lt;&lt;if $targetcount &lt; 50&gt;&gt;
+	&lt;&lt;if $location == $hunterlocation&gt;&gt;
+		&lt;&lt;if [&quot;Wait&quot;, &quot;Search&quot;, &quot;NextTarget&quot;, &quot;AskInfo&quot;, &quot;UseComputer&quot;, &quot;InterveneEvent&quot;, &quot;GossipEvent&quot;, &quot;ProtectEvent&quot;].includes(previous())&gt;&gt;
+			&lt;&lt;goto $location&gt;&gt;
+    	&lt;&lt;else&gt;&gt;
+			&lt;&lt;set $newLocation = $loclist.filter(loc =&gt; loc !== $location).random()&gt;&gt;
+			&lt;&lt;goto $newLocation&gt;&gt;
+    	&lt;&lt;/if&gt;&gt;
+	&lt;&lt;else&gt;&gt;
 		&lt;&lt;goto $location&gt;&gt;
-    &lt;&lt;else&gt;&gt;
-		&lt;&lt;set $newLocation = $loclist.filter(loc =&gt; loc !== $location).random()&gt;&gt;
-		&lt;&lt;goto $newLocation&gt;&gt;
-    &lt;&lt;/if&gt;&gt;
+	&lt;&lt;/if&gt;&gt;
 &lt;&lt;else&gt;&gt;
-	&lt;&lt;goto $location&gt;&gt;
-&lt;&lt;/if&gt;&gt;
-</tw-passagedata><tw-passagedata pid="14" name="TargetCaught" tags="" position="1125,650" size="100,100">&lt;&lt;nobr&gt;&gt;
+	&lt;&lt;goto &quot;EndingEndless&quot;&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="14" name="TargetCaught" tags="" position="1150,750" size="100,100">&lt;&lt;nobr&gt;&gt;
 
 /* Set Library book sections */
 &lt;&lt;set $booksectionlist = [&quot;Humanities&quot;, &quot;Erotica&quot;, &quot;Social Sciences&quot;, &quot;Science Fiction&quot;, &quot;Fiction&quot;, &quot;Furry Porn&quot;, &quot;Non-Fiction&quot;, &quot;Biographies&quot;, &quot;Physics&quot;, &quot;Chemistry&quot;, &quot;Picture Books&quot;, &quot;How-To Guides&quot;, &quot;Autobiographies&quot;, &quot;Romance&quot;, &quot;Fantasy&quot;, &quot;Natural History&quot;, &quot;History&quot;, &quot;Geography&quot;, &quot;Geology&quot;, &quot;Archaeology&quot;, &quot;Science&quot;, &quot;Coding&quot;, &quot;Arts&quot;, &quot;Photography&quot;, &quot;Self-Help&quot;, &quot;Transformation Art&quot;, &quot;World History&quot;, &quot;Biology&quot;, &quot;Zoology&quot;, &quot;Cryptozoology&quot;, &quot;Futurology&quot;, &quot;Astronomy&quot;, &quot;Astrology&quot;, &quot;Woodworking&quot;, &quot;Ironworking&quot;, &quot;Crafts&quot;, &quot;Hypnosis&quot; ]&gt;&gt;
@@ -830,7 +936,7 @@ He exits the elevator, on the hunt for his next target, and you&#39;re along for
 /* Set a variety of transformation descriptions */
 &lt;&lt;set $transformdesc = [
 	&quot;Your dart hits $targetname, and the $targetadj $targetspecies gasps as the changes take hold. His body shifts and transforms, and soon he&#39;s nothing more than $currentItem.&quot;,
-	&quot;\&quot;Ahh, fuck,\&quot;, $targetname says as the dart hits him. The changes are immediate, and he shifts before your eyes into $currentItem&quot;,
+	&quot;\&quot;Ahh, fuck,\&quot;, $targetname says as the dart hits him. The changes are immediate, and he shifts before your eyes into $currentItem.&quot;,
     &quot;You score a direct hit on $targetname, and the serum goes to work. The $targetadj $targetspecies opens his mouth to say something, but his words are lost as he quickly transforms into $currentItem.&quot;,
     &quot;$targetname winces as the dart hits him, and he looks at you with pleading eyes as the transformation occurs. \&quot;Make good use of me,\&quot; he begs, as he quickly transforms into $currentItem.&quot;,
     &quot;$targetname barely flinches as the dart hits him. He watches in fascination as his body changes, quickly changing from a $targetadj $targetspecies into little more than $currentItem.&quot;,
@@ -856,35 +962,54 @@ He exits the elevator, on the hunt for his next target, and you&#39;re along for
 	I toss a new tagger on the ground and walk off, shaking my head.&lt;br&gt;&lt;br&gt;
 &lt;&lt;/if&gt;&gt;
 &lt;&lt;GenTarget&gt;&gt;
-	&lt;&lt;if $targetcount &lt; 4&gt;&gt;
+	&lt;&lt;if !$endlessmode&gt;&gt;
+		&lt;&lt;if $targetcount &lt; 4&gt;&gt;
 		You pick up your target&#39;s discarded tagger. The label on the side informs you that your next target is &lt;b&gt;$targetname&lt;/b&gt;.&lt;br&gt;&lt;br&gt;
-	&lt;&lt;else&gt;&gt;
+		&lt;&lt;else&gt;&gt;
 		You pick up your target&#39;s discarded tagger. The label on the side informs you that your next target is &lt;b&gt;Kyle&lt;/b&gt;, your roommate!&lt;br&gt;&lt;br&gt;
 
 		You&#39;re not sure where he is right now, but you&#39;re sure he&#39;ll return to the dorm room closer to the end of the game. You just need to survive until then...&lt;br&gt;&lt;br&gt;
-		&lt;&lt;set $targetname to &quot;Kyle&quot;&gt;&gt;
-		&lt;&lt;set $targetspecies to &quot;bear&quot;&gt;&gt;
-		&lt;&lt;set $targetlocation to &quot;He&#39;ll be at the dorm room later, you&#39;re sure.&quot;&gt;&gt;
-	&lt;&lt;/if&gt;&gt;
+			&lt;&lt;set $targetname to &quot;Kyle&quot;&gt;&gt;
+			&lt;&lt;set $targetspecies to &quot;bear&quot;&gt;&gt;
+			&lt;&lt;set $targetlocation to &quot;He&#39;ll be at the dorm room later, you&#39;re sure.&quot;&gt;&gt;
+		&lt;&lt;/if&gt;&gt;
+    &lt;&lt;else&gt;&gt;
+    	&lt;&lt;if $targetcount &gt; $highscore&gt;&gt;
+    		&lt;&lt;set $highscore to $targetcount&gt;&gt;
+        &lt;&lt;/if&gt;&gt;
+    	&lt;&lt;if $targetcount &lt; 50&gt;&gt;
+    		You pick up your target&#39;s discarded tagger. The label on the side informs you that your next target is &lt;b&gt;$targetname&lt;/b&gt;. You have caught $targetcount &lt;&lt;if $targetcount==1&gt;&gt;target&lt;&lt;else&gt;&gt;targets&lt;&lt;/if&gt;&gt; so far.&lt;br&gt;&lt;br&gt;
+        &lt;&lt;else&gt;&gt;
+        	Against all odds - really, it&#39;s incredible you survived this long - you managed to tag your fiftieth target.&lt;br&gt;&lt;br&gt;
+
+			There is a crackle as campus-wide speakers spring to life.&lt;br&gt;&lt;br&gt;
+
+			&quot;Ladies and gentleman,&quot; the voice of the president booms, echoing throughout the university, &quot;it appears that we finally have a winner! This year&#39;s extra-special edition of TF Tag has come to an end. Our winner is hereby summoned to my office to receive his prize!&quot; With that, the speakers crackle into silence again, and a quiet descends on a campus that is much emptier than it was at the beginning of the day.&lt;br&gt;&lt;br&gt;
+            &lt;&lt;/if&gt;&gt;
+    &lt;&lt;/if&gt;&gt;
 [[Continue|GoToLocation]] 
-&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="15" name="TimeUp" tags="" position="1275,250" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $showfooter to false&gt;&gt;
+&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="15" name="TimeUp" tags="" position="1300,350" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $showfooter to false&gt;&gt;
 The hunt is nearly over! It&#39;s time to head back to your dorm room to watch the announcement.&lt;br&gt;
-&lt;&lt;if $targetcount == 4 and $kylehelp == 3&gt;&gt;
+&lt;&lt;if $targetcount == 4 and $kylehelp &gt;= 3&gt;&gt;
 	[[Continue|EndingShowdown]]
-&lt;&lt;elseif $targetcount &lt; 4 and $kylehelp == 3&gt;&gt;
+&lt;&lt;elseif $targetcount &lt; 4 and $kylehelp &gt;= 3&gt;&gt;
     [[Continue|EndingRMWin]]
 &lt;&lt;elseif $targetcount == 4 and $kylehelp &lt; 3&gt;&gt;
     [[Continue|EndingMCWin]]
 &lt;&lt;else&gt;&gt;
     [[Continue|EndingMCSurvives]]
 &lt;&lt;/if&gt;&gt;
-&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="16" name="Start2" tags="" position="1550,800" size="100,100">You and your roommate Kyle, a beefy bear, are sitting on the bed watching the TV in your dorm room. It&#39;s the day of the university&#39;s annual TF Tag competition, and both of you are among the group of students selected by random draw to participate in the game. You had signed up as a joke, but didn&#39;t expect to actually be &lt;i&gt;selected&lt;/i&gt; for it. And with both of you in the game... well, there can only be &lt;i&gt;one&lt;/i&gt; winner.
+&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="16" name="Start2" tags="" position="1575,900" size="100,100">You and your roommate Kyle, a beefy bear, are sitting on the bed watching the TV in your dorm room. It&#39;s the day of the university&#39;s annual TF Tag competition, and both of you are among the group of students selected by random draw to participate in the game. You had signed up as a joke, but didn&#39;t expect to actually be &lt;i&gt;selected&lt;/i&gt; for it. And with both of you in the game... well, there can only be &lt;i&gt;one&lt;/i&gt; winner.
 
 The university president is giving a speech outlining the rules of the game. &quot;Each participant has a small dart gun - a tagger, we call them - that shoots a dart with a specially-developed serum (courtesy of our TF Science majors) that will transform the serum&#39;s target, and only the target, into an inanimate object. The result of which,&quot; the president says, &quot;is determined by a number of factors including environment and target/hunter desires. You&#39;ll find a label on the side of the tagger that shows who the serum affects - your target, in other words.
 
 &quot;It is your role to track down your target and transform them to remove them from the game, while avoiding being caught yourself! If you catch a target, you can then pick up their tagger and search for their target.&quot; Chuckling, the president says, &quot;It&#39;s always fun watching the participants running around campus, and quite exciting to witness a hunter find his target!
 
-&quot;The game will end at 9pm - in twelve hours&#39; time - if there is not yet a winner. This is, of course, the most boring ending to our game, so get out there and &lt;i&gt;win&lt;/i&gt;! If we do have a winner,&quot; the president flashes a big smile at the camera, &quot;they will enjoy a full year&#39;s tuition as a prize, plus get to keep all of the losing participants! And with that... let the hunt &lt;i&gt;begin!&lt;/i&gt;&quot;
+&lt;&lt;if $endlessmode&gt;&gt;&quot;We&#39;re doing something a bit different this time!&quot; the president announces. &quot;It was decided that we need to free up space for the thousands of prospective new students applying to our programs, so this year&#39;s game of TF Tag will be a truly campus-wide affair! Nearly every student has been registered for the game, and the first student to collect 50 targets will be the ultimate winner!&quot;
+
+He clasps his hands together in excitement. &quot;It&#39;s going to be truly extraordinary! Hope you&#39;re ready, because the game doesn&#39;t end until someone reaches 50! And with that... let the hunt &lt;i&gt;begin!&lt;/i&gt;&quot;
+
+You and Kyle look at each other in surprise. &quot;Wait, fifty...?!&quot; Kyle exclaims. &quot;Well, guess we better get started! Good luck... we&#39;re gonna need it.&quot;&lt;&lt;else&gt;&gt;&quot;The game will end at 9pm - in twelve hours&#39; time - if there is not yet a winner. This is, of course, the most boring ending to our game, so get out there and &lt;i&gt;win&lt;/i&gt;! If we do have a winner,&quot; the president flashes a big smile at the camera, &quot;they will enjoy a full year&#39;s tuition as a prize, plus get to keep all of the losing participants! And with that... let the hunt &lt;i&gt;begin!&lt;/i&gt;&quot;&lt;&lt;/if&gt;&gt;
 
 According to the label on your tagger, your quarry is &lt;b&gt;$targetname, a $targetspecies&lt;/b&gt;. You will need to find his location and &lt;b&gt;Search&lt;/b&gt; for him there.
 
@@ -892,7 +1017,7 @@ According to the label on your tagger, your quarry is &lt;b&gt;$targetname, a $t
 
 You nod.
 
-[[Let&#39;s do it!|Dorm Room]]</tw-passagedata><tw-passagedata pid="17" name="West Plaza" tags="Room" position="2150,800" size="100,100">&lt;&lt;nobr&gt;&gt;
+[[Let&#39;s do it!|Dorm Room]]</tw-passagedata><tw-passagedata pid="17" name="West Plaza" tags="Room" position="2175,900" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;West Plaza&lt;/h2&gt;
 &lt;&lt;if $location isnot &quot;West Plaza&quot;&gt;&gt;
 	&lt;&lt;set $hidecount to 0&gt;&gt;
@@ -928,7 +1053,7 @@ You are in the western part of the main plaza. There are stone benches on which 
 [[Go to South Plaza|South Plaza]]
 [[Go to East Plaza|East Plaza]]
 [[Go to Plaza Statue|Plaza Statue]]
-&lt;br&gt;</tw-passagedata><tw-passagedata pid="18" name="Plaza Statue" tags="Room" position="2300,800" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;br&gt;</tw-passagedata><tw-passagedata pid="18" name="Plaza Statue" tags="Room" position="2325,900" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Plaza Statue&lt;/h2&gt;
 &lt;&lt;if $location isnot &quot;Plaza Statue&quot;&gt;&gt;
 	&lt;&lt;set $hidecount to 0&gt;&gt;
@@ -967,7 +1092,7 @@ To your surprise, there is also an impressively lewd statue of two people in the
 [[Go to West Plaza|West Plaza]]
 [[Go to East Plaza|East Plaza]]
 [[Go to South Plaza|South Plaza]]
-&lt;br&gt;</tw-passagedata><tw-passagedata pid="19" name="South Plaza" tags="Room" position="2300,950" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;br&gt;</tw-passagedata><tw-passagedata pid="19" name="South Plaza" tags="Room" position="2325,1050" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;South Plaza&lt;/h2&gt;
 &lt;&lt;if $location isnot &quot;South Plaza&quot;&gt;&gt;
 	&lt;&lt;set $hidecount to 0&gt;&gt;
@@ -1004,7 +1129,7 @@ You are in the southern part of the main plaza. This part of the plaza leads to 
 [[Go to East Plaza|East Plaza]]
 [[Go to North Plaza|North Plaza]]
 [[Go to Plaza Statue|Plaza Statue]]
-&lt;br&gt;</tw-passagedata><tw-passagedata pid="20" name="North Plaza" tags="Room" position="2300,650" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;br&gt;</tw-passagedata><tw-passagedata pid="20" name="North Plaza" tags="Room" position="2325,750" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;North Plaza&lt;/h2&gt;
 &lt;&lt;if $location isnot &quot;North Plaza&quot;&gt;&gt;
 	&lt;&lt;set $hidecount to 0&gt;&gt;
@@ -1041,7 +1166,7 @@ You are in the northern part of the main plaza. A pleasant floral aroma drifts o
 [[Go to East Plaza|East Plaza]]
 [[Go to South Plaza|South Plaza]]
 [[Go to Plaza Statue|Plaza Statue]]
-&lt;br&gt;</tw-passagedata><tw-passagedata pid="21" name="East Plaza" tags="Room" position="2450,800" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;br&gt;</tw-passagedata><tw-passagedata pid="21" name="East Plaza" tags="Room" position="2475,900" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;East Plaza&lt;/h2&gt;
 &lt;&lt;if $location isnot &quot;East Plaza&quot;&gt;&gt;
 	&lt;&lt;set $hidecount to 0&gt;&gt;
@@ -1081,7 +1206,7 @@ You are in the eastern part of the main plaza. Students are hanging out, chattin
 [[Go to North Plaza|North Plaza]]
 [[Go to West Plaza|West Plaza]]
 [[Go to Plaza Statue|Plaza Statue]]
-&lt;br&gt;</tw-passagedata><tw-passagedata pid="22" name="Library" tags="Room" position="2450,650" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;br&gt;</tw-passagedata><tw-passagedata pid="22" name="Library" tags="Room" position="2475,750" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Library&lt;/h2&gt;
 &lt;&lt;if $location isnot &quot;Library&quot;&gt;&gt;
 	&lt;&lt;set $hidecount to 0&gt;&gt;
@@ -1117,7 +1242,7 @@ You are in the university&#39;s library. A central atrium rises up four floors t
 
 [[Go to East Plaza|East Plaza]]
 [[Go to North Plaza|North Plaza]]
-&lt;br&gt;</tw-passagedata><tw-passagedata pid="23" name="Gardens" tags="Room" position="2300,500" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;br&gt;</tw-passagedata><tw-passagedata pid="23" name="Gardens" tags="Room" position="2325,600" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Gardens&lt;/h2&gt;
 &lt;&lt;if $location isnot &quot;Gardens&quot;&gt;&gt;
 	&lt;&lt;set $hidecount to 0&gt;&gt;
@@ -1149,7 +1274,7 @@ You are in the school gardens. Students with a green thumb cultivate all sorts o
 &lt;&lt;Actions&gt;&gt;
 
 [[Go to North Plaza|North Plaza]]
-&lt;br&gt;</tw-passagedata><tw-passagedata pid="24" name="Athletic Centre" tags="Room" position="2300,1100" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;br&gt;</tw-passagedata><tw-passagedata pid="24" name="Athletic Centre" tags="Room" position="2325,1200" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Athletics Centre&lt;/h2&gt;
 &lt;&lt;if $location isnot &quot;Athletic Centre&quot;&gt;&gt;
 	&lt;&lt;set $hidecount to 0&gt;&gt;
@@ -1186,7 +1311,7 @@ The athletics center exits to the southern part of the main plaza. You can also 
 [[Go to Athletics Track|Athletics Track]]
 [[Go to Athletics Court|Athletics Court]]
 [[Go to Shower Room|Athletics Showers]]
-&lt;br&gt;</tw-passagedata><tw-passagedata pid="25" name="Athletics Track" tags="Room" position="2150,1100" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;br&gt;</tw-passagedata><tw-passagedata pid="25" name="Athletics Track" tags="Room" position="2175,1200" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Athletics Track&lt;/h2&gt;
 &lt;&lt;if $location isnot &quot;Athletics Track&quot;&gt;&gt;
 	&lt;&lt;set $hidecount to 0&gt;&gt;
@@ -1219,7 +1344,7 @@ You are standing beside the athletics centre&#39;s running track. A number of st
 
 [[Go to Athletics Centre|Athletic Centre]]
 [[Go to Athletics Court|Athletics Court]]
-&lt;br&gt;</tw-passagedata><tw-passagedata pid="26" name="Athletics Court" tags="Room" position="2300,1250" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;br&gt;</tw-passagedata><tw-passagedata pid="26" name="Athletics Court" tags="Room" position="2325,1350" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Athletics Court&lt;/h2&gt;
 &lt;&lt;if $location isnot &quot;Athletics Court&quot;&gt;&gt;
 	&lt;&lt;set $hidecount to 0&gt;&gt;
@@ -1255,7 +1380,7 @@ You are standing on the sidelines of the athletics centre&#39;s basketball court
 [[Go to Athletics Centre|Athletic Centre]]
 [[Go to Athletics Track|Athletics Track]]
 [[Go to Shower Room|Athletics Showers]]
-&lt;br&gt;</tw-passagedata><tw-passagedata pid="27" name="Athletics Showers" tags="Room" position="2450,1100" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;br&gt;</tw-passagedata><tw-passagedata pid="27" name="Athletics Showers" tags="Room" position="2475,1200" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Shower Room&lt;/h2&gt;
 &lt;&lt;if $location isnot &quot;Athletics Showers&quot;&gt;&gt;
 	&lt;&lt;set $hidecount to 0&gt;&gt;
@@ -1293,7 +1418,7 @@ The shower room exits out to the athletic center lobby. A sign points to the ath
 [[Go to Athletics Centre|Athletic Centre]]
 [[Go to Swimming Pool|Athletics Pool]]
 [[Go to Athletics Court|Athletics Court]]
-&lt;br&gt;</tw-passagedata><tw-passagedata pid="28" name="Athletics Pool" tags="Room" position="2600,1100" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;br&gt;</tw-passagedata><tw-passagedata pid="28" name="Athletics Pool" tags="Room" position="2625,1200" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Swimming Pool&lt;/h2&gt;
 &lt;&lt;if $location isnot &quot;Athletics Pool&quot;&gt;&gt;
 	&lt;&lt;set $hidecount to 0&gt;&gt;
@@ -1329,7 +1454,7 @@ A door leads back to the shower room.
 &lt;&lt;Actions&gt;&gt;
 
 [[Return to Shower Room|Athletics Showers]]
-&lt;br&gt;</tw-passagedata><tw-passagedata pid="29" name="Theatre" tags="Room" position="2450,950" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;br&gt;</tw-passagedata><tw-passagedata pid="29" name="Theatre" tags="Room" position="2475,1050" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Theatre&lt;/h2&gt;
 &lt;&lt;if $location isnot &quot;Theatre&quot;&gt;&gt;
 	&lt;&lt;set $hidecount to 0&gt;&gt;
@@ -1364,7 +1489,7 @@ You are in the university&#39;s drama theatre. Thick, dark curtains frame the st
 
 [[Go to East Plaza|East Plaza]]
 [[Go to South Plaza|South Plaza]]
-&lt;br&gt;</tw-passagedata><tw-passagedata pid="30" name="Main Hall" tags="Room" position="2600,800" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;br&gt;</tw-passagedata><tw-passagedata pid="30" name="Main Hall" tags="Room" position="2625,900" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Main Hall&lt;/h2&gt;
 &lt;&lt;if $location isnot &quot;Main Hall&quot;&gt;&gt;
 	&lt;&lt;set $hidecount to 0&gt;&gt;
@@ -1393,7 +1518,7 @@ You are in the university&#39;s drama theatre. Thick, dark curtains frame the st
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;/nobr&gt;&gt;
-You are in the main hall of the university. A large hub, the main hall is always busy with students rushing to and from class. At the reception desk, a harried-looking fox fields questions from lost visitors. Some vending machines dispense nutritionally-void snacks for hungry students on the go. A big screen overlooks the main hall, currently showing the campus news. It&#39;s reporting on the progress of the annual TF Tag game, showing some student-submitted videos of participants getting tagged. A graphic in the top corner reminds players that only $hours hours and $minutes minutes remain in the game.
+You are in the main hall of the university. A large hub, the main hall is always busy with students rushing to and from class. At the reception desk, a harried-looking fox fields questions from lost visitors. Some vending machines dispense nutritionally-void snacks for hungry students on the go. A big screen overlooks the main hall, currently showing the campus news. It&#39;s reporting on the progress of the annual TF Tag game, showing some student-submitted videos of participants getting tagged. &lt;&lt;if $endlessmode&gt;&gt;A graphic in the top corner reminds players that the game won&#39;t end til someone has tagged 50 - or the campus has run out of students!&lt;&lt;else&gt;&gt;A graphic in the top corner reminds players that only $hours hours and $minutes minutes remain in the game.&lt;&lt;/if&gt;&gt;
 
 From the main hall, you can head to the science labs, the art room, a lecture hall, or exit out to the eastern part of the central plaza.
 
@@ -1403,7 +1528,7 @@ From the main hall, you can head to the science labs, the art room, a lecture ha
 [[Go to Science Labs|Science Labs]]
 [[Go to Art Room|Art Room]]
 [[Go to Lecture Hall|Lecture Hall]]
-&lt;br&gt;</tw-passagedata><tw-passagedata pid="31" name="Lecture Hall" tags="Room" position="2600,950" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;br&gt;</tw-passagedata><tw-passagedata pid="31" name="Lecture Hall" tags="Room" position="2625,1050" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Lecture Hall&lt;/h2&gt;
 &lt;&lt;if $location isnot &quot;Lecture Hall&quot;&gt;&gt;
 	&lt;&lt;set $hidecount to 0&gt;&gt;
@@ -1437,7 +1562,7 @@ You are in one of the university&#39;s lecture halls. It is a spacious room with
 &lt;&lt;Actions&gt;&gt;
 
 [[Go to Main Hall|Main Hall]]
-&lt;br&gt;</tw-passagedata><tw-passagedata pid="32" name="Science Labs" tags="Room" position="2600,650" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;br&gt;</tw-passagedata><tw-passagedata pid="32" name="Science Labs" tags="Room" position="2625,750" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Science Labs&lt;/h2&gt;
 &lt;&lt;if $location isnot &quot;Science Labs&quot;&gt;&gt;
 	&lt;&lt;set $hidecount to 0&gt;&gt;
@@ -1471,7 +1596,7 @@ You are in the university&#39;s science labs. Here, students conduct various exp
 &lt;&lt;Actions&gt;&gt;
 
 [[Go to Main Hall|Main Hall]]
-&lt;br&gt;</tw-passagedata><tw-passagedata pid="33" name="Art Room" tags="Room" position="2750,800" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;br&gt;</tw-passagedata><tw-passagedata pid="33" name="Art Room" tags="Room" position="2775,900" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Art Room&lt;/h2&gt;
 &lt;&lt;if $location isnot &quot;Art Room&quot;&gt;&gt;
 	&lt;&lt;set $hidecount to 0&gt;&gt;
@@ -1507,7 +1632,7 @@ The art room exits out to the main hall of the university.
 &lt;&lt;Actions&gt;&gt;
 
 [[Go to Main Hall|Main Hall]]
-&lt;br&gt;</tw-passagedata><tw-passagedata pid="34" name="BadEndPlazaW" tags="Ending(Done)" position="1725,250" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $npcspecies to $specieslist.random()&gt;&gt;
+&lt;br&gt;</tw-passagedata><tw-passagedata pid="34" name="BadEndPlazaW" tags="Ending(Done)" position="1750,350" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $npcspecies to $specieslist.random()&gt;&gt;
 &lt;&lt;set $npcadj to $adjlist.random()&gt;&gt;
 &lt;h2&gt;Bad End: West Plaza&lt;/h2&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
@@ -1534,7 +1659,7 @@ The assembled crowd cheers as the fursuiter does a little dance for them, hammin
 [[Restart?|MainMenu]]
 &lt;&lt;if !$unlockedEndings.includes(&quot;BadEndPlazaW&quot;)&gt;&gt;
     &lt;&lt;run $unlockedEndings.push(&quot;BadEndPlazaW&quot;)&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="35" name="BadEndPlazaN" tags="Ending(Done)" position="1850,250" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="35" name="BadEndPlazaN" tags="Ending(Done)" position="1875,350" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Bad End: North Plaza&lt;/h2&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
@@ -1564,7 +1689,7 @@ He grabs your discarded tagger and takes off, leaving you to float up among the 
 [[Restart?|MainMenu]]
 &lt;&lt;if !$unlockedEndings.includes(&quot;BadEndPlazaN&quot;)&gt;&gt;
     &lt;&lt;run $unlockedEndings.push(&quot;BadEndPlazaN&quot;)&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="36" name="BadEndPlazaS" tags="Ending(Done)" position="1975,250" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="36" name="BadEndPlazaS" tags="Ending(Done)" position="2000,350" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $npcspecies to $specieslist.random()&gt;&gt;
 &lt;h2&gt;Bad End: South Plaza&lt;/h2&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
@@ -1593,7 +1718,7 @@ He picks you up and wraps you around his wrist, fastening your brown leather str
 [[Restart?|MainMenu]]
 &lt;&lt;if !$unlockedEndings.includes(&quot;BadEndPlazaS&quot;)&gt;&gt;
     &lt;&lt;run $unlockedEndings.push(&quot;BadEndPlazaS&quot;)&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="37" name="BadEndPlazaE" tags="Ending(Done)" position="2100,250" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="37" name="BadEndPlazaE" tags="Ending(Done)" position="2125,350" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Bad End: East Plaza&lt;/h2&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
@@ -1623,7 +1748,7 @@ You can feel it sinking into you, infusing into your very being. You&#39;re you,
 [[Restart?|MainMenu]]
 &lt;&lt;if !$unlockedEndings.includes(&quot;BadEndPlazaE&quot;)&gt;&gt;
     &lt;&lt;run $unlockedEndings.push(&quot;BadEndPlazaE&quot;)&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="38" name="BadEndPlazaStatue" tags="Ending(Done)" position="1475,250" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="38" name="BadEndPlazaStatue" tags="Ending(Done)" position="1500,350" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Bad End: Plaza Statue&lt;/h2&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
@@ -1661,7 +1786,7 @@ The $hunterspecies leaps back to avoid getting splashed, and he laughs as water 
 [[Restart?|MainMenu]]
 &lt;&lt;if !$unlockedEndings.includes(&quot;BadEndPlazaStatue&quot;)&gt;&gt;
     &lt;&lt;run $unlockedEndings.push(&quot;BadEndPlazaStatue&quot;)&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="39" name="BadEndGardens" tags="Ending(Done)" position="1600,250" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="39" name="BadEndGardens" tags="Ending(Done)" position="1625,350" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Bad End: Gardens&lt;/h2&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
@@ -1687,7 +1812,7 @@ He departs, leaving you to stretch up towards the sun and bask in its warmth.
 [[Restart?|MainMenu]]
 &lt;&lt;if !$unlockedEndings.includes(&quot;BadEndGardens&quot;)&gt;&gt;
     &lt;&lt;run $unlockedEndings.push(&quot;BadEndGardens&quot;)&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="40" name="BadEndLibrary" tags="Ending(Done)" position="2100,125" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="40" name="BadEndLibrary" tags="Ending(Done)" position="2125,225" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $npcspecies to $specieslist.random()&gt;&gt;
 &lt;h2&gt;Bad End: Library&lt;/h2&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
@@ -1738,7 +1863,7 @@ Without fanfare, he dumps the book and you, still dripping, into the &quot;Book 
 [[Restart?|MainMenu]]
 &lt;&lt;if !$unlockedEndings.includes(&quot;BadEndLibrary&quot;)&gt;&gt;
     &lt;&lt;run $unlockedEndings.push(&quot;BadEndLibrary&quot;)&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="41" name="BadEndTheatre" tags="Ending(Done)" position="1975,125" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="41" name="BadEndTheatre" tags="Ending(Done)" position="2000,225" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Bad End: Theatre&lt;/h2&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
@@ -1774,7 +1899,7 @@ He exits stage left, and you hope he does.
 [[Restart?|MainMenu]]
 &lt;&lt;if !$unlockedEndings.includes(&quot;BadEndTheatre&quot;)&gt;&gt;
     &lt;&lt;run $unlockedEndings.push(&quot;BadEndTheatre&quot;)&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="42" name="BadEndMainHall" tags="Ending(Done)" position="1475,125" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="42" name="BadEndMainHall" tags="Ending(Done)" position="1500,225" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $npcspecies to $specieslist.random()&gt;&gt;
 &lt;&lt;set $npcadj to $adjlist.random()&gt;&gt;
 &lt;&lt;if $npcspecies == $hunterspecies&gt;&gt;
@@ -1816,7 +1941,7 @@ You feel an orgasmic rush to dispense the item, but with each item that leaves, 
 [[Restart?|MainMenu]]
 &lt;&lt;if !$unlockedEndings.includes(&quot;BadEndMainHall&quot;)&gt;&gt;
     &lt;&lt;run $unlockedEndings.push(&quot;BadEndMainHall&quot;)&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="43" name="BadEndScienceLabs" tags="Ending(Done)" position="1600,125" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="43" name="BadEndScienceLabs" tags="Ending(Done)" position="1625,225" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Bad End: Science Labs&lt;/h2&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
 &lt;&lt;set $npcspecies to $specieslist.random()&gt;&gt;
@@ -1868,7 +1993,7 @@ The $hunterspecies steps up to the platform and carefully sifts through your emp
 [[Restart?|MainMenu]]
 &lt;&lt;if !$unlockedEndings.includes(&quot;BadEndScienceLabs&quot;)&gt;&gt;
     &lt;&lt;run $unlockedEndings.push(&quot;BadEndScienceLabs&quot;)&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="44" name="BadEndArtRoom" tags="Ending(Done)" position="1725,125" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="44" name="BadEndArtRoom" tags="Ending(Done)" position="1750,225" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Bad End: Art Room&lt;/h2&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
@@ -1896,7 +2021,7 @@ You wobble briefly as your legs stiffen, and the $hunterspecies grabs you, lifti
 [[Restart?|MainMenu]]
 &lt;&lt;if !$unlockedEndings.includes(&quot;BadEndArtRoom&quot;)&gt;&gt;
     &lt;&lt;run $unlockedEndings.push(&quot;BadEndArtRoom&quot;)&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="45" name="BadEndLectureHall" tags="Ending(Done)" position="1850,125" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="45" name="BadEndLectureHall" tags="Ending(Done)" position="1875,225" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Bad End: Lecture Hall&lt;/h2&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
@@ -1936,7 +2061,7 @@ He gathers (most of) your scattered pieces into the box and sets it on the lecte
 [[Restart?|MainMenu]]
 &lt;&lt;if !$unlockedEndings.includes(&quot;BadEndLectureHall&quot;)&gt;&gt;
     &lt;&lt;run $unlockedEndings.push(&quot;BadEndLectureHall&quot;)&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="46" name="BadEndAthletics" tags="Ending(Done)" position="1600,0" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="46" name="BadEndAthletics" tags="Ending(Done)" position="1625,100" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Bad End: Athletics Centre&lt;/h2&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
@@ -1968,7 +2093,7 @@ The $hunterspecies carries you over to a trophy cabinet and jimmies open the gla
 [[Restart?|MainMenu]]
 &lt;&lt;if !$unlockedEndings.includes(&quot;BadEndAthletics&quot;)&gt;&gt;
     &lt;&lt;run $unlockedEndings.push(&quot;BadEndAthletics&quot;)&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="47" name="BadEndAthShowers" tags="Ending(Done)" position="1725,0" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="47" name="BadEndAthShowers" tags="Ending(Done)" position="1750,100" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Bad End: Shower Room&lt;/h2&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
@@ -2008,7 +2133,7 @@ You feel him bend down as he puts his pants back on, the extra layer of fabric p
 [[Restart?|MainMenu]]
 &lt;&lt;if !$unlockedEndings.includes(&quot;BadEndAthShowers&quot;)&gt;&gt;
     &lt;&lt;run $unlockedEndings.push(&quot;BadEndAthShowers&quot;)&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="48" name="BadEndAthPool" tags="Ending(Done)" position="1850,0" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="48" name="BadEndAthPool" tags="Ending(Done)" position="1875,100" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Bad End: Swimming Pool&lt;/h2&gt;
 &lt;&lt;set $npcspecies to $specieslist.random()&gt;&gt;
 &lt;&lt;if $npcspecies == $hunterspecies&gt;&gt;
@@ -2052,7 +2177,7 @@ As he dives into the water, you feel complete.
 [[Restart?|MainMenu]]
 &lt;&lt;if !$unlockedEndings.includes(&quot;BadEndAthPool&quot;)&gt;&gt;
     &lt;&lt;run $unlockedEndings.push(&quot;BadEndAthPool&quot;)&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="49" name="BadEndAthTrack" tags="Ending(Done)" position="1975,0" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="49" name="BadEndAthTrack" tags="Ending(Done)" position="2000,100" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Bad End: Athletics Track&lt;/h2&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
 &lt;&lt;set $npcspecies to $specieslist.random()&gt;&gt;
@@ -2118,7 +2243,7 @@ With each step he takes, as he picks up your dropped tagger and leaves the runni
 [[Restart?|MainMenu]]
 &lt;&lt;if !$unlockedEndings.includes(&quot;BadEndAthTrack&quot;)&gt;&gt;
     &lt;&lt;run $unlockedEndings.push(&quot;BadEndAthTrack&quot;)&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="50" name="BadEndAthCourt" tags="Ending(Done)" position="2100,0" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="50" name="BadEndAthCourt" tags="Ending(Done)" position="2125,100" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;h2&gt;Bad End: Basketball Court&lt;/h2&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
@@ -2148,7 +2273,7 @@ A couple of the players see what&#39;s happening and the game quickly grinds to 
 [[Restart?|MainMenu]]
 &lt;&lt;if !$unlockedEndings.includes(&quot;BadEndAthCourt&quot;)&gt;&gt;
     &lt;&lt;run $unlockedEndings.push(&quot;BadEndAthCourt&quot;)&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="51" name="BadEndDormRoom" tags="Ending(Done)" position="1475,0" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="51" name="BadEndDormRoom" tags="Ending(Done)" position="1500,100" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $flavorlist = [&quot;grape&quot;, &quot;strawberry&quot;, &quot;green apple&quot;, &quot;peach&quot;, &quot;blueberry&quot;, &quot;cherry&quot;, &quot;tropical fruit&quot;, &quot;root beer&quot;, &quot;orange&quot;, &quot;mixed berry&quot;, &quot;watermelon&quot;, &quot;mango&quot;]&gt;&gt;
 &lt;&lt;set $sodaflavor to $flavorlist.random()&gt;&gt;
 
@@ -2181,7 +2306,7 @@ Once the $hunterspecies has finished every last drop of you, you feel so profoun
 &lt;&lt;if !$unlockedEndings.includes(&quot;BadEndDormRoom&quot;)&gt;&gt;
     &lt;&lt;run $unlockedEndings.push(&quot;BadEndDormRoom&quot;)&gt;&gt;
 &lt;&lt;/if&gt;&gt;
-&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="52" name="Wait" tags="" position="975,800" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="52" name="Wait" tags="" position="1000,900" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $npcspecies to $specieslist.random()&gt;&gt;
 &lt;&lt;set $npcadj to $adjlist.random()&gt;&gt;
 &lt;&lt;set $npcTF to $targetTFlist.random()&gt;&gt;
@@ -2220,7 +2345,7 @@ $waitactiondesc[$location]
     &lt;&lt;else&gt;&gt;
 		[[Continue|GoToLocation]]
     &lt;&lt;/if&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="53" name="UseComputer" tags="" position="1700,650" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $hidecount to $hidecount+1&gt;&gt;&lt;&lt;set $showfooter to false&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="53" name="UseComputer" tags="" position="1725,750" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $hidecount to $hidecount+1&gt;&gt;&lt;&lt;set $showfooter to false&gt;&gt;
 You sit down at the computer.&lt;br&gt;&lt;br&gt;
 
 &lt;&lt;linkappend &quot;View campus map&quot; t8n&gt;&gt;&lt;br&gt;
@@ -2260,7 +2385,7 @@ You sit down at the computer.&lt;br&gt;&lt;br&gt;
 		[[Stop using the computer|GoToLocation]]
     &lt;&lt;/if&gt;&gt;
 &lt;&lt;/if&gt;&gt;
-&lt;br&gt;&lt;br&gt;&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="54" name="AskInfo" tags="" position="975,950" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $showfooter to false&gt;&gt;
+&lt;br&gt;&lt;br&gt;&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="54" name="AskInfo" tags="" position="1000,1050" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $showfooter to false&gt;&gt;
 &lt;&lt;set $npcspecies to $specieslist.random()&gt;&gt;
 &lt;&lt;set $npcadj to $adjlist.random()&gt;&gt;
 &lt;&lt;set $npchasinfo to random(1,20)&gt;&gt;
@@ -2292,7 +2417,7 @@ You sit down at the computer.&lt;br&gt;&lt;br&gt;
     &quot;&lt;&lt;set $cluegiven to true&gt;&gt;&lt;&lt;set $lastseenknown to true&gt;&gt;I shouldn&#39;t say, but... what the hell. I saw him $locationclue[$targetlocation] about $targetlastseen minutes ago.&quot;,
     &quot;&lt;&lt;set $targetlocknown to true&gt;&gt;That asshole? Yeah, he&#39;s at the $targetlocation. I hope you get him!&quot;,
     &quot;I always wanted to see that $targetspecies get transformed! He&#39;d look great as a nice jockstrap, or maybe a tight onahole... ahh... Oh, but no, sorry, I&#39;m not sure where he is.&quot;,
-    &quot;&lt;&lt;set $cluegiven to true&gt;&gt;&lt;&lt;set $lastseenknown to true&gt;&gt;Man, I wish I was playing. I&#39;d love to transform that $targetadj $targetspecies myself! About $targetlastseen minutesago I saw him $locationclue[$targetlocation]. Good luck!&quot;,
+    &quot;&lt;&lt;set $cluegiven to true&gt;&gt;&lt;&lt;set $lastseenknown to true&gt;&gt;Man, I wish I was playing. I&#39;d love to transform that $targetadj $targetspecies myself! About $targetlastseen minutes ago I saw him $locationclue[$targetlocation]. Good luck!&quot;,
 	&quot;&lt;&lt;set $cluegiven to true&gt;&gt;$targetname? I saw him $locationclue[$targetlocation], you might find him there!&quot;,
     ]&gt;&gt;
     
@@ -2316,7 +2441,7 @@ You look around for someone to ask about $targetname.&lt;br&gt;&lt;br&gt;
 &lt;&lt;/if&gt;&gt;
 &lt;br&gt;&lt;br&gt;
 [[Return|GoToLocation]] 
-&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="55" name="EscapeHunter" tags="" position="1125,1050" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $showfooter to false&gt;&gt;
+&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="55" name="EscapeHunter" tags="" position="1150,1150" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $showfooter to false&gt;&gt;
 &lt;&lt;set $badendlocs = {
     &quot;Dormitory Hallway&quot;: &quot;BadEndDormHall&quot;, 
     &quot;Dormitory Bathroom&quot;: &quot;BadEndDormBathroom&quot;,
@@ -2379,7 +2504,7 @@ You look around for someone to ask about $targetname.&lt;br&gt;&lt;br&gt;
     /* Handle case where player has no escape items */
     &lt;&lt;goto $badendlocs[$location]&gt;&gt;
 &lt;&lt;/if&gt;&gt;
-&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="56" name="EndingMCWin" tags="Ending(Done)" position="1225,25" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $showfooter to false&gt;&gt;
+&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="56" name="EndingMCWin" tags="Ending(Done)" position="1250,125" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $showfooter to false&gt;&gt;
 &lt;h2&gt;Ending 1: Victory&lt;/h2&gt;
 &lt;&lt;if $protectending !== 1&gt;&gt;
 You get back to your dorm room. The room is empty, and it&#39;s clear that Kyle hasn&#39;t returned yet. You take a seat on your bed, facing the door, and wait for him to return.&lt;br&gt;&lt;br&gt;
@@ -2427,7 +2552,7 @@ Next year&#39;s competition?! &lt;i&gt;Gulp.&lt;/i&gt;&lt;br&gt;&lt;br&gt;
 &lt;&lt;/if&gt;&gt;
 &lt;&lt;/linkappend&gt;&gt;
 &lt;&lt;/linkappend&gt;&gt;
-&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="57" name="EndingRMWin" tags="Ending(Done)" position="1225,125" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $showfooter to false&gt;&gt;&lt;&lt;/nobr&gt;&gt;
+&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="57" name="EndingRMWin" tags="Ending(Done)" position="1250,225" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $showfooter to false&gt;&gt;&lt;&lt;/nobr&gt;&gt;
 &lt;h2&gt;Ending 2: Caught&lt;/h2&gt;
 On your way back to your room, you spot $targetname with his back turned to you, completely unawares. You&#39;re rushing to get back before the game ends, and barely even pay attention to what the $targetspecies turns into when you hit him with the dart. You scoop up his tagger as he falls, not even breaking stride as you head back to your room.
 
@@ -2467,14 +2592,14 @@ It&#39;s dark when you arrive back at your dorm. You switch the lights on, and f
 &lt;&lt;if !$unlockedEndings.includes(&quot;EndingRMWin&quot;)&gt;&gt;
     &lt;&lt;run $unlockedEndings.push(&quot;EndingRMWin&quot;)&gt;&gt;
 &lt;&lt;/if&gt;&gt;
-&lt;&lt;/linkappend&gt;&gt;</tw-passagedata><tw-passagedata pid="58" name="EndingShowdown" tags="Ending(Done)" position="1325,125" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $showfooter to false&gt;&gt;&lt;&lt;set $showdowncomplete to true&gt;&gt;&lt;&lt;/nobr&gt;&gt;&lt;h2&gt;Ending 4: Showdown&lt;/h2&gt;
+&lt;&lt;/linkappend&gt;&gt;</tw-passagedata><tw-passagedata pid="58" name="EndingShowdown" tags="Ending(Done)" position="1350,225" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $showfooter to false&gt;&gt;&lt;&lt;/nobr&gt;&gt;&lt;h2&gt;Ending 4: Showdown&lt;/h2&gt;
 You ease open the dorm room door, your tagger drawn. You want to be ready if Kyle is already in there. It turns out, he is - and his tagger is aimed at you, too.
 
 &quot;I guess we&#39;ve both got each other, huh?&quot; Kyle says as you enter and close the door behind you. You nod. &quot;We&#39;re the only two left, so one of us is going to win, and...&quot; he trails off for a moment. &quot;Well, one of us isn&#39;t.&quot;
 
 He takes a nervous breath. &quot;So, how do you wanna do this?&quot; the bear asks. &quot;Good old fashioned duel?&quot;
 
-Even though either of you could easily tag the other in the back and betray them, you have enough respect for each other not to. You companionably head down to the plaza and take position beneath the big statue with the shiny, well-rubbed horse cock, standing back to back. Students loitering in the plaza take notice of what&#39;s happening and begin to gather around to watch.
+Even though either of you could easily tag the other in the back and betray them, you have enough respect for each other not to. You companionably head down to the plaza &lt;&lt;if $showdowncomplete&gt;&gt;(the salacious statue from earlier appears to have been removed at some point)&lt;&lt;/if&gt;&gt; and take up position beneath the big statue with the shiny, well-rubbed horse cock, standing back to back. Students loitering in the plaza take notice of what&#39;s happening and begin to gather around to watch.
 
 &quot;Steps to the count of five?&quot; Kyle asks. You both raise your taggers, ready to decide which of you will be making it home tonight.
 
@@ -2528,6 +2653,7 @@ And as time goes by, you get rubbed a lot, feeling every paw that strokes up and
 
 &lt;b&gt;THE END.&lt;/b&gt;
 [[Restart?|MainMenu]]
+&lt;&lt;set $showdowncomplete to true&gt;&gt;
 &lt;&lt;if !$unlockedEndings.includes(&quot;EndingShowdown&quot;)&gt;&gt;
     &lt;&lt;run $unlockedEndings.push(&quot;EndingShowdown&quot;)&gt;&gt;
 &lt;&lt;/if&gt;&gt;
@@ -2535,11 +2661,11 @@ And as time goes by, you get rubbed a lot, feeling every paw that strokes up and
 &lt;&lt;/linkappend&gt;&gt;
 &lt;&lt;/linkappend&gt;&gt;
 &lt;&lt;/linkappend&gt;&gt;
-&lt;&lt;/linkappend&gt;&gt;</tw-passagedata><tw-passagedata pid="59" name="EndingMCSurvives" tags="Ending(Done)" position="1325,25" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $showfooter to false&gt;&gt;&lt;&lt;/nobr&gt;&gt;
+&lt;&lt;/linkappend&gt;&gt;</tw-passagedata><tw-passagedata pid="59" name="EndingMCSurvives" tags="Ending(Done)" position="1350,125" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $showfooter to false&gt;&gt;&lt;&lt;/nobr&gt;&gt;
 &lt;h2&gt;Ending 3: Survival&lt;/h2&gt;
 You get back to your dorm room. The room is empty, and it&#39;s clear that Kyle hasn&#39;t returned yet. You suspect that he never will.
 
-As the clock strikes 9pm, the television turns on and the university&#39;s director appears.
+As the clock strikes 9pm, the television turns on and the university&#39;s president appears.
 
 &quot;If you&#39;re seeing this, congratulations!&quot; he beams. &quot;You&#39;ve survived this year&#39;s TF Tag! Sadly, the time for our game has run out and the tagger serums have lost their effect, but there are still several participants remaining. So, while it&#39;s a shame we didn&#39;t have a winner to crown, never fear! There&#39;s always next year, and we&#39;ve automatically reserved a slot for all surviving students in next year&#39;s game!&quot;
 
@@ -2549,7 +2675,7 @@ As the clock strikes 9pm, the television turns on and the university&#39;s direc
 [[Restart?|MainMenu]]
 &lt;&lt;if !$unlockedEndings.includes(&quot;EndingMCSurvives&quot;)&gt;&gt;
     &lt;&lt;run $unlockedEndings.push(&quot;EndingMCSurvives&quot;)&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="60" name="GossipEvent" tags="" position="975,650" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="60" name="GossipEvent" tags="" position="875,775" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
 As you pass by, you overhear two students talking about a $kylehunteradj $kylehunterspecies, who&#39;s hunting for a bear named Kyle -- wait, that&#39;s your roommate!&lt;br&gt;&lt;br&gt;
 
@@ -2567,7 +2693,7 @@ As you pass by, you overhear two students talking about a $kylehunteradj $kylehu
     [[Return|GoToLocation]]&lt;&lt;/replace&gt;&gt;
 &lt;&lt;/link&gt;&gt;
 &lt;/div&gt;
-&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="61" name="InterveneEvent" tags="" position="850,650" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="61" name="InterveneEvent" tags="" position="875,625" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
 
 &lt;&lt;if $interveneyes == 5&gt;&gt;
@@ -2599,7 +2725,7 @@ The hunter, a $inthunteradj $inthunterspecies, comes running moments later, bran
 &lt;&lt;/link&gt;&gt;
 &lt;/div&gt;
 &lt;&lt;/if&gt;&gt;
-&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="62" name="CampusMap" tags="" position="1425,650" size="100,100"> &lt;table style=&quot;width:100%&quot;&gt;
+&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="62" name="CampusMap" tags="" position="1450,750" size="100,100"> &lt;table style=&quot;width:100%&quot;&gt;
   &lt;tr&gt;
     &lt;td&gt; &lt;/td&gt;
     &lt;td&gt; &lt;/td&gt;
@@ -2651,7 +2777,7 @@ The hunter, a $inthunteradj $inthunterspecies, comes running moments later, bran
     &lt;td&gt; &lt;/td&gt;
     &lt;td&gt;Athletics Court ↑&lt;/td&gt;
   &lt;/tr&gt;
-&lt;/table&gt; </tw-passagedata><tw-passagedata pid="63" name="Walkthrough" tags="" position="1300,950" size="100,100">&lt;h2&gt;Walkthrough&lt;/h2&gt;&lt;&lt;nobr&gt;&gt;&lt;&lt;set $walkthrough to false&gt;&gt;&lt;&lt;/nobr&gt;&gt;
+&lt;/table&gt; </tw-passagedata><tw-passagedata pid="63" name="Walkthrough" tags="" position="1325,1050" size="100,100">&lt;h2&gt;Walkthrough&lt;/h2&gt;&lt;&lt;nobr&gt;&gt;&lt;&lt;set $walkthrough to false&gt;&gt;&lt;&lt;/nobr&gt;&gt;
 &lt;b&gt;-----WARNING! CONTAINS SPOILERS!-----&lt;/b&gt;
 Click [[here|MainMenu]] to go back if you don&#39;t want to read them.
 
@@ -2822,12 +2948,12 @@ In addition, the number of targets you have caught will affect the available end
 	&lt;/tr&gt;
 &lt;/table&gt;
 &lt;&lt;/linkappend&gt;&gt;
-&lt;br&gt;[[Return|MainMenu]]</tw-passagedata><tw-passagedata pid="64" name="MainMenu" tags="" position="1300,800" size="100,100">&lt;h2&gt;TF Tag - Main Menu&lt;/h2&gt;
+&lt;br&gt;[[Return|MainMenu]]</tw-passagedata><tw-passagedata pid="64" name="MainMenu" tags="" position="1325,900" size="100,100">&lt;h2&gt;TF Tag - Main Menu&lt;/h2&gt;
 &lt;i&gt;&lt;b&gt;TF Tag&lt;/b&gt; is a work of gay pornographic furry fiction by Ky the Capybara, and is intended only for an 18+ audience. It contains inanimate transformation, permanent endings, dubious consent, and some endings contain identity loss or mental shift. Play at your peril!&lt;/i&gt;
 
 Welcome to &lt;b&gt;TF Tag&lt;/b&gt;! It&#39;s the campus&#39;s annual game, and you have been selected as one of the participants! Armed with your tagger, search around the campus to find your target. Hit &#39;em with a dart and they&#39;ll transform and be out of the game. Then you&#39;ll gain their tagger and get to hunt down their target.
 
-But be warned! You&#39;re not the only one on the prowl... someone out there has &lt;i&gt;your&lt;/i&gt; name, and they&#39;ll be searching for you, too! Avoid your hunter while seeking your target, and try to survive until the game ends in 12 hours - or even, possibly, win the game by being the last one standing!&lt;br&gt;
+But be warned! You&#39;re not the only one on the prowl... someone out there has &lt;i&gt;your&lt;/i&gt; name, and they&#39;ll be searching for you, too! Avoid your hunter while seeking your target, and try to win the game by being the last one standing - or, at least, survive until the game ends in 12 hours!&lt;br&gt;
 &lt;&lt;nobr&gt;&gt;&lt;div id=&quot;choices&quot;&gt;
 &lt;&lt;link &quot;Enable Hard Mode (Limited Defensive Items, More Aggressive Hunter)&quot;&gt;&gt;
 	&lt;&lt;replace &quot;#choices&quot;&gt;&gt;
@@ -2838,14 +2964,19 @@ But be warned! You&#39;re not the only one on the prowl... someone out there has
 	&lt;&lt;replace &quot;#choices&quot;&gt;&gt;
     &lt;i&gt;EZMode enabled. Wuss!&lt;/i&gt;&lt;br&gt;&lt;br&gt;&lt;&lt;set $ezmode to true&gt;&gt;&lt;&lt;/replace&gt;&gt;
 &lt;&lt;/link&gt;&gt;
+&lt;br&gt;
+&lt;&lt;link &quot;Enable Endless Mode (No Timer, 50 Targets to Win)&quot;&gt;&gt; 
+	&lt;&lt;replace &quot;#choices&quot;&gt;&gt;
+    &lt;i&gt;Endless Mode enabled! Good luck!&lt;/i&gt;&lt;br&gt;&lt;br&gt;&lt;&lt;set $endlessmode to true&gt;&gt;&lt;&lt;/replace&gt;&gt;
+&lt;&lt;/link&gt;&gt;
 &lt;/div&gt;&lt;br&gt;
 [[Walkthrough (Contains Spoilers, Duh!)|Walkthrough]]&lt;br&gt;
 [[Ending Gallery]]&lt;br&gt;
 [[Update Log|Changelog]]&lt;br&gt;
 [[Credits]]&lt;br&gt;&lt;br&gt;
-&lt;b&gt;[[Start Game|Start]]&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;i&gt;Current game version: v1.1.0 - 2024.10.28&lt;/i&gt;
+&lt;b&gt;[[Start Game|Start]]&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;i&gt;Current game version: v1.2.0 - 2024.10.29&lt;/i&gt;
 &lt;br&gt;&lt;i&gt;I&#39;d love to hear your feedback! Drop me a message if you enjoyed the game or encountered a game-breaking bug that I need to squish! https://linktr.ee/kymaequ &lt;/i&gt;
-&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="65" name="Credits" tags="" position="1425,950" size="100,100">&lt;h2&gt;Credits&lt;/h2&gt;
+&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="65" name="Credits" tags="" position="1450,1050" size="100,100">&lt;h2&gt;Credits&lt;/h2&gt;
 &lt;b&gt;TF Tag&lt;/b&gt; was made by Ky the Capybara 
 https://linktr.ee/kymaequ
 
@@ -2857,13 +2988,21 @@ https://www.dormausvalley.com/bluesquirrel/index.htm
 
 Special thanks to Medkit for feedback and testing.
 
-[[Return|MainMenu]]</tw-passagedata><tw-passagedata pid="66" name="HunterMechanics" tags="" position="1125,1150" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $huntercatch to random(1,4)&gt;&gt;
+[[Return|MainMenu]]</tw-passagedata><tw-passagedata pid="66" name="HunterMechanics" tags="" position="1150,1250" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set $huntercatch to random(1,4)&gt;&gt;
 &lt;&lt;if $huntercatch == 4&gt;&gt;    
     &lt;i&gt;You get a bad feeling about this place... It feels like someone&#39;s watching you.&lt;/i&gt;
 	&lt;br&gt;
 &lt;&lt;else&gt;&gt;
 	&lt;&lt;goto &quot;EscapeHunter&quot;&gt;&gt;
-&lt;&lt;/if&gt;&gt;&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="67" name="Updates" tags="" position="1100,400" size="100,100">v1.1 20241028.23
+&lt;&lt;/if&gt;&gt;&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="67" name="Updates" tags="" position="1500,1200" size="100,100">v1.2 20241029.14
+
+-Added an Endless Mode
+-New Ending: Endless
+-Adjusted code to accommodate Endless Mode
+-New event (Endless Mode-only)
+-Adjusted inventory to prioritize useful items
+
+v1.1 20241028.23
 
 -Added Ending Gallery to view received endings
 -Added extra paragraph to Plaza Statue if Showdown ending has been completed
@@ -2963,7 +3102,7 @@ FIX: Fleeing from hunter will no longer land you in the same location
 v0.1 20241020.10
 
 Endings: MC Win, RM Win, MC Survives,
-Bad Ends: Dorm Hall, Dorm Bathroom, Dorm Common Room, Dorm Elevator, Athletics Court, Gardens</tw-passagedata><tw-passagedata pid="68" name="start" tags="" position="975,1175" size="100,100"></tw-passagedata><tw-passagedata pid="69" name="Bug Tracker" tags="" position="1000,400" size="100,100">b01. When catching in Gardens, black screen??
+Bad Ends: Dorm Hall, Dorm Bathroom, Dorm Common Room, Dorm Elevator, Athletics Court, Gardens</tw-passagedata><tw-passagedata pid="68" name="start" tags="" position="1000,1275" size="100,100"></tw-passagedata><tw-passagedata pid="69" name="Bug Tracker" tags="" position="1400,1200" size="100,100">b01. When catching in Gardens, black screen??
 
 FIXED b02. There&#39;s a possibility the hunter may randomly wander into the player&#39;s room and if the player goes there they&#39;ll trigger the dorm room bad end, without the player already being present (so the text of the ending won&#39;t really make sense)
 
@@ -2973,7 +3112,7 @@ FIXED b04. Wait action list is borked
 
 FIXED b05. Kyle&#39;s pictures in the pc lookup will be incorrect
 
-b06. Difficulty triggering Kyle wins ending?</tw-passagedata><tw-passagedata pid="70" name="TarHuntMovement" tags="" position="975,1075" size="100,100">&lt;&lt;nobr&gt;&gt;
+b06. Difficulty triggering Kyle wins ending?</tw-passagedata><tw-passagedata pid="70" name="TarHuntMovement" tags="" position="1000,1175" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $targetLoc = $targetlocation&gt;&gt;
 &lt;&lt;set $hunterLoc = $hunterlocation&gt;&gt;
 
@@ -3119,7 +3258,7 @@ window.moveTarget = function() {
     &lt;&lt;set $targetlocknown to false&gt;&gt;
     &lt;&lt;set $cluegiven to false&gt;&gt;
 &lt;&lt;/if&gt;&gt;
-&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="71" name="ProtectEvent" tags="" position="725,650" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="71" name="ProtectEvent" tags="" position="750,625" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $npcspecies to $specieslist.random()&gt;&gt;
 &lt;&lt;set $npcadj to $adjlist.random()&gt;&gt;
 &lt;&lt;set $showfooter to false&gt;&gt;
@@ -3149,8 +3288,16 @@ You spot Kyle sneaking up on a $npcadj $npcspecies, his tagger drawn. At the las
     &lt;&lt;/link&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 &lt;/div&gt;
-&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="72" name="Changelog" tags="" position="1300,1075" size="100,100">&lt;h2&gt;Update Log&lt;/h2&gt;
+&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="72" name="Changelog" tags="" position="1575,1050" size="100,100">&lt;h2&gt;Update Log&lt;/h2&gt;
 [[Go Back|MainMenu]]
+
+&lt;i&gt;Version 1.2.0&lt;/i&gt;
+- Added &lt;b&gt;Endless Mode&lt;/b&gt;, where there&#39;s no time limit and you win by catching 50 targets.
+- New ending if you achieve the goal in Endless Mode!
+- Added a number of new possible TFs for targets
+- Adjusted inventory coding to prioritize useful items
+- Fixed an issue with names being depleted
+- Fixed an issue that prevented main endings from triggering properly
 
 &lt;i&gt;Version 1.1.0&lt;/i&gt;
 - Added an Ending Gallery to the Main Menu that will allow you to view received endings
@@ -3162,7 +3309,7 @@ You spot Kyle sneaking up on a $npcadj $npcspecies, his tagger drawn. At the las
 - Added a Restart button to each ending
 
 &lt;i&gt;Version 1.0 2024.10.28&lt;/i&gt;
-Release version of the game!</tw-passagedata><tw-passagedata pid="73" name="Ending Gallery" tags="" position="1425,1075" size="100,100">&lt;h2&gt;Ending Gallery&lt;/h2&gt;
+Release version of the game!</tw-passagedata><tw-passagedata pid="73" name="Ending Gallery" tags="" position="1450,600" size="100,100">&lt;h2&gt;Ending Gallery&lt;/h2&gt;
 Here you can view the endings that you&#39;ve unlocked! Note that some details, such as the hunter&#39;s species, may be different than when you first received the ending.
 
 &lt;table style=&quot;width:100%&quot; class=&quot;endings-table&quot; &gt;
@@ -3339,30 +3486,16 @@ Here you can view the endings that you&#39;ve unlocked! Note that some details, 
             &lt;&lt;else&gt;&gt;
             	Ending 4: Showdown
             &lt;&lt;/if&gt;&gt;&lt;&lt;/nobr&gt;&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;&lt;nobr&gt;&gt;&lt;&lt;if $unlockedEndings.includes(&quot;EndingEndless&quot;)&gt;&gt;
+    			&lt;&lt;ViewEnding&gt;&gt;
+                [[Ending 5: Endless (Doormat)|EndingEndless]]
+            &lt;&lt;else&gt;&gt;
+            	( ??? )
+            &lt;&lt;/if&gt;&gt;&lt;&lt;/nobr&gt;&gt;&lt;/td&gt;
   &lt;/tr&gt;
 &lt;/table&gt; 
 
-[[Return|MainMenu]]</tw-passagedata><tw-passagedata pid="74" name="StoryInit" tags="" position="1300,500" size="100,100">&lt;&lt;nobr&gt;&gt;
-
-// Start Page
-
-&lt;&lt;if $ezmode&gt;&gt;
-	/* EZMode is enabled */
-&lt;&lt;else&gt;&gt;
-	&lt;&lt;set $ezmode to false&gt;&gt;
-&lt;&lt;/if&gt;&gt;
-
-&lt;&lt;if $hardmode&gt;&gt;
-	/* Hard Mode is enabled */
-	&lt;&lt;set $randomcatchchance to 20&gt;&gt;
-    &lt;&lt;set $trackerfound to false&gt;&gt;
-    &lt;&lt;set $disguisefound to false&gt;&gt;
-    &lt;&lt;set $distractionfound to false&gt;&gt;
-    &lt;&lt;set $shieldfound to false&gt;&gt;
-&lt;&lt;else&gt;&gt;
-	&lt;&lt;set $hardmode to false&gt;&gt;
-    &lt;&lt;set $randomcatchchance to 50&gt;&gt;
-&lt;&lt;/if&gt;&gt;
+[[Return|MainMenu]]</tw-passagedata><tw-passagedata pid="74" name="StoryInit" tags="" position="1325,650" size="100,100">&lt;&lt;nobr&gt;&gt;
 
 /* Set up Random Generators */
 &lt;&lt;set $loclist = [&quot;Dormitory Hallway&quot;, &quot;Dormitory Bathroom&quot;, &quot;Dormitory Common Room&quot;, &quot;Dormitory Elevator&quot;, &quot;West Plaza&quot;, &quot;North Plaza&quot;, &quot;South Plaza&quot;, &quot;East Plaza&quot;, &quot;Plaza Statue&quot;, &quot;Gardens&quot;, &quot;Athletic Centre&quot;, &quot;Athletics Track&quot;, &quot;Athletics Court&quot;, &quot;Athletics Showers&quot;, &quot;Athletics Pool&quot;, &quot;Library&quot;, &quot;Theatre&quot;, &quot;Science Labs&quot;, &quot;Main Hall&quot;, &quot;Lecture Hall&quot;, &quot;Art Room&quot;]&gt;&gt;
@@ -3445,27 +3578,6 @@ Here you can view the endings that you&#39;ve unlocked! Note that some details, 
     &quot;Art Room&quot;: [&quot;Main Hall&quot;],
 }&gt;&gt;
 
-/* Set Target Transformations */
-&lt;&lt;set $targetTFlist = [&quot;a coin&quot;, &quot;a shirt&quot;, &quot;a hat&quot;, &quot;a pair of socks&quot;, &quot;a pair of shoes&quot;, &quot;a jockstrap&quot;, &quot;a pair of underwear&quot;, &quot;a small statuette&quot;, &quot;a balloon&quot;, &quot;a towel&quot;, &quot;a condom&quot;, &quot;a stuffed toy&quot;, &quot;a dildo&quot;, &quot;an onahole&quot;, &quot;a potted plant&quot;, &quot;a collar&quot;, &quot;a harness&quot;, &quot;an acrylic standee&quot;, &quot;a small brass button&quot;,]&gt;&gt;
-&lt;&lt;set $itemPatterns = {
-    &quot;a stuffed toy&quot;: {
-        pattern: &quot;a stuffed {species} toy&quot;
-    },
-    &quot;a dildo&quot;: {
-        pattern: &quot;a {species} dildo&quot;
-    },
-    &quot;an acrylic standee&quot;: {
-        pattern: &quot;an acrylic standee of a {species}&quot;
-    },
-    &quot;a small statuette&quot;: {
-        pattern: &quot;a small {species} statuette&quot;
-    }
-}&gt;&gt;
-
-/* Set Target Hobbies */
-&lt;&lt;set $targethobbylist = [
-	&quot;Dungeons &amp; Dragons&quot;, &quot;board games&quot;, &quot;video games&quot;, &quot;spicy food&quot;, &quot;painting&quot;, &quot;drawing&quot;, &quot;pottery&quot;, &quot;music&quot;, &quot;playing guitar&quot;, &quot;playing piano&quot;, &quot;playing violin&quot;, &quot;dancing&quot;, &quot;clubbing&quot;, &quot;writing fanfiction&quot;, &quot;standup comedy&quot;, &quot;BDSM&quot;, &quot;running&quot;, &quot;swimming&quot;, &quot;working out&quot;, &quot;movies&quot;, &quot;writing mean comments online&quot;, &quot;hanging out with friends&quot;, &quot;cycling&quot;, &quot;reading&quot;, &quot;stargazing&quot;, &quot;photography&quot; ]&gt;&gt;
-
 /* Set up Wait Actions Widget */
 &lt;&lt;widget &quot;waitAction&quot;&gt;&gt;
     &lt;&lt;set $waitmessage = $waitactionlist[$location]&gt;&gt;
@@ -3532,6 +3644,7 @@ Here you can view the endings that you&#39;ve unlocked! Note that some details, 
 }&gt;&gt;
 
 &lt;&lt;widget &quot;GenTarget&quot;&gt;&gt;
+
     &lt;&lt;set $targetname = $namelist.pluck()&gt;&gt;
     
     /* Check if this is a special character using the ?. operator */
@@ -3540,14 +3653,18 @@ Here you can view the endings that you&#39;ve unlocked! Note that some details, 
         &lt;&lt;set $targetadj to $specialCharacters[$targetname].adj&gt;&gt;
     &lt;&lt;else&gt;&gt;
         &lt;&lt;if $targetname !== undefined&gt;&gt;
-            &lt;&lt;set $targetname = $targetname + $lastnamelist.pluck()&gt;&gt;
+        	&lt;&lt;if !$endlessmode&gt;&gt;
+            	&lt;&lt;set $targetname = $targetname + $lastnamelist.pluck()&gt;&gt;
+            &lt;&lt;else&gt;&gt;
+            	&lt;&lt;set $targetname = $targetname + $lastnamelist.random()&gt;&gt;
+            &lt;&lt;/if&gt;&gt;
         &lt;&lt;/if&gt;&gt;
         &lt;&lt;set $targetspecies to $specieslist.random()&gt;&gt;
         &lt;&lt;set $targetadj to $adjlist.random()&gt;&gt;
     &lt;&lt;/if&gt;&gt;
     
-    &lt;&lt;set $targethobby1 to $targethobbylist.pluck()&gt;&gt;
-    &lt;&lt;set $targethobby2 to $targethobbylist.pluck()&gt;&gt;
+    &lt;&lt;set $targethobby1 to $targethobbylist.random()&gt;&gt;
+    &lt;&lt;set $targethobby2 to $targethobbylist.random()&gt;&gt;
     &lt;&lt;set $targetlocation to $loclist.random()&gt;&gt;
     &lt;&lt;set $targetlocknown to false&gt;&gt;
     &lt;&lt;set $targetlastseen to false&gt;&gt;
@@ -3557,7 +3674,11 @@ Here you can view the endings that you&#39;ve unlocked! Note that some details, 
 
 &lt;&lt;widget &quot;GenerateDroppedItem&quot;&gt;&gt;
     /* Get random item from your existing item list */
-    &lt;&lt;set $currentItem = $targetTFlist.pluck()&gt;&gt;
+    &lt;&lt;if !$endlessmode&gt;&gt;
+    	&lt;&lt;set $currentItem = $targetTFlist.pluck()&gt;&gt;
+    &lt;&lt;else&gt;&gt;
+    	&lt;&lt;set $currentItem = $targetTFlist.random()&gt;&gt;
+    &lt;&lt;/if&gt;&gt;
     
     /* Check if this item has a special pattern */
     &lt;&lt;if $itemPatterns[$currentItem]&gt;&gt;
@@ -3575,7 +3696,7 @@ Here you can view the endings that you&#39;ve unlocked! Note that some details, 
 
 
 
-
+&lt;&lt;set $highscore to 0&gt;&gt;
 &lt;&lt;set $showdowncomplete to false&gt;&gt;
 
 &lt;&lt;set $unlockedEndings = []&gt;&gt;
@@ -3591,6 +3712,117 @@ Here you can view the endings that you&#39;ve unlocked! Note that some details, 
 Config.saves.autosave = true;
 &lt;&lt;/script&gt;&gt;
 
+&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="75" name="EndingEndless" tags="Ending(Done)" position="1125,175" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;set $pickeditem to $inventory.random()&gt;&gt;
+&lt;h2&gt;Ending 5: Endless&lt;/h2&gt;
+&lt;&lt;set $showfooter to false&gt;&gt;
+&lt;&lt;/nobr&gt;&gt;
+You arrive at the administrative building and make your way to the president&#39;s office, unsure of what you&#39;ll find when you enter. He didn&#39;t mention what the prize would be for making it this far, but you really hope it&#39;s good.
+
+You knock on the ornate oak door and poke your head in, finding the president sitting at his desk, his big, meaty lion paws up on the desk as he talks on the phone.
+
+He gestures for you to enter, points to the phone, and holds up one finger.
+
+You slowly approach, taking a look around the room. It&#39;s expensively-decorated, with rich woods comprising the furniture and rows of books on the shelves. Accolades decorate one wall, while paintings of previous presidents adorn another. A fireplace crackles merrily, casting dancing orange light across an oriental rug. The lamp on the president&#39;s desk and the fireplace provide the only light, giving the room a dramatic ambiance, and the moody lighting really highlights the lion&#39;s muscles bulging beneath his slightly-unbuttoned dress shirt.
+
+You take a seat in the comfortable chair opposite the president as he finishes up his call with, &quot;No, no need to get Legal involved. The possibility was written into their student contracts. Yes, we get to keep the tuition already paid. Yes, he&#39;s here with me now. Alright. See to it.&quot;
+
+He sets down the phone and picks up a cigar smouldering in a tray on the desk. Taking a big inhale, the embers light up, and you could almost swear they look like a face. He tips his head up and exhales, considerately not blowing the smoke in your face.
+
+&quot;Well well well,&quot; the lion says at last, putting the cigar back on the tray and inspecting you. &quot;Our ultimate champion! You certainly made a mark on the campus today, I will say. Thanks to your efforts, and those of the other participants, we&#39;ve freed up lots of slots for new students. And I&#39;m sure you&#39;ve gained quite the collection in the process!&quot;
+
+He gestures to your bag. &quot;Let&#39;s take a look, shall we?&quot; You open your bag and empty out its contents like a kid on Halloween, the many items spilling out onto the large desk. The president picks up $pickeditem and looks at it carefully. &quot;And who was this?&quot; he wonders, then after a moment sets &lt;&lt;print $pickeditem.replace(/^an? /, &#39;the &#39;)&gt;&gt; back down and shrugs. &quot;I suppose it doesn&#39;t matter now, eh?&quot;
+
+The lion takes his paws off the desk and reaches beneath it, producing a nice, black leather briefcase that he sets on the desk.
+
+&quot;This,&quot; he says, slapping the top of the briefcase, &quot;is a full ride&#39;s worth of money. Complete tuition for your time here, in cold hard cash. And my promise that you will be exempt from any future TF Tag events. Unless, of course, you willingly register.&quot; He flashes a big smile at you, his teeth glinting in the light.
+
+&quot;It&#39;s all yours, you&#39;ve earned it. It can&#39;t have been easy, avoiding getting caught for so long!&quot; The president&#39;s smile returns, but there&#39;s something different in it this time. He slowly opens a drawer in his desk and takes out a tagger, setting it gently next to the briefcase. You gulp as you notice that the label on the side has your name on it.
+
+&quot;I know how hot it can be,&quot; the lion purrs, &quot;watching the serum transform people. Wondering how it feels, wondering... if you might just want to get caught, after all.&quot;
+
+He leans back and props his paws back up on the desk again, scattering some of the items from your bag into the carpet.
+
+&quot;So I&#39;ll offer you a choice,&quot; he says softly, smirking. &quot;You can take the briefcase, enjoy the free ride and make the most of your time here at our wonderful university. Or,&quot; he nods his head towards the tagger, &quot;you can find out what it feels like, and you&#39;ll get to spend a lot longer here at the university. Quite close to me, I will add.&quot; He wiggles his paws at you teasingly. &quot;What will it be?&quot;
+
+&lt;div id=&quot;choices&quot;&gt;&lt;&lt;nobr&gt;&gt;
+&lt;&lt;link &quot;Briefcase&quot;&gt;&gt;
+	&lt;&lt;replace &quot;#choices&quot;&gt;&gt;
+	You reach out and, after a moment&#39;s hesitation, grab the handle of the briefcase. The president nods thoughtfully and sits back, grabbing his cigar and taking another puff.&lt;br&gt;&lt;br&gt;
+
+He helps you put your things back into your overstuffed bag, then sees you to the door with your bag and briefcase of cash. With a final friendly pat on the back, he sends you on your way to enjoy your well-earned prize.&lt;br&gt;&lt;br&gt;
+
+&lt;b&gt;THE END!&lt;/b&gt;&lt;br&gt;
+[[Restart?|MainMenu]]
+    &lt;&lt;/replace&gt;&gt;
+&lt;&lt;/link&gt;&gt;
+&lt;br&gt;
+&lt;&lt;link &quot;Tagger&quot;&gt;&gt;
+	&lt;&lt;replace &quot;#choices&quot;&gt;&gt;
+    Taking a deep breath, you point to the tagger. A grin spreads across the lion&#39;s face, and you smile bashfully. You made it this far, escaped being caught and transformed... only to willingly turn yourself over to this handsome, muscular lion.&lt;br&gt;&lt;br&gt;
+
+&quot;Very well!&quot; he announces with satisfaction. &quot;I&#39;m certain you&#39;ll enjoy it, and I&#39;ll make very good use of you, I promise you that! Now if you wouldn&#39;t mind removing your clothes... that&#39;s right, no need to be shy at this point.&quot;&lt;br&gt;&lt;br&gt;
+
+You dutifully remove your clothes, blushing as you reveal the throbbing boner that was hiding in your pants. The president beckons you to his side of the desk, and takes up the tagger.&lt;br&gt;&lt;br&gt;
+
+&quot;You might feel a slight pinch,&quot; he says, pressing the barrel to your shoulder. You feel more than a slight pinch as he pulls the trigger, the dart instantly slamming into you and injecting its serum.&lt;br&gt;&lt;br&gt;
+
+&quot;There we go,&quot; he purrs. &quot;Please lay down on the carpet for me, right there. Good.&quot;&lt;br&gt;&lt;br&gt;
+
+Laying down, you look up at the handsome lion, his face lit with the warm glows of the lamp and the fire, and he smiles down at you. Then he raises a paw, and presses it down on your face.&lt;br&gt;&lt;br&gt;
+
+A muffled sound is all that makes it out of you as he gently, but firmly, presses down, and you watch with crossed eyes as that big paw deforms your muzzle, squishing it down and flattening it against your face. You try to open your mouth to say something, but it feels as though your bones have vanished and all you can say is, &quot;Mmmfff!&quot;&lt;br&gt;&lt;br&gt;
+
+The lion brings his other paw down, and in tandem they begin stepping all over you, gently flattening you wherever they land. It feels painless. No, better than painless - it feels &lt;i&gt;good&lt;/i&gt;, like every part that gets stepped on is receiving a pro massage.&lt;br&gt;&lt;br&gt;
+
+Feeling his paws all over you makes your cock twitch and drip, and you reach down to touch yourself. Before your hand can get there, his paw knocks it aside and pins it to the floor, squishing it down until you can do no more than feebly twitch it.&lt;br&gt;&lt;br&gt;
+
+You gurgle out a whine through your smushed snout and his paw is there in an instant, pressing down on your face again until it&#39;s too flat to utter a peep.&lt;br&gt;&lt;br&gt;
+
+His paws find your cock, drooling precum onto your flat stomach, and begin to tease it. He doesn&#39;t flatten it, not yet, but he rubs sensually up and down your shaft with both paws, and you try to buck your hips but manage only a pathetic little tremble.&lt;br&gt;&lt;br&gt;
+
+&quot;Mm, enjoying this are we?&quot; he asks, stroking your shaft between his toes. &quot;Feeling needy for release?&quot;&lt;br&gt;&lt;br&gt;
+
+&lt;i&gt;Yes, yes,&lt;/i&gt; your mind screams, but you have no way to communicate it to him, and can only lay there as he plays with your cock.&lt;br&gt;&lt;br&gt;
+
+But just as you feel your orgasm building, he starts to press your cock against your stomach, flattening it down and sealing it forever shut. Your balls, full and aching for release, are the next to go, and he presses down on them with his paws until the cum-filled orbs are flat and flush with the rest of your body. It&#39;s heavenly torture, begging so dearly for release but knowing that you will never receive it.&lt;br&gt;&lt;br&gt;
+
+&quot;Let&#39;s get you in shape,&quot; the president announces, standing up from his chair. &quot;You&#39;re a bit too long at the moment.&quot;&lt;br&gt;&lt;br&gt;
+
+He reaches down and takes one of your flattened legs, lifting up your hip and folding the leg beneath you. He does the same with your other leg, as well as your two arms. Now that you&#39;re in a smaller and more manageable shape, he nods in satisfaction and sits back down.&lt;br&gt;&lt;br&gt;
+
+The stepping resumes, and this time as he presses those beautiful paws down on you it serves to press your layers together, smushing your body down into your legs and arms and flattening you even further, until by the time he&#39;s finished you&#39;re scarcely half an inch high.&lt;br&gt;&lt;br&gt;
+
+&quot;Mm, that&#39;s better,&quot; he says, as you finally finish your transformation into a doormat. &quot;Nice and flat and soft.&quot;&lt;br&gt;&lt;br&gt;
+
+He reaches down and drags you underneath his desk, wasting no time in putting his paws right back on top of you.&lt;br&gt;&lt;br&gt;
+
+&quot;Oh yes, very soft,&quot; he purrs. &quot;I&#39;m very much going to enjoy having you down there for a long time to come.&quot;&lt;br&gt;&lt;br&gt;
+
+As he gently kneads you with his paws, one on your face and one on your cock, you know that you are very much going to enjoy being down there as well.&lt;br&gt;&lt;br&gt;
+
+&lt;b&gt;THE END.&lt;/b&gt;&lt;br&gt;
+[[Restart?|MainMenu]]
+    &lt;&lt;/replace&gt;&gt;
+&lt;&lt;/link&gt;&gt;
+&lt;&lt;/nobr&gt;&gt;&lt;/div&gt;
+&lt;&lt;if !$unlockedEndings.includes(&quot;EndingEndless&quot;)&gt;&gt;
+    &lt;&lt;run $unlockedEndings.push(&quot;EndingEndless&quot;)&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="76" name="KyleCaughtEvent" tags="" position="750,775" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;set $npcspecies to $specieslist.random()&gt;&gt;
+&lt;&lt;set $npcadj to $adjlist.random()&gt;&gt;
+&lt;&lt;set $kylecaughtitem = $targetTFlist.random()&gt;&gt;
+&lt;&lt;set $showfooter to false&gt;&gt;
+&lt;&lt;set $caughteventover to true&gt;&gt;
+You see Kyle coming around the corner, searching for his target. He sees you and gives a friendly wave, but his eyes suddenly go wide and he twists around, revealing a dart sticking out of his back.&lt;br&gt;&lt;br&gt;
+
+You can only watch helplessly as your roommate transforms in front of your very eyes, his body shifting and shrinking until he&#39;s nothing more than $kylecaughtitem.&lt;br&gt;&lt;br&gt;
+
+The $npcadj $npcspecies who tagged him strides over and picks &lt;&lt;print $kylecaughtitem.replace(/^an? /, &#39;the &#39;)&gt;&gt; up and shoves it in his bag. He picks up Kyle&#39;s tagger and gives you a wink.&lt;br&gt;&lt;br&gt;
+
+&quot;Thanks for distracting him for me, bro,&quot; the $npcspecies says, and departs in search of his next target.&lt;br&gt;&lt;br&gt;
+
+[[Continue|GoToLocation]]
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata></tw-storydata>
 	<script id="script-sugarcube" type="text/javascript">
 	/*! SugarCube JS */
